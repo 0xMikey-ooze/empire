@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EMPIRES, empireById, DEFAULT_EMPIRE_ID } from "@/data";
 import type { Empire } from "@/types/empire";
+import { Banner } from "@/components/Banner";
 import { Header } from "@/components/Header";
 import { EmpireLibrary } from "@/components/EmpireLibrary";
 import { Viewer } from "@/components/Viewer";
@@ -29,6 +30,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [creditsOpen, setCreditsOpen] = useState(() => localStorage.getItem("atlas-credits") !== "dismissed");
   const [focusHotspot, setFocusHotspot] = useState<string | null>(null);
   const [activeNav, setActiveNav] = useState("explore");
   const [reducedMotion, setReducedMotion] = useState(() => mq("(prefers-reduced-motion: reduce)"));
@@ -91,6 +93,11 @@ export default function App() {
 
   const onSwap = useCallback((e: Empire) => setPanelEmpire(e), []);
 
+  const dismissCredits = useCallback(() => {
+    setCreditsOpen(false);
+    localStorage.setItem("atlas-credits", "dismissed");
+  }, []);
+
   /* hovering a library row starts its download, so the click that follows
      lands on a model that is already parsed rather than paying for it mid-swap */
   const prefetchRef = useRef<((e: Empire) => void) | null>(null);
@@ -126,12 +133,16 @@ export default function App() {
   );
 
   return (
-    <div className="flex min-h-screen flex-col bg-paper">
+    <div
+      className="flex min-h-screen flex-col bg-paper"
+      style={{ "--banner-h": creditsOpen ? "40px" : "0px" } as React.CSSProperties}
+    >
+      {creditsOpen && <Banner onDismiss={dismissCredits} />}
       <Header onSearchOpen={() => setSearchOpen(true)} onMenuOpen={() => setMenuOpen(true)} onNav={onNav} activeNav={activeNav} />
 
       {/* main stage — sized so the exploration cards below stay in view, and
           the side panels scroll within it rather than stretching the page */}
-      <div className="flex min-h-[62vh] gap-4 px-3 pb-3 pt-3 sm:min-h-[520px] sm:px-4 xl:h-[calc(100vh-188px)] xl:min-h-[600px] xl:px-5">
+      <div className="flex min-h-[62vh] gap-4 px-3 pb-3 pt-3 sm:min-h-[520px] sm:px-4 xl:h-[calc(100vh-188px-var(--banner-h,0px))] xl:min-h-[600px] xl:px-5">
         <aside className="hidden w-[268px] flex-none xl:flex">
           <EmpireLibrary empires={EMPIRES} activeId={viewerEmpire.id} favorites={favorites} onSelect={selectEmpire} onToggleFav={toggleFav} onViewAll={() => setSearchOpen(true)} onPrefetch={prefetch} />
         </aside>
