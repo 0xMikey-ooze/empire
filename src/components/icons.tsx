@@ -60,10 +60,18 @@ export const RotateIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M20 3v4h-4" transform="translate(-2.4,0)" />
   </svg>
 );
-export const ZoomIcon = (p: SVGProps<SVGSVGElement>) => (
+export const ZoomInIcon = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}>
-    <circle cx="11" cy="11" r="6.5" />
-    <path d="M11 8.5v5M8.5 11h5M20.5 20.5L16 16" />
+    <circle cx="10.5" cy="10.5" r="6.5" />
+    <path d="M10.5 7.5v6M7.5 10.5h6" />
+    <path d="M15.4 15.4L20.5 20.5" />
+  </svg>
+);
+export const ZoomOutIcon = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base} {...p}>
+    <circle cx="10.5" cy="10.5" r="6.5" />
+    <path d="M7.5 10.5h6" />
+    <path d="M15.4 15.4L20.5 20.5" />
   </svg>
 );
 export const PanIcon = (p: SVGProps<SVGSVGElement>) => (
@@ -91,8 +99,14 @@ export const TimelineIcon = (p: SVGProps<SVGSVGElement>) => (
 );
 export const ResetIcon = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}>
-    <path d="M4 12a8 8 0 112.34 5.66" />
-    <path d="M4 21v-4h4" transform="translate(2.4,-13)" />
+    {/* counter-clockwise arrow, its head seated on the end of the arc */}
+    <path d="M3.5 11.5a8.5 8.5 0 1 1 2.5 6" />
+    <path d="M3.5 6.5v5h5" />
+  </svg>
+);
+export const MenuIcon = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base} {...p}>
+    <path d="M3.5 7h17M3.5 12h17M3.5 17h17" />
   </svg>
 );
 export const HeartIcon = (p: SVGProps<SVGSVGElement> & { filled?: boolean }) => (
@@ -186,11 +200,6 @@ export const MoreIcon = (p: SVGProps<SVGSVGElement>) => (
 export const ChevronDownIcon = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}>
     <path d="M6 9.5l6 6 6-6" />
-  </svg>
-);
-export const MotionIcon = (p: SVGProps<SVGSVGElement>) => (
-  <svg {...base} {...p}>
-    <path d="M13 3L5 13h5l-1 8 8-10h-5l1-8z" />
   </svg>
 );
 export const CheckIcon = (p: SVGProps<SVGSVGElement>) => (

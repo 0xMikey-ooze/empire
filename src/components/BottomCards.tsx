@@ -28,21 +28,32 @@ export const BottomCards = memo(function BottomCards({ empire, onOpen }: Props) 
   ];
 
   return (
-    /* one row on every screen that shows this strip — auto-rows-fr keeps the
-       cards inside the strip's height instead of growing past it */
-    <div className="grid auto-rows-[268px] grid-cols-5 gap-3" data-panel="bottom">
+    /* One per row on a phone, two on a tablet, and the full five-across row
+       once the desktop stage is in play. Rows size to their content rather
+       than to a fixed height, so the artwork keeps its own proportions at
+       every width instead of being letterboxed into a short, wide box. */
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5" data-panel="bottom">
       {cards.map(({ key, data, compass }) => (
-        <article key={key} className="bottom-card atlas-card flex min-h-0 min-w-0 flex-col p-3">
+        <article key={key} className="bottom-card atlas-card flex min-w-0 flex-col p-3">
           <div className="flex-none">
             <span className="kicker !text-[0.66rem]">{data.kicker}</span>
             <h3 className="font-display mt-0.5 truncate text-[1.02rem] font-bold leading-tight text-ink">{data.title}</h3>
           </div>
-          <div className="relative mt-2 min-h-0 flex-1 overflow-hidden rounded-lg border border-line-warm bg-paper-deep">
-            <img src={data.image} alt={data.title} className="h-full w-full object-contain" loading="lazy" draggable={false} />
+          {/* the artwork is 3:2 and so is its frame, so it fills the card's
+              full width at its true proportions — nothing cropped, nothing
+              stretched, and no empty margins down either side */}
+          <div className="relative mt-2 aspect-[3/2] w-full overflow-hidden rounded-lg border border-line-warm bg-paper-deep">
+            <img
+              src={data.image}
+              alt={data.title}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+              draggable={false}
+            />
             {compass && <CompassRose />}
           </div>
           <button
-            className="btn-outline mt-2.5 w-full flex-none !justify-between !rounded-lg !border-line-warm !py-2 px-3 !text-[0.78rem]"
+            className="btn-outline w-full flex-none !mt-2.5 !justify-between !rounded-lg !border-line-warm !py-2 px-3 !text-[0.78rem]"
             onClick={() => onOpen(key)}
           >
             {data.cta}

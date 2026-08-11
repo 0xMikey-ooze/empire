@@ -5,14 +5,14 @@ import { ViewerEngine } from "@/three/engine";
 import { HotspotLayer } from "./HotspotLayer";
 import {
   RotateIcon,
-  ZoomIcon,
+  ZoomInIcon,
+  ZoomOutIcon,
   PanIcon,
   LayersIcon,
   VaseIcon,
   TimelineIcon,
   ResetIcon,
   BulbIcon,
-  HandIcon,
   CloseIcon,
   GridIcon,
   WireIcon,
@@ -34,7 +34,7 @@ interface ViewerProps {
   onPrefetchReady?: (prefetch: (e: Empire) => void) => void;
 }
 
-type ToolMode = "rotate" | "pan" | "zoom";
+type ToolMode = "rotate" | "pan";
 
 export const Viewer = memo(function Viewer({
   empire,
@@ -58,6 +58,7 @@ export const Viewer = memo(function Viewer({
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [tool, setTool] = useState<ToolMode>("rotate");
   const [layersOpen, setLayersOpen] = useState(false);
+  const layersRef = useRef<HTMLDivElement>(null);
   const [layers, setLayers] = useState({ labels: true, grid: false, wire: false, xray: false });
   const [tipVisible, setTipVisible] = useState(true);
   const requestRef = useRef(0);
@@ -99,6 +100,25 @@ export const Viewer = memo(function Viewer({
   useEffect(() => {
     engineRef.current?.setPanMode(tool === "pan");
   }, [tool]);
+
+  /* dismiss the layers menu on an outside click, or on Escape */
+  useEffect(() => {
+    if (!layersOpen) return;
+    const onDown = (e: PointerEvent) => {
+      if (!layersRef.current?.contains(e.target as Node)) setLayersOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLayersOpen(false);
+    };
+    // capture, so the menu closes even when the click lands on the canvas,
+    // which stops propagation for its own orbit handling
+    document.addEventListener("pointerdown", onDown, true);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown, true);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [layersOpen]);
 
   /* ── empire switching ── */
   /* Every request gets a token. A newer request supersedes an older one at
@@ -247,26 +267,26 @@ export const Viewer = memo(function Viewer({
       {/* ── tool rail ── */}
       <div className="absolute left-2 top-1/2 z-30 -translate-y-1/2 md:left-3" role="toolbar" aria-label="Model tools" aria-orientation="vertical">
         {/* px keeps the active pill clear of the rail's own edges */}
-        <div className="atlas-card flex w-[54px] flex-col items-center gap-0.5 !rounded-2xl px-1.5 py-2 md:w-[68px] md:px-2 md:py-2.5">
+        <div className="atlas-card flex w-[46px] flex-col items-center gap-0.5 !rounded-2xl px-1.5 py-2 sm:w-[58px] md:w-[68px] md:px-2 md:py-2.5">
           <button className={`tool-btn ${tool === "rotate" ? "is-on" : ""}`} onClick={() => setTool("rotate")} aria-pressed={tool === "rotate"}>
             <RotateIcon />
             <span>Rotate</span>
           </button>
-          <button className={`tool-btn ${tool === "zoom" ? "is-on" : ""}`} onClick={() => setTool(tool === "zoom" ? "rotate" : "zoom")} aria-pressed={tool === "zoom"}>
-            <ZoomIcon />
-            <span>Zoom</span>
-          </button>
-          {tool === "zoom" && (
-            <div className="flex gap-1 px-1 pb-1">
-              <button className="btn-outline !rounded-md !px-2 !py-1 !text-[0.72rem]" onClick={() => engineRef.current?.zoomBy(0.78)} aria-label="Zoom in">+</button>
-              <button className="btn-outline !rounded-md !px-2 !py-1 !text-[0.72rem]" onClick={() => engineRef.current?.zoomBy(1.28)} aria-label="Zoom out">−</button>
-            </div>
-          )}
           <button className={`tool-btn ${tool === "pan" ? "is-on" : ""}`} onClick={() => setTool(tool === "pan" ? "rotate" : "pan")} aria-pressed={tool === "pan"}>
             <PanIcon />
             <span>Pan</span>
           </button>
-          <div className="relative">
+          {/* zoom acts on the camera directly rather than arming a mode, so it
+              takes two plain buttons instead of a toggle that hides them */}
+          <button className="tool-btn" onClick={() => engineRef.current?.zoomBy(0.78)}>
+            <ZoomInIcon />
+            <span>Zoom in</span>
+          </button>
+          <button className="tool-btn" onClick={() => engineRef.current?.zoomBy(1.28)}>
+            <ZoomOutIcon />
+            <span>Zoom out</span>
+          </button>
+          <div className="relative" ref={layersRef}>
             <button className={`tool-btn ${layersOpen ? "is-on" : ""}`} onClick={() => setLayersOpen((v) => !v)} aria-expanded={layersOpen} aria-haspopup="true">
               <LayersIcon />
               <span>Layers</span>
@@ -341,7 +361,6 @@ export const Viewer = memo(function Viewer({
           <p className="font-display mt-1.5 text-[0.88rem] italic leading-snug text-ink-soft">
             Drag to rotate. Scroll to zoom. Hover a pin on the building to read it.
           </p>
-          <HandIcon className="mt-1.5 h-4 w-4 text-ink-muted" />
         </div>
       )}
 

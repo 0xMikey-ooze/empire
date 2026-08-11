@@ -276,10 +276,17 @@
 .tool-btn.is-on { background: var(--cream); color: var(--terracotta); }
 .tool-btn.is-on span { color: var(--terracotta-deep); }
 .tool-btn:disabled { opacity: 0.4; pointer-events: none; }
-@media (max-width: 768px) {
+/* on a phone the rail is icon-only: eight labelled buttons stacked, with
+   "Zoom out" wrapping to two lines, ate most of the stage's height */
+@media (max-width: 639px) {
+  .tool-btn { padding: 9px 4px; gap: 0; }
+  .tool-btn svg { width: 19px; height: 19px; }
+  .tool-btn span { display: none; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
   .tool-btn { padding: 6px 2px; gap: 2px; }
-  .tool-btn svg { width: 16px; height: 16px; }
-  .tool-btn span { font-size: 0.5rem; }
+  .tool-btn svg { width: 17px; height: 17px; }
+  .tool-btn span { font-size: 0.52rem; }
 }
 
 /* ── Empire library cards ───────────────────────────────────────── */

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { EMPIRES, empireById, empireImages, DEFAULT_EMPIRE_ID } from "@/data";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { EMPIRES, empireById, DEFAULT_EMPIRE_ID } from "@/data";
 import type { Empire } from "@/types/empire";
 import { Header } from "@/components/Header";
 import { EmpireLibrary } from "@/components/EmpireLibrary";
@@ -7,11 +7,20 @@ import { Viewer } from "@/components/Viewer";
 import { InfoPanel } from "@/components/InfoPanel";
 import { BottomCards } from "@/components/BottomCards";
 import { LessonModal, QuizModal, ArtifactsModal, TimelineModal, SectionModal, SearchOverlay } from "@/components/modals";
-import { CloseIcon, HeartIcon } from "@/components/icons";
+import { CloseIcon } from "@/components/icons";
 
 type ModalId = "lesson" | "quiz" | "artifacts" | "timeline" | "interior" | "floorPlan" | "dailyLife" | "geography" | null;
 
 const mq = (q: string) => (typeof window !== "undefined" ? window.matchMedia(q).matches : false);
+
+/** mirrors the header's primary nav, for the drawer */
+const NAV_ITEMS = [
+  { id: "explore", label: "Explore" },
+  { id: "empires", label: "Empires" },
+  { id: "lessons", label: "Lessons" },
+  { id: "library", label: "Library" },
+  { id: "notes", label: "Notes" },
+];
 
 export default function App() {
   const [viewerEmpire, setViewerEmpire] = useState<Empire>(() => empireById(DEFAULT_EMPIRE_ID));
@@ -19,11 +28,10 @@ export default function App() {
   const [modal, setModal] = useState<ModalId>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [animating, setAnimating] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [focusHotspot, setFocusHotspot] = useState<string | null>(null);
   const [activeNav, setActiveNav] = useState("explore");
   const [reducedMotion, setReducedMotion] = useState(() => mq("(prefers-reduced-motion: reduce)"));
-  const [isNarrow, setIsNarrow] = useState(() => mq("(max-width: 1023px)"));
   const [favorites, setFavorites] = useState<Set<string>>(() => {
     try {
       return new Set(JSON.parse(localStorage.getItem("atlas-favs") ?? "[]"));
@@ -32,15 +40,15 @@ export default function App() {
     }
   });
 
-  /* media listeners */
+  /* Reduced motion now follows the operating system alone — there is no
+     in-app switch — so track the media query rather than sampling it once. */
   useEffect(() => {
-    const b = window.matchMedia("(max-width: 1023px)");
-    const fb = () => setIsNarrow(b.matches);
-    b.addEventListener("change", fb);
-    return () => b.removeEventListener("change", fb);
+    const q = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReducedMotion(q.matches);
+    q.addEventListener("change", sync);
+    return () => q.removeEventListener("change", sync);
   }, []);
 
-  /* reduced motion class on body */
   useEffect(() => {
     document.body.classList.toggle("rm", reducedMotion);
   }, [reducedMotion]);
@@ -117,39 +125,14 @@ export default function App() {
     [selectEmpire, viewerEmpire.id],
   );
 
-  const empireStrip = useMemo(
-    () => (
-      <div className="atlas-scroll flex gap-2 overflow-x-auto px-4 py-2 lg:hidden" role="listbox" aria-label="Empires">
-        {EMPIRES.map((e) => (
-          <button
-            key={e.id}
-            role="option"
-            aria-selected={e.id === viewerEmpire.id}
-            onClick={() => selectEmpire(e.id)}
-            className={`flex flex-none items-center gap-2 rounded-full border py-1.5 pl-1.5 pr-3 transition-colors ${
-              e.id === viewerEmpire.id ? "border-terracotta-soft bg-cream" : "border-line-warm bg-surface"
-            }`}
-          >
-            <img src={empireImages(e).thumbnail} alt="" className="h-7 w-7 rounded-full border border-line-warm object-cover" />
-            <span className="font-display whitespace-nowrap text-[0.85rem] font-bold text-ink">{e.name}</span>
-            {favorites.has(e.id) && <HeartIcon className="h-3 w-3 text-terracotta" filled />}
-          </button>
-        ))}
-      </div>
-    ),
-    [viewerEmpire.id, favorites, selectEmpire],
-  );
-
   return (
     <div className="flex min-h-screen flex-col bg-paper">
-      <Header onSearchOpen={() => setSearchOpen(true)} reducedMotion={reducedMotion} onToggleMotion={() => setReducedMotion((v) => !v)} onNav={onNav} activeNav={activeNav} />
-
-      {empireStrip}
+      <Header onSearchOpen={() => setSearchOpen(true)} onMenuOpen={() => setMenuOpen(true)} onNav={onNav} activeNav={activeNav} />
 
       {/* main stage — sized so the exploration cards below stay in view, and
           the side panels scroll within it rather than stretching the page */}
-      <div className="flex min-h-[560px] gap-4 px-4 pb-3 pt-3 lg:h-[calc(100vh-188px)] lg:min-h-[600px] lg:px-5">
-        <aside className="hidden w-[268px] flex-none lg:flex">
+      <div className="flex min-h-[62vh] gap-4 px-3 pb-3 pt-3 sm:min-h-[520px] sm:px-4 xl:h-[calc(100vh-188px)] xl:min-h-[600px] xl:px-5">
+        <aside className="hidden w-[268px] flex-none xl:flex">
           <EmpireLibrary empires={EMPIRES} activeId={viewerEmpire.id} favorites={favorites} onSelect={selectEmpire} onToggleFav={toggleFav} onViewAll={() => setSearchOpen(true)} onPrefetch={prefetch} />
         </aside>
 
@@ -167,7 +150,7 @@ export default function App() {
           />
         </main>
 
-        <aside className="hidden w-[330px] flex-none lg:flex">
+        <aside className="hidden w-[330px] flex-none xl:flex">
           <InfoPanel
             empire={panelEmpire}
             animating={animating}
@@ -179,48 +162,73 @@ export default function App() {
         </aside>
       </div>
 
-      {/* bottom educational cards — peeking below the stage, scroll for the rest */}
-      <section className="hidden px-4 pb-5 pt-1 md:block lg:px-5" aria-label="Explore the dwelling">
+      {/* below xl the dwelling detail reads in the page flow, under the model
+          and above the cards, rather than hiding behind a floating button */}
+      <section className="px-3 pb-3 pt-1 sm:px-4 xl:hidden" aria-label="Selected dwelling">
+        <InfoPanel
+          empire={panelEmpire}
+          flow
+          animating={animating}
+          onLesson={() => setModal("lesson")}
+          onToggleAnimate={() => setAnimating((v) => !v)}
+          onArtifacts={() => setModal("artifacts")}
+          onQuiz={() => setModal("quiz")}
+        />
+      </section>
+
+      {/* exploration cards — a grid at every size rather than a sideways
+          scroller, which hid four of the five on a phone */}
+      <section className="px-3 pb-6 pt-1 sm:px-4 xl:px-5" aria-label="Explore the dwelling">
         <BottomCards empire={panelEmpire} onOpen={(s) => setModal(s)} />
       </section>
 
-      {/* mobile: horizontally scrolling cards */}
-      <section className="atlas-scroll flex gap-3 overflow-x-auto px-4 pb-4 md:hidden" aria-label="Explore the dwelling">
-        {(["interior", "floorPlan", "artifacts", "dailyLife", "geography"] as const).map((s) => (
-          <button key={s} onClick={() => setModal(s)} className="atlas-card w-[150px] flex-none p-2 text-left">
-            <img src={panelEmpire[s].image} alt="" className="h-[86px] w-full rounded-lg border border-line-warm object-cover" />
-            <span className="font-display mt-1.5 block truncate text-[0.85rem] font-bold text-ink">{panelEmpire[s].title}</span>
-            <span className="block truncate text-[0.68rem] text-ink-muted">{panelEmpire[s].kicker}</span>
-          </button>
-        ))}
-      </section>
-
-      {/* mobile details fab + sheet */}
-      {isNarrow && (
-        <>
-          <button className="btn-primary fixed bottom-5 right-4 z-50 !rounded-full shadow-lift" onClick={() => setInfoOpen(true)} aria-haspopup="dialog">
-            {panelEmpire.dwelling}
-          </button>
-          {infoOpen && (
-            <div className="overlay-backdrop flex items-end" onClick={() => setInfoOpen(false)}>
-              <div className="modal-panel max-h-[82vh] w-full overflow-hidden rounded-b-none" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-                <div className="flex justify-end p-2">
-                  <button onClick={() => setInfoOpen(false)} className="rounded-lg border border-line-warm p-1.5 text-ink-muted" aria-label="Close details">
-                    <CloseIcon className="h-4 w-4" />
-                  </button>
-                </div>
-                <InfoPanel
-                  empire={panelEmpire}
-                  animating={animating}
-                  onLesson={() => { setInfoOpen(false); setModal("lesson"); }}
-                  onToggleAnimate={() => setAnimating((v) => !v)}
-                  onArtifacts={() => { setInfoOpen(false); setModal("artifacts"); }}
-                  onQuiz={() => { setInfoOpen(false); setModal("quiz"); }}
-                />
-              </div>
+      {/* mobile drawer: the same empire library as the desktop rail, plus the
+          primary nav that the header hides below lg */}
+      {menuOpen && (
+        <div className="overlay-backdrop xl:hidden" onClick={() => setMenuOpen(false)}>
+          <div
+            className="flex h-full w-[min(320px,86vw)] flex-col bg-paper shadow-lift"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+          >
+            <div className="flex flex-none items-center justify-between border-b border-line-warm px-4 py-3">
+              <span className="font-display text-[1.15rem] font-bold text-ink">Empire Atlas</span>
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="rounded-lg border border-line-warm p-1.5 text-ink-muted transition-colors hover:text-ink"
+                aria-label="Close menu"
+              >
+                <CloseIcon className="h-4 w-4" />
+              </button>
             </div>
-          )}
-        </>
+
+            <nav className="flex flex-none flex-wrap gap-1.5 border-b border-line-warm px-3 py-3" aria-label="Primary">
+              {NAV_ITEMS.map((n) => (
+                <button
+                  key={n.id}
+                  className={`nav-item !py-2 !text-[0.82rem] ${activeNav === n.id ? "is-active" : ""}`}
+                  onClick={() => { setMenuOpen(false); onNav(n.id); }}
+                >
+                  {n.label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="min-h-0 flex-1 px-3 py-3">
+              <EmpireLibrary
+                empires={EMPIRES}
+                activeId={viewerEmpire.id}
+                favorites={favorites}
+                onSelect={(id) => { setMenuOpen(false); selectEmpire(id); }}
+                onToggleFav={toggleFav}
+                onViewAll={() => { setMenuOpen(false); setSearchOpen(true); }}
+                onPrefetch={prefetch}
+              />
+            </div>
+          </div>
+        </div>
       )}
 
       {/* modals */}

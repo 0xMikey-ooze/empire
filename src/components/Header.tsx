@@ -8,13 +8,13 @@ import {
   NotesIcon,
   SearchIcon,
   ChevronDownIcon,
-  MotionIcon,
+  MenuIcon,
 } from "./icons";
 
 interface HeaderProps {
   onSearchOpen: () => void;
-  reducedMotion: boolean;
-  onToggleMotion: () => void;
+  /** opens the drawer that carries the nav and the empire library on small screens */
+  onMenuOpen: () => void;
   onNav: (id: string) => void;
   activeNav: string;
 }
@@ -27,20 +27,30 @@ const NAV = [
   { id: "notes", label: "Notes", icon: NotesIcon },
 ];
 
-export const Header = memo(function Header({ onSearchOpen, reducedMotion, onToggleMotion, onNav, activeNav }: HeaderProps) {
+export const Header = memo(function Header({ onSearchOpen, onMenuOpen, onNav, activeNav }: HeaderProps) {
   return (
-    <header className="relative z-40 flex h-[68px] flex-none items-center gap-4 border-b border-line-warm bg-paper px-5">
+    <header className="relative z-40 flex h-[68px] flex-none items-center gap-2.5 border-b border-line-warm bg-paper px-3 sm:gap-4 sm:px-5">
+      {/* the nav and the empire library live in a drawer below lg */}
+      <button
+        onClick={onMenuOpen}
+        className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-line-warm bg-surface text-slateblue transition-colors hover:border-line-strong xl:hidden"
+        aria-label="Open menu"
+        aria-haspopup="dialog"
+      >
+        <MenuIcon className="h-5 w-5" />
+      </button>
+
       {/* Logo */}
-      <div className="flex flex-none items-center gap-2.5">
-        <TempleIcon className="h-8 w-8 text-terracotta" aria-hidden />
-        <div className="leading-none">
-          <div className="font-display text-[1.45rem] font-bold tracking-[0.01em] text-ink">Empire Atlas</div>
-          <div className="font-display mt-1 text-[0.82rem] font-medium italic text-terracotta">Explore how civilizations lived</div>
+      <div className="flex min-w-0 flex-none items-center gap-2.5">
+        <TempleIcon className="h-8 w-8 flex-none text-terracotta" aria-hidden />
+        <div className="min-w-0 leading-none">
+          <div className="font-display truncate text-[1.25rem] font-bold tracking-[0.01em] text-ink sm:text-[1.45rem]">Empire Atlas</div>
+          <div className="font-display mt-1 hidden text-[0.82rem] font-medium italic text-terracotta sm:block">Explore how civilizations lived</div>
         </div>
       </div>
 
       {/* Nav */}
-      <nav className="ml-6 hidden items-center gap-1 lg:flex" aria-label="Primary">
+      <nav className="ml-6 hidden items-center gap-1 xl:flex" aria-label="Primary">
         {NAV.map((n) => (
           <button
             key={n.id}
@@ -73,17 +83,6 @@ export const Header = memo(function Header({ onSearchOpen, reducedMotion, onTogg
         aria-label="Search empires, houses, features"
       >
         <SearchIcon className="h-4 w-4" />
-      </button>
-
-      {/* Reduced motion toggle */}
-      <button
-        onClick={onToggleMotion}
-        className={`tool-btn !w-11 rounded-xl border border-line-warm bg-surface ${reducedMotion ? "is-on" : ""}`}
-        title={reducedMotion ? "Enable full motion" : "Reduce motion"}
-        aria-pressed={reducedMotion}
-        aria-label="Toggle reduced motion"
-      >
-        <MotionIcon className="!h-[18px] !w-[18px]" />
       </button>
 
       {/* Profile */}
