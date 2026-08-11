@@ -1,0 +1,169 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  Dimensions: Genesis 6:14-16. Occupants: Genesis 6:18-21; 7:13-16; 1 Peter 3:20. */
+export const noah: Empire = {
+  id: "noah",
+  name: "The Antediluvian World",
+  dwelling: "Noah's Ark",
+  subtitle: "The vessel of salvation through the flood",
+  description:
+    "\"Make thee an ark of gopher wood; rooms shalt thou make in the ark, and shalt pitch it within and without with pitch\" (Genesis 6:14). Three hundred cubits long, fifty broad and thirty high, with three stories, a window above and a door in the side — built by Noah exactly as God commanded him (Genesis 6:15-16, 22).",
+  modelPath: "/models/noah.glb",
+  tint: "#8a6a4f",
+  camera: { azimuth: -32, elevation: 28, dist: 1.05, targetY: 0.34 },
+  facts: [
+    { label: "Period", value: "The days of Noah (Genesis 6-8)", icon: "period" },
+    { label: "Region", value: "Rested on the mountains of Ararat (Genesis 8:4)", icon: "region" },
+    { label: "Materials", value: "Gopher wood, pitched within and without (Genesis 6:14)", icon: "materials" },
+    { label: "Dimensions", value: "300 × 50 × 30 cubits, three stories (Genesis 6:15-16)", icon: "feature" },
+    { label: "Occupants", value: "Eight souls and two of every sort of living thing (Genesis 6:18-20; 1 Peter 3:20)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "window",
+      title: "The Window Above",
+      short: "\"In a cubit shalt thou finish it above\"",
+      detail:
+        "\"A window shalt thou make to the ark, and in a cubit shalt thou finish it above\" (Genesis 6:16). After the flood \"Noah opened the window of the ark which he had made\" and from it sent forth the raven and the dove (Genesis 8:6-8). Gaebelein observes: \"The ark had a window above — looking towards Heaven and not upon the earth and its judgment beneath\" (The Book of Genesis).",
+      category: "roof",
+      anchor: [0.5, 0.98, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "door",
+      title: "The Door in the Side",
+      short: "One door, shut by the LORD Himself",
+      detail:
+        "\"And the door of the ark shalt thou set in the side thereof\" (Genesis 6:16). There was one door only. When all had entered, \"they that went in, went in male and female of all flesh, as God had commanded him: and the LORD shut him in\" (Genesis 7:16).",
+      category: "entrance",
+      anchor: [0.5, 0.3, 0.96],
+      snap: "wall",
+    },
+    {
+      id: "pitch",
+      title: "Pitched Within and Without",
+      short: "Kopher — the covering that kept out the waters",
+      detail:
+        "\"...and shalt pitch it within and without with pitch\" (Genesis 6:14). Gaebelein notes that the word \"pitch\" (kopher) \"is translated more than seventy times in the Bible by 'to make atonement'\" (The Book of Genesis), and F. W. Grant likewise remarks that the resemblance between \"gopher\" and the \"copher\" or pitch \"has been noticed by many\" (Genesis in the Light of the New Testament).",
+      category: "facade",
+      anchor: [0.04, 0.45, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "stories",
+      title: "Three Stories",
+      short: "\"With lower, second, and third stories shalt thou make it\"",
+      detail:
+        "\"...with lower, second, and third stories shalt thou make it\" (Genesis 6:16). Within were \"rooms\" — literally nests (Genesis 6:14, so W. Kelly renders it: \"rooms (nests) shalt thou make in the ark\") — for every beast, cattle, creeping thing and fowl that came in two and two (Genesis 7:14-15).",
+      category: "structure",
+      anchor: [0.85, 0.6, 0.5],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "Interior View",
+    title: "Rooms — Nests in the Ark",
+    cta: "Explore Interior",
+    text: "\"Rooms shalt thou make in the ark\" (Genesis 6:14) — the word is literally \"nests\". Into them came Noah, his sons Shem, Ham and Japheth, their wives, \"and every beast after his kind... two and two of all flesh, wherein is the breath of life\" (Genesis 7:13-15), with stores of \"all food that is eaten... for thee, and for them\" (Genesis 6:21).",
+    image: "/img/noah/interior.webp",
+  },
+  floorPlan: {
+    kicker: "Floor Plan",
+    title: "Three Stories of the Ark",
+    cta: "View Floor Plan",
+    text: "The fashion of it is given in Genesis 6:15-16: \"The length of the ark shall be three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits\" — a window finished in a cubit above, the door set in the side, and lower, second and third stories within.",
+    image: "/img/noah/floor-plan.webp",
+    rooms: [
+      { name: "Lower story", note: "Genesis 6:16" },
+      { name: "Second story", note: "Genesis 6:16" },
+      { name: "Third story", note: "Genesis 6:16" },
+      { name: "Rooms (nests)", note: "Genesis 6:14" },
+      { name: "The window", note: "Finished in a cubit above (Gen 6:16)" },
+      { name: "The door", note: "Set in the side (Gen 6:16)" },
+      { name: "Food stores", note: "For Noah and the animals (Gen 6:21)" },
+    ],
+  },
+  artifacts: {
+    kicker: "Objects of the Narrative",
+    title: "Things Named in the Record",
+    cta: "Explore Artifacts",
+    text: "Every object here is named in Genesis 6-8: the wood and pitch of the building command, the food gathered before the flood, and the birds sent from the window as the waters abated.",
+    image: "/img/noah/artifacts.webp",
+    items: [
+      { name: "Gopher wood", purpose: "The ark's appointed timber", material: "Gopher wood", context: "\"Make thee an ark of gopher wood\" (Genesis 6:14). Grant: \"We know not this 'gopher,' but the resemblance is remarkably close to the 'copher' or 'pitch' named afterward.\"" },
+      { name: "Pitch", purpose: "Sealing the ark within and without", material: "Pitch (kopher)", context: "\"...and shalt pitch it within and without with pitch\" (Genesis 6:14)." },
+      { name: "Food stores", purpose: "Provision for people and animals", material: "\"Of all food that is eaten\"", context: "\"And take thou unto thee of all food that is eaten... it shall be for food for thee, and for them\" (Genesis 6:21)." },
+      { name: "The raven", purpose: "First bird sent from the window", material: "—", context: "\"He sent forth a raven, which went forth to and fro, until the waters were dried up\" (Genesis 8:7)." },
+      { name: "The dove", purpose: "Sent to see if the waters were abated", material: "—", context: "\"The dove found no rest for the sole of her foot, and she returned unto him into the ark\" (Genesis 8:8-9)." },
+      { name: "Olive leaf", purpose: "Token that the waters were abated", material: "\"An olive leaf pluckt off\"", context: "\"And the dove came in to him in the evening; and, lo, in her mouth was an olive leaf pluckt off\" (Genesis 8:11)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "Life Aboard",
+    title: "Kept Alive Through the Flood",
+    cta: "Discover Life Aboard",
+    text: "\"With thee will I establish my covenant; and thou shalt come into the ark, thou, and thy sons, and thy wife, and thy sons' wives with thee\" (Genesis 6:18). Peter counts them: \"few, that is, eight souls were saved by water\" while \"the longsuffering of God waited in the days of Noah, while the ark was a preparing\" (1 Peter 3:20).",
+    image: "/img/noah/daily-life.webp",
+  },
+  geography: {
+    kicker: "Where It Rested",
+    title: "The Mountains of Ararat",
+    cta: "Explore Map",
+    text: "\"And the ark rested in the seventh month, on the seventeenth day of the month, upon the mountains of Ararat. And the waters decreased continually until the tenth month: in the tenth month, on the first day of the month, were the tops of the mountains seen\" (Genesis 8:4-5).",
+    image: "/img/noah/map.webp",
+    regionLabel: "Mountains of Ararat (Genesis 8:4)",
+  },
+  lesson: {
+    title: "The Ark of Gopher Wood",
+    intro: "What Genesis 6-8 records of the ark's design, cargo and voyage — with the library's commentary on its meaning.",
+    blocks: [
+      { heading: "The command", body: "\"Make thee an ark of gopher wood; rooms shalt thou make in the ark, and shalt pitch it within and without with pitch\" (Genesis 6:14). The occasion is given in the same breath: \"The end of all flesh is come before me, for the earth is full of violence\" (Genesis 6:13, as cited in W. Kelly's Genesis)." },
+      { heading: "The specifications", body: "\"The length of the ark shall be three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits\" (Genesis 6:15) — with a window finished in a cubit above, a door in the side, and three stories (Genesis 6:16). No other proportions are given; Scripture's own figures govern this model." },
+      { heading: "The cargo", body: "Two of every sort of living thing, male and female — fowls, cattle and creeping things after their kind — \"to keep them alive with thee,\" together with all food that is eaten (Genesis 6:19-21). \"Thus did Noah; according to all that God commanded him, so did he\" (Genesis 6:22)." },
+      { heading: "The voyage", body: "In the six hundredth year of Noah's life the fountains of the great deep were broken up and the windows of heaven opened; the rain was forty days and forty nights, and the LORD shut him in (Genesis 7:11-16). The ark rested on the mountains of Ararat in the seventh month (Genesis 8:4)." },
+      { heading: "The library's commentary", body: "Gaebelein: \"The word 'gopher' means atonement, and the word 'pitch,' meaning the same, is translated more than seventy times in the Bible by 'to make atonement'\" (The Book of Genesis). F. W. Grant sees in the ark \"the house of refuge\" where, \"amid the very storm of judgment, the heart that craves may find its lodgment\" (Noah, STEM Publishing)." },
+      { heading: "The New Testament witness", body: "\"...the longsuffering of God waited in the days of Noah, while the ark was a preparing, wherein few, that is, eight souls were saved by water\" (1 Peter 3:20). The Bible Monthly (Hocking) recalls Hebrews 11:7 — warned of God, Noah \"prepared the ark to the salvation of his house.\"" },
+    ],
+  },
+  quiz: [
+    {
+      q: "What were the dimensions of the ark according to Genesis 6:15?",
+      choices: ["100 × 50 × 30 cubits", "300 × 50 × 30 cubits", "300 × 30 × 50 cubits", "200 × 40 × 20 cubits"],
+      answer: 1,
+      explanation: "\"The length of the ark shall be three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits\" (Genesis 6:15).",
+    },
+    {
+      q: "Of what wood was the ark built?",
+      choices: ["Cedar", "Shittim wood", "Gopher wood", "Olive wood"],
+      answer: 2,
+      explanation: "\"Make thee an ark of gopher wood\" (Genesis 6:14).",
+    },
+    {
+      q: "Who shut the door of the ark?",
+      choices: ["Noah", "Shem", "The angels", "The LORD"],
+      answer: 3,
+      explanation: "\"...and the LORD shut him in\" (Genesis 7:16).",
+    },
+    {
+      q: "How many souls were saved in the ark?",
+      choices: ["Four", "Eight", "Twelve", "Seventy"],
+      answer: 1,
+      explanation: "\"...wherein few, that is, eight souls were saved by water\" (1 Peter 3:20).",
+    },
+    {
+      q: "What did the dove bring back in her mouth?",
+      choices: ["A fig leaf", "An olive leaf", "A branch of gopher wood", "Nothing"],
+      answer: 1,
+      explanation: "\"And the dove came in to him in the evening; and, lo, in her mouth was an olive leaf pluckt off\" (Genesis 8:11).",
+    },
+  ],
+  timeline: [
+    { era: "The command", year: "Genesis 6:13-16", text: "God announces the end of all flesh and gives Noah the ark's exact specification: gopher wood, rooms, pitch, 300 × 50 × 30 cubits, window, side door, three stories." },
+    { era: "The flood begins", year: "Genesis 7:11", text: "In the six hundredth year of Noah's life, the second month, the seventeenth day, the fountains of the great deep are broken up and the windows of heaven opened." },
+    { era: "Forty days of rain", year: "Genesis 7:12-16", text: "Noah, his family and two and two of all flesh enter; \"the LORD shut him in.\"" },
+    { era: "The ark rests", year: "Genesis 8:4", text: "In the seventh month, on the seventeenth day, the ark rests upon the mountains of Ararat." },
+    { era: "The waters abate", year: "Genesis 8:6-12", text: "Noah opens the window; the raven goes to and fro; the dove returns with an olive leaf, and at last returns no more." },
+  ],
+  keywords: ["noah", "ark", "flood", "gopher wood", "pitch", "ararat", "dove", "olive leaf", "genesis", "deluge", "eight souls", "tebah"],
+};

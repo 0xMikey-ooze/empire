@@ -1,0 +1,170 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  Dimensions and construction: Exodus 25:10-22. Contents: Hebrews 9:4. */
+export const covenant: Empire = {
+  id: "covenant",
+  name: "Israel in the Wilderness",
+  dwelling: "The Ark of the Covenant",
+  subtitle: "The meeting place above the mercy seat",
+  description:
+    "\"And they shall make an ark of shittim wood: two cubits and a half shall be the length thereof, and a cubit and a half the breadth thereof, and a cubit and a half the height thereof. And thou shalt overlay it with pure gold\" (Exodus 25:10-11). Above it, the mercy seat of pure gold with two cherubim of beaten work — \"and there I will meet with thee\" (Exodus 25:22).",
+  modelPath: "/models/covenant.glb",
+  tint: "#c9a227",
+  camera: { azimuth: -30, elevation: 26, dist: 1.0, targetY: 0.4 },
+  facts: [
+    { label: "Period", value: "Given at Sinai, the wilderness journeys (Exodus 25)", icon: "period" },
+    { label: "Region", value: "Made for the sanctuary: \"that I may dwell among them\" (Exodus 25:8)", icon: "region" },
+    { label: "Materials", value: "Shittim wood overlaid with pure gold, within and without (Exodus 25:10-11)", icon: "materials" },
+    { label: "Dimensions", value: "2½ × 1½ × 1½ cubits; mercy seat 2½ × 1½ (Exodus 25:10, 17)", icon: "feature" },
+    { label: "Contents", value: "Golden pot of manna, Aaron's rod that budded, tables of the covenant (Hebrews 9:4)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "mercy-seat",
+      title: "The Mercy Seat",
+      short: "Kapporeth — a lid of pure gold, 2½ × 1½ cubits",
+      detail:
+        "\"And thou shalt make a mercy seat of pure gold: two cubits and a half shall be the length thereof, and a cubit and a half the breadth thereof\" (Exodus 25:17). The Hebrew kapporeth is \"a lid (used only of the cover of the sacred Ark)\". Here God said: \"There I will meet with thee, and I will commune with thee from above the mercy seat\" (Exodus 25:22).",
+      category: "roof",
+      anchor: [0.5, 0.8, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "cherubim",
+      title: "The Two Cherubim",
+      short: "Beaten gold, wings covering the mercy seat",
+      detail:
+        "\"And thou shalt make two cherubims of gold, of beaten work... And the cherubims shall stretch forth their wings on high, covering the mercy seat with their wings, and their faces shall look one to another\" (Exodus 25:18-20). Hebrews calls them \"the cherubims of glory shadowing the mercyseat\" (Hebrews 9:5).",
+      category: "structure",
+      anchor: [0.2, 0.97, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "crown",
+      title: "The Crown of Gold",
+      short: "A crown of gold round about",
+      detail:
+        "\"And thou shalt overlay it with pure gold, within and without shalt thou overlay it, and shalt make upon it a crown of gold round about\" (Exodus 25:11). Gaebelein comments on the two materials: \"We have in it the type of the humanity of Christ. The gold which covered it is typical of His deity\" (The Book of Exodus).",
+      category: "facade",
+      anchor: [0.5, 0.65, 0.95],
+      snap: "wall",
+    },
+    {
+      id: "staves",
+      title: "Rings and Staves",
+      short: "Four gold rings; staves never taken out",
+      detail:
+        "\"And thou shalt cast four rings of gold for it... And thou shalt make staves of shittim wood, and overlay them with gold... The staves shall be in the rings of the ark: they shall not be taken from it\" (Exodus 25:12-15). In Solomon's temple the staves were at last drawn out before the oracle (1 Kings 8:8).",
+      category: "entrance",
+      anchor: [0.85, 0.3, 0.9],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "Within the Ark",
+    title: "The Testimony Within",
+    cta: "See What Was Within",
+    text: "\"And thou shalt put into the ark the testimony which I shall give thee\" (Exodus 25:16). Hebrews 9:4 names the deposit: \"the golden pot that had manna, and Aaron's rod that budded, and the tables of the covenant.\" By Solomon's day \"there was nothing in the ark save the two tables of stone, which Moses put there at Horeb\" (1 Kings 8:9).",
+    image: "/img/covenant/interior.webp",
+  },
+  floorPlan: {
+    kicker: "Construction",
+    title: "The Pattern Shewed to Moses",
+    cta: "View the Pattern",
+    text: "\"According to all that I shew thee, after the pattern of the tabernacle, and the pattern of all the instruments thereof, even so shall ye make it\" (Exodus 25:9). The ark's parts as Exodus 25 names them:",
+    image: "/img/covenant/floor-plan.webp",
+    rooms: [
+      { name: "The ark (chest)", note: "Shittim wood, 2½ × 1½ × 1½ cubits (v. 10)" },
+      { name: "Gold overlay", note: "Within and without (v. 11)" },
+      { name: "Crown of gold", note: "Round about (v. 11)" },
+      { name: "Four rings", note: "Cast gold, two per side (v. 12)" },
+      { name: "Staves", note: "Shittim wood overlaid with gold (v. 13)" },
+      { name: "The testimony", note: "Placed inside (v. 16)" },
+      { name: "Mercy seat", note: "Pure gold, 2½ × 1½ cubits (v. 17)" },
+      { name: "Two cherubim", note: "Beaten work, at the two ends (v. 18-19)" },
+    ],
+  },
+  artifacts: {
+    kicker: "The Holy Deposit",
+    title: "Things of Gold in the Holiest",
+    cta: "Explore the Deposit",
+    text: "Norman Anderson's study of Hebrews 9:3-4 gathers them under the title \"'Things of gold' in the 'Holiest of all'\": the ark overlaid round about with gold and its threefold deposit.",
+    image: "/img/covenant/artifacts.webp",
+    items: [
+      { name: "Tables of the covenant", purpose: "The testimony God gave", material: "Stone", context: "\"Thou shalt put into the ark the testimony which I shall give thee\" (Exodus 25:16); \"the two tables of stone, which Moses put there at Horeb\" (1 Kings 8:9)." },
+      { name: "Golden pot of manna", purpose: "Memorial of the wilderness bread", material: "Gold", context: "\"Take a pot, and put an omer full of manna therein, and lay it up before the LORD, to be kept for your generations\" (Exodus 16:33)." },
+      { name: "Aaron's rod that budded", purpose: "Witness of the chosen priesthood", material: "Wood (almond)", context: "Named among the ark's contents in Hebrews 9:4: \"Aaron's rod that budded.\"" },
+      { name: "The mercy seat", purpose: "The place of meeting", material: "Pure gold", context: "\"There I will meet with thee, and I will commune with thee from above the mercy seat\" (Exodus 25:22)." },
+      { name: "The two cherubim", purpose: "Covering and beholding", material: "Beaten gold", context: "\"...their faces shall look one to another; toward the mercy seat shall the faces of the cherubims be\" (Exodus 25:20)." },
+      { name: "The staves", purpose: "Bearing the ark on the journey", material: "Shittim wood, gold overlay", context: "\"The staves shall be in the rings of the ark: they shall not be taken from it\" (Exodus 25:15)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "Its Service",
+    title: "God Meeting His People",
+    cta: "Discover Its Service",
+    text: "\"And let them make me a sanctuary; that I may dwell among them\" (Exodus 25:8). W. H. Boyd writes of the ark and mercy seat: \"Everything is there for the satisfaction of the heart of God, and for the carrying out of His purposes. In this Man God approaches the ruined children of Adam in grace\" (The Ark of the Covenant and the Mercy Seat).",
+    image: "/img/covenant/daily-life.webp",
+  },
+  geography: {
+    kicker: "Its Journeys",
+    title: "From Sinai to the Oracle",
+    cta: "Trace Its Path",
+    text: "Commanded at Sinai for the tabernacle (Exodus 25), the ark came at last to rest when \"the priests brought in the ark of the covenant of the LORD unto his place, into the oracle of the house, to the most holy place, even under the wings of the cherubims\" (1 Kings 8:6).",
+    image: "/img/covenant/map.webp",
+    regionLabel: "Sinai → the tabernacle → the temple oracle (Exodus 25; 1 Kings 8:6)",
+  },
+  lesson: {
+    title: "The Ark and the Mercy Seat",
+    intro: "The specification of Exodus 25:10-22, its deposit, and what the library's teachers saw in it.",
+    blocks: [
+      { heading: "The specification", body: "Shittim wood, two and a half cubits long, a cubit and a half broad and high, overlaid with pure gold within and without, with a crown of gold round about (Exodus 25:10-11). Four cast rings of gold, staves of shittim wood overlaid with gold, never to be taken from the rings (vv. 12-15)." },
+      { heading: "The mercy seat", body: "A lid of pure gold — the Hebrew kapporeth, \"used only of the cover of the sacred Ark\" — two and a half cubits by a cubit and a half, with two cherubim of beaten gold at its two ends, wings stretched on high, faces toward the mercy seat (Exodus 25:17-21)." },
+      { heading: "The meeting place", body: "\"And there I will meet with thee, and I will commune with thee from above the mercy seat, from between the two cherubims which are upon the ark of the testimony\" (Exodus 25:22). The ark was not furniture only; it was the appointed place of God's communion with Israel." },
+      { heading: "The deposit", body: "\"The golden pot that had manna, and Aaron's rod that budded, and the tables of the covenant\" (Hebrews 9:4). The omer of manna was laid up \"before the Testimony, to be kept\" (Exodus 16:34); by Solomon's day only the two tables remained (1 Kings 8:9)." },
+      { heading: "The library's commentary", body: "Gaebelein: \"We have in it the type of the humanity of Christ. The gold which covered it is typical of His deity\" (The Book of Exodus). Toward The Mark #62: \"The Ark speaks of Christ in the grace and holiness of His Manhood and in the glory of His Godhead.\"" },
+      { heading: "Its rest", body: "The priests brought the ark \"into the oracle of the house, to the most holy place, even under the wings of the cherubims... And they drew out the staves\" (1 Kings 8:6-8) — the wilderness journeys done. Then \"the glory of the LORD had filled the house of the LORD\" (1 Kings 8:11)." },
+    ],
+  },
+  quiz: [
+    {
+      q: "What were the ark's dimensions in Exodus 25:10?",
+      choices: ["3 × 2 × 2 cubits", "2½ × 1½ × 1½ cubits", "2 × 1 × 1 cubits", "4 × 2 × 2 cubits"],
+      answer: 1,
+      explanation: "\"Two cubits and a half shall be the length thereof, and a cubit and a half the breadth thereof, and a cubit and a half the height thereof\" (Exodus 25:10).",
+    },
+    {
+      q: "Of what was the ark made before its gold overlay?",
+      choices: ["Gopher wood", "Cedar", "Shittim wood", "Olive wood"],
+      answer: 2,
+      explanation: "\"And they shall make an ark of shittim wood\" (Exodus 25:10), overlaid with pure gold within and without (v. 11).",
+    },
+    {
+      q: "What rule governed the staves?",
+      choices: ["Removed on the sabbath", "Never taken from the rings", "Carried only by kings", "Made of pure gold throughout"],
+      answer: 1,
+      explanation: "\"The staves shall be in the rings of the ark: they shall not be taken from it\" (Exodus 25:15).",
+    },
+    {
+      q: "According to Hebrews 9:4, what was in the ark?",
+      choices: ["Only the tables of the covenant", "The golden censer and the shewbread", "The pot of manna, Aaron's rod, and the tables of the covenant", "The book of the law and the anointing oil"],
+      answer: 2,
+      explanation: "\"...the golden pot that had manna, and Aaron's rod that budded, and the tables of the covenant\" (Hebrews 9:4).",
+    },
+    {
+      q: "From where did God say He would commune with Moses?",
+      choices: ["From the pillar of cloud", "From above the mercy seat, between the two cherubim", "From the door of the tabernacle", "From mount Sinai"],
+      answer: 1,
+      explanation: "\"I will commune with thee from above the mercy seat, from between the two cherubims\" (Exodus 25:22).",
+    },
+  ],
+  timeline: [
+    { era: "The pattern", year: "Exodus 25:8-9", text: "\"Let them make me a sanctuary; that I may dwell among them\" — all to be made after the pattern shewed to Moses in the mount." },
+    { era: "The specification", year: "Exodus 25:10-22", text: "Shittim wood and pure gold; the mercy seat and cherubim; the promise: \"there I will meet with thee.\"" },
+    { era: "The memorial laid up", year: "Exodus 16:33-34", text: "An omer of manna in a pot, laid up before the Testimony, to be kept for the generations." },
+    { era: "Into the oracle", year: "1 Kings 8:6-8", text: "The priests bring the ark under the wings of the cherubim in Solomon's temple; the staves are drawn out." },
+    { era: "The glory", year: "1 Kings 8:10-11", text: "\"The cloud filled the house of the LORD... for the glory of the LORD had filled the house of the LORD.\"" },
+  ],
+  keywords: ["ark of the covenant", "mercy seat", "kapporeth", "cherubim", "shittim", "gold", "testimony", "manna", "aaron's rod", "tables", "staves", "exodus"],
+};

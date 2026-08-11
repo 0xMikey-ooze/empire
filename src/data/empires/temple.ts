@@ -1,0 +1,180 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  Dimensions: 1 Kings 6:2-20. Pillars and sea: 1 Kings 7:15-26. Site: 2 Chronicles 3:1. */
+export const temple: Empire = {
+  id: "temple",
+  name: "The Kingdom of Israel",
+  dwelling: "The House of God",
+  subtitle: "Solomon's temple on mount Moriah",
+  description:
+    "\"And the house which king Solomon built for the LORD, the length thereof was threescore cubits, and the breadth thereof twenty cubits, and the height thereof thirty cubits\" (1 Kings 6:2) — built on mount Moriah (2 Chronicles 3:1), cedar within so that no stone was seen, and the oracle, a perfect cube of twenty cubits, overlaid with pure gold (1 Kings 6:18-20).",
+  modelPath: "/models/temple.glb",
+  tint: "#b98d4f",
+  camera: { azimuth: -36, elevation: 30, dist: 1.0, targetY: 0.35 },
+  facts: [
+    { label: "Period", value: "Begun in Solomon's fourth year; seven years in building (1 Kings 6:37-38)", icon: "period" },
+    { label: "Region", value: "Jerusalem, mount Moriah (2 Chronicles 3:1)", icon: "region" },
+    { label: "Materials", value: "Stone made ready before, cedar, fir, olive wood, pure gold (1 Kings 6:7, 15, 20)", icon: "materials" },
+    { label: "Dimensions", value: "60 × 20 × 30 cubits; porch 20 × 10; oracle 20 × 20 × 20 (1 Kings 6:2-3, 20)", icon: "feature" },
+    { label: "Purpose", value: "\"To set there the ark of the covenant of the LORD\" (1 Kings 6:19)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "porch",
+      title: "The Porch",
+      short: "Twenty cubits long, ten cubits broad",
+      detail:
+        "\"And the porch before the temple of the house, twenty cubits was the length thereof, according to the breadth of the house; and ten cubits was the breadth thereof before the house\" (1 Kings 6:3). In it stood the two brass pillars, Jachin on the right and Boaz on the left (1 Kings 7:21).",
+      category: "entrance",
+      anchor: [0.5, 0.35, 0.96],
+      snap: "wall",
+    },
+    {
+      id: "pillars",
+      title: "Jachin and Boaz",
+      short: "Two brass pillars, eighteen cubits high",
+      detail:
+        "\"For he cast two pillars of brass, of eighteen cubits high apiece: and a line of twelve cubits did compass either of them about\" (1 Kings 7:15) — crowned with chapiters of molten brass five cubits high, with networks, chains, two hundred pomegranates in rows, and lily work (1 Kings 7:16-22).",
+      category: "facade",
+      anchor: [0.62, 0.55, 0.93],
+      snap: "wall",
+    },
+    {
+      id: "oracle",
+      title: "The Oracle (Most Holy Place)",
+      short: "Debir — a golden cube of twenty cubits",
+      detail:
+        "\"And the oracle in the forepart was twenty cubits in length, and twenty cubits in breadth, and twenty cubits in the height thereof: and he overlaid it with pure gold\" (1 Kings 6:20). The Hebrew debir is \"the shrine or innermost part of the sanctuary\" — prepared \"to set there the ark of the covenant of the LORD\" (1 Kings 6:19), where two olive-wood cherubim ten cubits high spread their wings from wall to wall (1 Kings 6:23-27).",
+      category: "interior",
+      anchor: [0.12, 0.85, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "chambers",
+      title: "The Side Chambers",
+      short: "Five, six, and seven cubits broad",
+      detail:
+        "\"The nethermost chamber was five cubits broad, and the middle was six cubits broad, and the third was seven cubits broad: for without in the wall of the house he made narrowed rests round about, that the beams should not be fastened in the walls of the house\" (1 Kings 6:6) — reached by winding stairs (1 Kings 6:8).",
+      category: "structure",
+      anchor: [0.05, 0.4, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "windows",
+      title: "Windows of Narrow Lights",
+      short: "\"For the house he made windows of narrow lights\"",
+      detail:
+        "\"And for the house he made windows of narrow lights\" (1 Kings 6:4), set above the side chambers that wrapped the temple walls round about (1 Kings 6:5).",
+      category: "roof",
+      anchor: [0.6, 0.9, 0.5],
+      snap: "roof",
+    },
+  ],
+  interior: {
+    kicker: "Interior View",
+    title: "Cedar, Carved and Golden",
+    cta: "Explore Interior",
+    text: "\"And the cedar of the house within was carved with knops and open flowers: all was cedar; there was no stone seen\" (1 Kings 6:18). The walls bore \"carved figures of cherubims and palm trees and open flowers\" (1 Kings 6:29), the floor was overlaid with gold (6:30), and \"the whole house he overlaid with gold, until he had finished all the house\" (1 Kings 6:22).",
+    image: "/img/temple/interior.webp",
+  },
+  floorPlan: {
+    kicker: "Floor Plan",
+    title: "Porch, Temple, and Oracle",
+    cta: "View Floor Plan",
+    text: "The house ran sixty cubits by twenty, thirty high (1 Kings 6:2): the porch before it (6:3), the temple — the holy place — forty cubits long (6:17), and the oracle, the most holy place, a twenty-cubit cube (6:20), ringed by three stories of side chambers (6:5-6).",
+    image: "/img/temple/floor-plan.webp",
+    rooms: [
+      { name: "The porch", note: "20 × 10 cubits (1 Kings 6:3)" },
+      { name: "The temple (holy place)", note: "40 cubits long (1 Kings 6:17)" },
+      { name: "The oracle (most holy)", note: "20 × 20 × 20 cubits, pure gold (1 Kings 6:20)" },
+      { name: "Nethermost chambers", note: "5 cubits broad (1 Kings 6:6)" },
+      { name: "Middle chambers", note: "6 cubits broad; door in the right side (1 Kings 6:6, 8)" },
+      { name: "Third chambers", note: "7 cubits broad (1 Kings 6:6)" },
+      { name: "Winding stairs", note: "Up to the middle and third (1 Kings 6:8)" },
+      { name: "Inner court", note: "Three rows of hewed stone, a row of cedar beams (1 Kings 6:36)" },
+    ],
+  },
+  artifacts: {
+    kicker: "Vessels of the House",
+    title: "All the Vessels of Gold and Brass",
+    cta: "Explore the Vessels",
+    text: "\"And Solomon made all the vessels that pertained unto the house of the LORD\" (1 Kings 7:48) — gold within the house, and the great brass works of the court.",
+    image: "/img/temple/artifacts.webp",
+    items: [
+      { name: "The altar of gold", purpose: "Before the oracle", material: "Gold over cedar", context: "\"The altar of gold, and the table of gold, whereupon the shewbread was\" (1 Kings 7:48); the cedar altar covered with gold (1 Kings 6:20, 22)." },
+      { name: "The table of shewbread", purpose: "Bearing the shewbread", material: "Gold", context: "\"...the table of gold, whereupon the shewbread was\" (1 Kings 7:48)." },
+      { name: "Ten candlesticks", purpose: "Light before the oracle", material: "Pure gold", context: "\"The candlesticks of pure gold, five on the right side, and five on the left, before the oracle\" (1 Kings 7:49)." },
+      { name: "The molten sea", purpose: "The great laver of the court", material: "Molten brass", context: "\"Ten cubits from the one brim to the other... his height was five cubits... it stood upon twelve oxen... it contained two thousand baths\" (1 Kings 7:23-26)." },
+      { name: "The two cherubim of the oracle", purpose: "Overshadowing the place of the ark", material: "Olive tree, overlaid with gold", context: "\"Each ten cubits high... the wing of the one touched the one wall, and the wing of the other cherub touched the other wall\" (1 Kings 6:23-28)." },
+      { name: "Bowls, snuffers, basons, spoons, censers", purpose: "The service of the house", material: "Pure gold", context: "\"...and the hinges of gold, both for the doors of the inner house... and for the doors of the house, to wit, of the temple\" (1 Kings 7:50)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "Its Dedication",
+    title: "The Glory Fills the House",
+    cta: "Discover Its Dedication",
+    text: "\"The priests brought in the ark of the covenant of the LORD unto his place, into the oracle of the house... And it came to pass, when the priests were come out of the holy place, that the cloud filled the house of the LORD, so that the priests could not stand to minister because of the cloud: for the glory of the LORD had filled the house of the LORD\" (1 Kings 8:6, 10-11).",
+    image: "/img/temple/daily-life.webp",
+  },
+  geography: {
+    kicker: "Where It Stood",
+    title: "Mount Moriah, Jerusalem",
+    cta: "Explore Map",
+    text: "\"Then Solomon began to build the house of the LORD at Jerusalem in mount Moriah, where the LORD appeared unto David his father, in the place that David had prepared in the threshingfloor of Ornan the Jebusite\" (2 Chronicles 3:1).",
+    image: "/img/temple/map.webp",
+    regionLabel: "Jerusalem, mount Moriah (2 Chronicles 3:1)",
+  },
+  lesson: {
+    title: "The House Which King Solomon Built for the LORD",
+    intro: "The specification of 1 Kings 6-7, from foundation to golden oracle, with the library's commentary.",
+    blocks: [
+      { heading: "The specification", body: "Sixty cubits long, twenty broad, thirty high (1 Kings 6:2); the porch twenty by ten (6:3); windows of narrow lights (6:4); side chambers of five, six and seven cubits in three stories, resting on narrowed rests so no beam entered the wall (6:5-6)." },
+      { heading: "Silent stones", body: "\"And the house, when it was in building, was built of stone made ready before it was brought thither: so that there was neither hammer nor axe nor any tool of iron heard in the house, while it was in building\" (1 Kings 6:7). Ironside remarks: \"It is a very remarkable fact that it was erected as no other building of which we have record\" (In King Solomon's Quarry)." },
+      { heading: "Cedar and gold", body: "Walls and ceiling of cedar, the floor of fir, all carved with knops and open flowers — \"all was cedar; there was no stone seen\" (1 Kings 6:15, 18). \"So Solomon overlaid the house within with pure gold\" and made a partition by chains of gold before the oracle (6:21-22)." },
+      { heading: "The oracle", body: "The debir — \"the shrine or innermost part of the sanctuary\" — a cube of twenty cubits overlaid with pure gold, prepared \"to set there the ark of the covenant of the LORD\" (1 Kings 6:19-20). Within, two olive-wood cherubim ten cubits high stretched their wings from wall to wall (6:23-27)." },
+      { heading: "The pillars and the sea", body: "Two brass pillars eighteen cubits high with five-cubit chapiters of network, chains, pomegranates and lily work — Jachin on the right, Boaz on the left (1 Kings 7:15-21). The molten sea, ten cubits brim to brim, borne on twelve oxen, held two thousand baths (7:23-26)." },
+      { heading: "Seven years — then the glory", body: "Founded in the month Zif of Solomon's fourth year and finished in the month Bul of his eleventh, \"so was he seven years in building it\" (1 Kings 6:37-38). When the ark came to the oracle, \"the glory of the LORD had filled the house of the LORD\" (1 Kings 8:11)." },
+    ],
+  },
+  quiz: [
+    {
+      q: "What were the house's overall dimensions in 1 Kings 6:2?",
+      choices: ["60 × 20 × 30 cubits", "100 × 50 × 30 cubits", "40 × 20 × 20 cubits", "80 × 30 × 40 cubits"],
+      answer: 0,
+      explanation: "\"...the length thereof was threescore cubits, and the breadth thereof twenty cubits, and the height thereof thirty cubits\" (1 Kings 6:2).",
+    },
+    {
+      q: "Why was no hammer, axe, or iron tool heard in the house?",
+      choices: ["Work stopped on the sabbath", "The stone was made ready before it was brought", "Only wood was used", "The workmen laboured at night"],
+      answer: 1,
+      explanation: "\"...built of stone made ready before it was brought thither: so that there was neither hammer nor axe nor any tool of iron heard in the house\" (1 Kings 6:7).",
+    },
+    {
+      q: "What were the dimensions of the oracle?",
+      choices: ["10 × 10 × 10 cubits", "20 × 20 × 20 cubits", "40 × 20 × 30 cubits", "20 × 10 × 5 cubits"],
+      answer: 1,
+      explanation: "\"The oracle in the forepart was twenty cubits in length, and twenty cubits in breadth, and twenty cubits in the height thereof: and he overlaid it with pure gold\" (1 Kings 6:20).",
+    },
+    {
+      q: "What were the names of the two brass pillars?",
+      choices: ["Zif and Bul", "Moriah and Ornan", "Jachin and Boaz", "Shem and Japheth"],
+      answer: 2,
+      explanation: "\"He set up the right pillar, and called the name thereof Jachin... the left pillar, and he called the name thereof Boaz\" (1 Kings 7:21).",
+    },
+    {
+      q: "How long was the house in building?",
+      choices: ["Three years", "Seven years", "Twelve years", "Forty years"],
+      answer: 1,
+      explanation: "\"In the fourth year was the foundation... laid... in the eleventh year... was the house finished... So was he seven years in building it\" (1 Kings 6:37-38).",
+    },
+  ],
+  timeline: [
+    { era: "The site", year: "2 Chronicles 3:1", text: "Solomon begins to build at Jerusalem in mount Moriah, where the LORD appeared unto David, in the threshingfloor of Ornan the Jebusite." },
+    { era: "Foundation", year: "1 Kings 6:37", text: "In the fourth year of Solomon the foundation of the house of the LORD is laid, in the month Zif." },
+    { era: "The silent build", year: "1 Kings 6:7", text: "Stone made ready before it is brought; neither hammer nor axe nor any tool of iron heard in the house." },
+    { era: "Finished", year: "1 Kings 6:38", text: "In the eleventh year, in the month Bul, the house is finished throughout all its parts — seven years in building." },
+    { era: "The glory", year: "1 Kings 8:6-11", text: "The ark is brought into the oracle under the wings of the cherubim, and the glory of the LORD fills the house." },
+  ],
+  keywords: ["solomon", "temple", "house of god", "house of the lord", "oracle", "debir", "moriah", "jachin", "boaz", "molten sea", "cherubim", "cedar", "gold", "jerusalem"],
+};

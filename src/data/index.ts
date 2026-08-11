@@ -7,8 +7,11 @@ import { byzantine } from "./empires/byzantine";
 import { ottoman } from "./empires/ottoman";
 import { mughal } from "./empires/mughal";
 import { inca } from "./empires/inca";
+import { noah } from "./empires/noah";
+import { covenant } from "./empires/covenant";
+import { temple } from "./empires/temple";
 
-export const EMPIRES: Empire[] = [roman, egypt, persian, han, byzantine, ottoman, mughal, inca];
+export const EMPIRES: Empire[] = [noah, covenant, temple, roman, egypt, persian, han, byzantine, ottoman, mughal, inca];
 
 export const empireById = (id: string): Empire => EMPIRES.find((e) => e.id === id) ?? EMPIRES[0];
 
