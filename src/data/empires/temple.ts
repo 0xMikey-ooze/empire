@@ -4,6 +4,7 @@ import type { Empire } from "@/types/empire";
  *  Dimensions: 1 Kings 6:2-20. Pillars and sea: 1 Kings 7:15-26. Site: 2 Chronicles 3:1. */
 export const temple: Empire = {
   id: "temple",
+  kind: "biblical-structure",
   name: "The Kingdom of Israel",
   dwelling: "The House of God",
   subtitle: "Solomon's temple on mount Moriah",
@@ -12,10 +13,18 @@ export const temple: Empire = {
   modelPath: "/models/temple.glb",
   tint: "#b98d4f",
   camera: { azimuth: -36, elevation: 30, dist: 1.0, targetY: 0.35 },
+  inspection: {
+    mode: "interior",
+    label: "See inside",
+    title: "Temple cutaway",
+    description: "Reveals the porch, forty-cubit holy place, twenty-cubit oracle, and three stories of side chambers described in 1 Kings 6.",
+    disclosure: "Solomon's temple only; unspecified details are reconstructed and not taken from Ezekiel's temple.",
+    camera: { azimuth: -10, elevation: 30, dist: 0.76, targetY: 0.4 },
+  },
   facts: [
     { label: "Period", value: "Begun in Solomon's fourth year; seven years in building (1 Kings 6:37-38)", icon: "period" },
     { label: "Region", value: "Jerusalem, mount Moriah (2 Chronicles 3:1)", icon: "region" },
-    { label: "Materials", value: "Stone made ready before, cedar, fir, olive wood, pure gold (1 Kings 6:7, 15, 20)", icon: "materials" },
+    { label: "Materials", value: "Stone made ready before, cedar, fir, olive wood, pure gold (1 Kings 6:7, 15, 20, 23)", icon: "materials" },
     { label: "Dimensions", value: "60 × 20 × 30 cubits; porch 20 × 10; oracle 20 × 20 × 20 (1 Kings 6:2-3, 20)", icon: "feature" },
     { label: "Purpose", value: "\"To set there the ark of the covenant of the LORD\" (1 Kings 6:19)", icon: "occupants" },
   ],
@@ -70,6 +79,24 @@ export const temple: Empire = {
       anchor: [0.6, 0.9, 0.5],
       snap: "roof",
     },
+    {
+      id: "holy-place",
+      title: "The Forty-cubit Holy Place",
+      short: "The house before the oracle",
+      detail:
+        'The temple house was sixty cubits long, twenty broad, and thirty high (1 Kings 6:2). The oracle occupied twenty cubits of its length, leaving the forty-cubit holy place before it (1 Kings 6:17, 20).',
+      category: "interior",
+      anchor: [0.55, 0.55, 0.5],
+    },
+    {
+      id: "golden-interior",
+      title: "Carved and Overlaid Within",
+      short: "Cedar, carved gourds and flowers, overlaid with gold",
+      detail:
+        'Within, cedar covered the stone; the cedar was carved with knops and open flowers, and the house and oracle were overlaid with pure gold (1 Kings 6:18, 21-22, 29-30).',
+      category: "interior",
+      anchor: [0.38, 0.7, 0.5],
+    },
   ],
   interior: {
     kicker: "Interior View",
@@ -83,7 +110,7 @@ export const temple: Empire = {
     title: "Porch, Temple, and Oracle",
     cta: "View Floor Plan",
     text: "The house ran sixty cubits by twenty, thirty high (1 Kings 6:2): the porch before it (6:3), the temple — the holy place — forty cubits long (6:17), and the oracle, the most holy place, a twenty-cubit cube (6:20), ringed by three stories of side chambers (6:5-6).",
-    image: "/img/temple/floor-plan.webp",
+    image: "/img/temple/floor-plan.svg",
     rooms: [
       { name: "The porch", note: "20 × 10 cubits (1 Kings 6:3)" },
       { name: "The temple (holy place)", note: "40 cubits long (1 Kings 6:17)" },
@@ -99,8 +126,8 @@ export const temple: Empire = {
     kicker: "Vessels of the House",
     title: "All the Vessels of Gold and Brass",
     cta: "Explore the Vessels",
-    text: "\"And Solomon made all the vessels that pertained unto the house of the LORD\" (1 Kings 7:48) — gold within the house, and the great brass works of the court.",
-    image: "/img/temple/artifacts.webp",
+    text: "\"And Solomon made all the vessels that pertained unto the house of the LORD\" (1 Kings 7:48) — gold within the house, and the great brass works of the court. The illustration groups named furnishings for study; it is not a scale arrangement.",
+    image: "/img/temple/artifacts-v2.webp",
     items: [
       { name: "The altar of gold", purpose: "Before the oracle", material: "Gold over cedar", context: "\"The altar of gold, and the table of gold, whereupon the shewbread was\" (1 Kings 7:48); the cedar altar covered with gold (1 Kings 6:20, 22)." },
       { name: "The table of shewbread", purpose: "Bearing the shewbread", material: "Gold", context: "\"...the table of gold, whereupon the shewbread was\" (1 Kings 7:48)." },

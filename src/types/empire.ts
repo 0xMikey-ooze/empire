@@ -1,5 +1,5 @@
-/** Empire Atlas — core data contracts.
- *  The entire application is driven by these types; adding a new empire
+/** Bible Discovery — core data contracts.
+ *  The entire application is driven by these types; adding a new exhibit
  *  means adding data + assets, never touching the viewer or UI. */
 
 export type Vec3 = [number, number, number];
@@ -25,13 +25,28 @@ export interface Hotspot {
    *  - "roof"  the highest built mass nearest the anchor
    *  - "court" the open low ground enclosed by that mass
    *  - "wall"  the outer skin, met by coming in horizontally from outside
-   *  The anchor then only steers *which* roof, court or wall. */
-  snap?: "roof" | "court" | "wall";
+   *  - "view"  the first visible surface on the camera-to-anchor sightline
+   *  The anchor then only steers *which* surface or feature. */
+  snap?: "roof" | "court" | "wall" | "view";
   /** @deprecated Annotations now appear on hover at the pin, so labels no
    *  longer float at a fixed offset. Retained so existing data still type-checks. */
   labelOffset?: [number, number];
   /** how strongly the camera pushes in when activated (1 = default) */
   focus?: number;
+}
+
+/** How a visitor should look beyond an exhibit's outer surface. Buildings use
+ *  a cutaway-style interior view; solid objects use an opened detail or
+ *  material-layer view so the UI never invents rooms that Scripture does not
+ *  describe. */
+export interface InspectionView {
+  mode: "interior" | "opened-detail" | "material-layers";
+  label: string;
+  title: string;
+  description: string;
+  /** Short epistemic label shown whenever the reconstruction is active. */
+  disclosure: string;
+  camera?: Partial<CameraPreset>;
 }
 
 export interface KeyFact {
@@ -92,6 +107,7 @@ export interface LessonBlock {
 
 export interface Empire {
   id: string;
+  kind?: "civilization" | "biblical-structure" | "sacred-object" | "vision";
   name: string;
   dwelling: string;
   subtitle: string;
@@ -100,6 +116,7 @@ export interface Empire {
   /** per-empire warm accent used for subtle scene tinting */
   tint: string;
   camera: CameraPreset;
+  inspection?: InspectionView;
   facts: KeyFact[];
   hotspots: Hotspot[];
   interior: EmpireSection;

@@ -86,7 +86,7 @@ export const QuizModal = memo(function QuizModal({ empire, onClose }: { empire: 
             {score}<span className="text-[1.8rem] text-ink-muted">/{empire.quiz.length}</span>
           </div>
           <p className="font-display mt-2 text-[1.05rem] italic text-ink-soft">
-            {score === empire.quiz.length ? "A curator's knowledge of this dwelling." : score >= 3 ? "Well explored — a few corners left to discover." : "The dwelling still holds its secrets — revisit the lesson."}
+            {score === empire.quiz.length ? "A careful knowledge of this exhibit." : score >= 3 ? "Well explored — a few points left to discover." : "This discovery still holds more to learn — revisit the lesson."}
           </p>
           <button className="btn-outline mt-5" onClick={() => { setStep(0); setScore(0); setPicked(null); }}>Retake quiz</button>
         </div>
@@ -157,7 +157,7 @@ export const TimelineModal = memo(function TimelineModal({ empire, onClose }: { 
       </div>
       <div className="mt-4 flex items-center gap-2 text-[0.8rem] text-ink-muted">
         <TimelineIcon className="h-4 w-4" />
-        Drag the slider or pick an era to trace how this dwelling's world changed.
+        Drag the slider or pick an era to trace this biblical account.
       </div>
     </ModalShell>
   );
@@ -180,6 +180,11 @@ export const SectionModal = memo(function SectionModal({
       <div className="overflow-hidden rounded-xl border border-line-warm bg-paper-deep">
         <img src={data.image} alt={data.title} className="w-full object-contain" />
       </div>
+      {empire.kind && empire.kind !== "civilization" && (
+        <p className="mt-2 text-[0.7rem] italic text-ink-muted">
+          AI-assisted reconstruction. Dimensions and named features follow the cited passages; unstated arrangement is illustrative.
+        </p>
+      )}
       {section === "geography" && (
         <div className="kicker mt-3 !text-terracotta">{empire.geography.regionLabel}</div>
       )}
@@ -212,7 +217,7 @@ export const SearchOverlay = memo(function SearchOverlay({
   const [q, setQ] = useState("");
   const results = q.trim()
     ? INDEX.filter((e) => `${e.title} ${e.subtitle}`.toLowerCase().includes(q.toLowerCase())).slice(0, 14)
-    : INDEX.filter((e) => e.kind === "empire");
+    : INDEX.filter((e) => e.kind === "exhibit");
 
   return (
     <div className="overlay-backdrop flex items-start justify-center p-4 pt-[10vh]" onClick={onClose}>
@@ -223,7 +228,7 @@ export const SearchOverlay = memo(function SearchOverlay({
             autoFocus
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search empires, houses, rooms, artifacts…"
+            placeholder="Search exhibits, structures, rooms, artifacts…"
             className="font-display w-full bg-transparent text-[1.1rem] italic text-ink outline-none placeholder:text-ink-muted"
             aria-label="Search"
           />
@@ -232,7 +237,7 @@ export const SearchOverlay = memo(function SearchOverlay({
           </button>
         </div>
         <div className="atlas-scroll max-h-[46vh] overflow-y-auto p-2" role="listbox">
-          {results.length === 0 && <p className="font-display px-3 py-6 text-center italic text-ink-muted">No matching entries in the atlas.</p>}
+          {results.length === 0 && <p className="font-display px-3 py-6 text-center italic text-ink-muted">No matching Bible discoveries.</p>}
           {results.map((r, i) => (
             <button
               key={`${r.empireId}-${r.title}-${i}`}

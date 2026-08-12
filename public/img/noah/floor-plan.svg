@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">Scripture-bounded schematic of Noah's ark</title>
+  <desc id="desc">A schematic showing the ark's stated three hundred cubit length, fifty cubit breadth, thirty cubit height, three stories, rooms, a named window or opening above, and a named door in the side.</desc>
+  <rect width="1000" height="600" fill="#f3ead9"/>
+  <text x="500" y="42" text-anchor="middle" fill="#322d29" font-family="Georgia,serif" font-size="28" font-weight="700">Noah’s Ark — Genesis schematic</text>
+  <text x="500" y="69" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14">Only stated dimensions and features are diagrammed · hull shape and room arrangement are unspecified</text>
+
+  <!-- A neutral envelope avoids inventing a hull form Genesis does not describe. -->
+  <rect x="110" y="150" width="720" height="216" rx="5" fill="#c9b08a" stroke="#58483c" stroke-width="7"/>
+  <line x1="110" y1="222" x2="830" y2="222" stroke="#7c6653" stroke-width="4"/>
+  <line x1="110" y1="294" x2="830" y2="294" stroke="#7c6653" stroke-width="4"/>
+  <text x="150" y="196" fill="#493c32" font-family="Arial,sans-serif" font-size="17" font-weight="700">THIRD STORY</text>
+  <text x="150" y="268" fill="#493c32" font-family="Arial,sans-serif" font-size="17" font-weight="700">SECOND STORY</text>
+  <text x="150" y="340" fill="#493c32" font-family="Arial,sans-serif" font-size="17" font-weight="700">LOWER STORY</text>
+
+  <!-- Room dividers are illustrative because Genesis supplies no internal plan. -->
+  <g stroke="#9b846b" stroke-width="2" stroke-dasharray="7 6">
+    <path d="M350 150v216M500 150v216M650 150v216"/>
+  </g>
+  <text x="500" y="390" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">ROOMS ARE NAMED (GENESIS 6:14); THESE DIVIDERS ARE ILLUSTRATIVE</text>
+
+  <rect x="438" y="274" width="64" height="92" fill="#8a6647" stroke="#4e3d30" stroke-width="4"/>
+  <text x="470" y="321" text-anchor="middle" fill="#fff8e8" font-family="Arial,sans-serif" font-size="13" font-weight="700">SIDE</text>
+  <text x="470" y="339" text-anchor="middle" fill="#fff8e8" font-family="Arial,sans-serif" font-size="13" font-weight="700">DOOR</text>
+
+  <rect x="300" y="132" width="340" height="18" fill="#88a1a1" stroke="#42595a" stroke-width="3"/>
+  <text x="470" y="119" text-anchor="middle" fill="#42595a" font-family="Arial,sans-serif" font-size="13" font-weight="700">NAMED WINDOW / OPENING ABOVE</text>
+
+  <path d="M110 425h720" stroke="#8e8177" stroke-width="2"/>
+  <path d="M110 418v14M830 418v14" stroke="#8e8177" stroke-width="2"/>
+  <text x="470" y="449" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14">300 cubits long</text>
+  <path d="M875 150v216" stroke="#8e8177" stroke-width="2"/>
+  <path d="M868 150h14M868 366h14" stroke="#8e8177" stroke-width="2"/>
+  <text x="900" y="260" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14" transform="rotate(-90 900 260)">30 cubits high</text>
+
+  <rect x="295" y="486" width="350" height="58" rx="5" fill="#e6d8c1" stroke="#7c6653" stroke-width="3"/>
+  <text x="470" y="510" text-anchor="middle" fill="#493c32" font-family="Arial,sans-serif" font-size="14" font-weight="700">TOP-VIEW ENVELOPE · 300 × 50 CUBITS</text>
+  <text x="470" y="531" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">breadth: 50 cubits</text>
+
+  <text x="500" y="577" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">Genesis 6:14–16 names “a window” and “the door” in the singular; it does not say “only one.”</text>
+</svg>

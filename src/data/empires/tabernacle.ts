@@ -5,6 +5,7 @@ import type { Empire } from "@/types/empire";
  *  Furniture: Exodus 25:23-31; 30:1-6, 17-21. Glory: Exodus 40:33-38. */
 export const tabernacle: Empire = {
   id: "tabernacle",
+  kind: "biblical-structure",
   name: "The Camp of Israel",
   dwelling: "The Tabernacle",
   subtitle: "The house of God in the wilderness",
@@ -13,6 +14,14 @@ export const tabernacle: Empire = {
   modelPath: "/models/tabernacle.glb",
   tint: "#a58a5a",
   camera: { azimuth: -34, elevation: 32, dist: 1.05, targetY: 0.3 },
+  inspection: {
+    mode: "interior",
+    label: "See inside",
+    title: "Court-to-oracle cutaway",
+    description: "Follows the biblical sequence from the east gate through the court, holy place, veil, and most holy place.",
+    disclosure: "Scripture-based reconstruction; unspecified spacing and ornament are illustrative.",
+    camera: { azimuth: -8, elevation: 36, dist: 0.76, targetY: 0.34 },
+  },
   facts: [
     { label: "Period", value: "Made at Sinai; carried \"throughout all their journeys\" (Exodus 40:38)", icon: "period" },
     { label: "Region", value: "The wilderness — the cloud by day, fire by night (Exodus 40:38)", icon: "region" },
@@ -36,7 +45,7 @@ export const tabernacle: Empire = {
       title: "The Boards and Silver Sockets",
       short: "Shittim wood standing up, 10 × 1½ cubits",
       detail:
-        "\"Thou shalt make boards for the tabernacle of shittim wood standing up. Ten cubits shall be the length of a board, and a cubit and a half shall be the breadth\" — twenty boards on the south, twenty on the north, six westward, each with two tenons resting in two sockets of silver (Exodus 26:15-22).",
+        "\"Thou shalt make boards for the tabernacle of shittim wood standing up.\" There were twenty south, twenty north, six across the west, and two corner boards: forty-eight total, each resting in two sockets of silver (Exodus 26:15-25).",
       category: "structure",
       anchor: [0.25, 0.5, 0.3],
       snap: "wall",
@@ -71,6 +80,24 @@ export const tabernacle: Empire = {
       anchor: [0.2, 0.6, 0.5],
       snap: "roof",
     },
+    {
+      id: "holy-place",
+      title: "The Holy Place Furnishings",
+      short: "Table north, lampstand south, incense altar before the veil",
+      detail:
+        'The table stood on the north side and the candlestick opposite on the south (Exodus 26:35). The golden altar stood "before the vail" near the ark and mercy seat beyond it (Exodus 30:6; 40:22-26).',
+      category: "interior",
+      anchor: [0.5, 0.42, 0.42],
+    },
+    {
+      id: "ark-zone",
+      title: "Ark in the Most Holy Place",
+      short: '"Thou shalt put the mercy seat upon the ark"',
+      detail:
+        'The ark was placed within the veil in the most holy place, with the mercy seat above it (Exodus 26:33-34; 40:20-21). The cutaway shows this sequence; Scripture does not authorize casual entry there.',
+      category: "interior",
+      anchor: [0.22, 0.38, 0.5],
+    },
   ],
   interior: {
     kicker: "Interior View",
@@ -84,7 +111,7 @@ export const tabernacle: Empire = {
     title: "Court, Holy Place, and Most Holy",
     cta: "View Floor Plan",
     text: "The court ran an hundred cubits by fifty, its hangings five cubits high on pillars of brass filleted with silver (Exodus 27:9-18). Within stood the tent itself: the holy place with table, candlestick and golden altar, and past the veil the most holy with the ark (Exodus 26:33-35).",
-    image: "/img/tabernacle/floor-plan.webp",
+    image: "/img/tabernacle/floor-plan.svg",
     rooms: [
       { name: "The court", note: "100 × 50 cubits, hangings 5 high (Exodus 27:18)" },
       { name: "The gate", note: "Hanging of 20 cubits, needlework (Exodus 27:16)" },
@@ -132,7 +159,7 @@ export const tabernacle: Empire = {
     blocks: [
       { heading: "The purpose", body: "\"And let them make me a sanctuary; that I may dwell among them. According to all that I shew thee, after the pattern of the tabernacle... even so shall ye make it\" (Exodus 25:8-9). The Hebrew mishkan is \"a residence... specifically, the Tabernacle (properly, its wooden walls)\" — a dwelling place." },
       { heading: "The curtains", body: "Ten curtains of fine twined linen, blue, purple and scarlet, with cherubim of cunning work, each 28 by 4 cubits, joined by fifty loops of blue and fifty taches of gold into \"one tabernacle\" (Exodus 26:1-6); over them eleven goats'-hair curtains of 30 by 4 cubits (26:7-8). A Scripture Truth writer notes the goats'-hair tent \"was a size larger... so that the goat's hair curtains made a complete covering.\"" },
-      { heading: "The boards", body: "Forty-eight boards of shittim wood standing up, each ten cubits by a cubit and a half — twenty south, twenty north, six westward — every board with two tenons set in two sockets of silver (Exodus 26:15-22)." },
+      { heading: "The boards", body: "Forty-eight boards of shittim wood standing up, each ten cubits by a cubit and a half — twenty south, twenty north, six westward, plus two corner boards — every board with two tenons set in two sockets of silver (Exodus 26:15-25)." },
       { heading: "The court", body: "Hangings of fine twined linen an hundred cubits on the south and north, fifty on the west and east, five cubits high, on pillars of brass filleted with silver; the gate a twenty-cubit hanging of blue, purple and scarlet wrought with needlework (Exodus 27:9-18)." },
       { heading: "The library's commentary", body: "Gaebelein: \"While the tabernacle is a type of the heavenly places (Heb. 9:23) it is also a type of Christ, who tabernacled among men. The wonderful foreshadowings we find here down to the minutest details is an evidence of inspiration\" (The Book of Exodus). A. J. Pollock's Lessons from the Tabernacle sets beside it John 2:21 — \"He spoke of the temple of His body.\"" },
       { heading: "The glory", body: "\"So Moses finished the work. Then a cloud covered the tent of the congregation, and the glory of the LORD filled the tabernacle. And Moses was not able to enter\" (Exodus 40:33-35). The cloud governed every journey of the camp (40:36-38)." },

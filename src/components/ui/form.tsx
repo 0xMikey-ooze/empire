@@ -156,7 +156,6 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
 }
 
 export {
-  useFormField,
   Form,
   FormItem,
   FormLabel,
@@ -165,3 +164,7 @@ export {
   FormMessage,
   FormField,
 }
+
+// The form hook is part of this component module's public composition API.
+// eslint-disable-next-line react-refresh/only-export-components
+export { useFormField }

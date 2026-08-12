@@ -606,10 +606,13 @@ function SidebarMenuSkeleton({
 }: React.ComponentProps<"div"> & {
   showIcon?: boolean
 }) {
-  // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+  // Derive a varied, stable width without using randomness during render.
+  const skeletonId = React.useId()
+  const widthSeed = Array.from(skeletonId).reduce(
+    (sum, character) => sum + character.charCodeAt(0),
+    0
+  )
+  const width = `${(widthSeed % 40) + 50}%`
 
   return (
     <div
@@ -722,5 +725,8 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
 }
+
+// The hook is part of this component module's public composition API.
+// eslint-disable-next-line react-refresh/only-export-components
+export { useSidebar }

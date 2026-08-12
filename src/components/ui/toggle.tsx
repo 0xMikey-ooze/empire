@@ -42,4 +42,6 @@ function Toggle({
   )
 }
 
+// Toggle groups compose the same variant recipe.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Toggle, toggleVariants }

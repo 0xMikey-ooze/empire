@@ -1,4 +1,4 @@
-/** Thin-line editorial SVG icon set for the Empire Atlas.
+/** Thin-line editorial SVG icon set for Bible Discovery.
  *  Consistent 1.5px strokes, warm slate or currentColor. */
 import type { SVGProps } from "react";
 
@@ -109,8 +109,8 @@ export const MenuIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M3.5 7h17M3.5 12h17M3.5 17h17" />
   </svg>
 );
-export const HeartIcon = (p: SVGProps<SVGSVGElement> & { filled?: boolean }) => (
-  <svg {...base} {...p} fill={p.filled ? "currentColor" : "none"}>
+export const HeartIcon = ({ filled, ...props }: SVGProps<SVGSVGElement> & { filled?: boolean }) => (
+  <svg {...base} {...props} fill={filled ? "currentColor" : "none"}>
     <path d="M12 20s-7.5-4.6-9.3-9C1.4 7.6 3.4 4.5 6.7 4.5c2 0 3.7 1.1 4.6 2.7.9-1.6 2.6-2.7 4.6-2.7 3.3 0 5.3 3.1 4 6.5-1.8 4.4-7.9 9-7.9 9z" />
   </svg>
 );

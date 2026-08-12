@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">Plan relationship of Solomon's temple</title>
+  <desc id="desc">The sixty by twenty cubit house divided into a forty cubit holy place and twenty cubit oracle, with the porch and side chambers shown outside the house.</desc>
+  <rect width="1000" height="600" fill="#f3ead9"/>
+  <text x="500" y="42" text-anchor="middle" fill="#322d29" font-family="Georgia,serif" font-size="28" font-weight="700">Solomon’s Temple — plan relationship</text>
+  <text x="500" y="68" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14">The house itself is 60 × 20 cubits · porch and side chambers are additional</text>
+
+  <!-- Side chambers surround the outside of the house; their upper stories widen. -->
+  <path data-part="side-chambers" d="M120 174H760V426H120V174" fill="#ddcfb6" stroke="#8a735b" stroke-width="3" stroke-dasharray="10 7"/>
+  <text x="440" y="158" text-anchor="middle" fill="#7a644e" font-family="Arial,sans-serif" font-size="13" font-weight="700">SIDE CHAMBERS OUTSIDE THE HOUSE · THREE STORIES (1 KINGS 6:5–6)</text>
+
+  <!-- The 60 by 20 cubit house preserves the 40:20 division in 1 Kings 6. -->
+  <rect data-part="house" x="160" y="210" width="600" height="180" fill="#d3bd94" stroke="#53483f" stroke-width="7"/>
+  <line x1="360" y1="210" x2="360" y2="390" stroke="#8c452c" stroke-width="7"/>
+  <rect x="185" y="235" width="150" height="130" fill="#c9a750" stroke="#725b23" stroke-width="3"/>
+  <text x="260" y="286" text-anchor="middle" fill="#382f22" font-family="Georgia,serif" font-size="20" font-weight="700">ORACLE</text>
+  <text x="260" y="310" text-anchor="middle" fill="#4f4538" font-family="Arial,sans-serif" font-size="13">Most Holy Place</text>
+  <text x="260" y="332" text-anchor="middle" fill="#4f4538" font-family="Arial,sans-serif" font-size="13">20 × 20 × 20 cubits</text>
+  <text x="560" y="286" text-anchor="middle" fill="#3f3731" font-family="Georgia,serif" font-size="22" font-weight="700">TEMPLE</text>
+  <text x="560" y="313" text-anchor="middle" fill="#5f5248" font-family="Arial,sans-serif" font-size="14">Holy Place · 40 cubits long</text>
+  <text x="360" y="198" text-anchor="middle" fill="#8c452c" font-family="Arial,sans-serif" font-size="12" font-weight="700">PARTITION / DOORS BEFORE ORACLE</text>
+
+  <!-- The porch projects ten cubits beyond the front of the house. -->
+  <rect x="760" y="210" width="100" height="180" fill="#c5b08b" stroke="#53483f" stroke-width="6"/>
+  <text x="810" y="286" text-anchor="middle" fill="#3f3731" font-family="Arial,sans-serif" font-size="16" font-weight="700">PORCH</text>
+  <text x="810" y="310" text-anchor="middle" fill="#5f5248" font-family="Arial,sans-serif" font-size="12">20 × 10</text>
+  <text x="884" y="305" fill="#a55338" font-family="Arial,sans-serif" font-size="14" font-weight="700">FRONT</text>
+
+  <path d="M160 470h600" stroke="#8e8177" stroke-width="2"/>
+  <path d="M160 463v14M760 463v14" stroke="#8e8177" stroke-width="2"/>
+  <text x="460" y="495" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="13">house: 60 cubits</text>
+  <path d="M125 210v180" stroke="#8e8177" stroke-width="2"/>
+  <path d="M118 210h14M118 390h14" stroke="#8e8177" stroke-width="2"/>
+  <text x="100" y="305" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="13" transform="rotate(-90 100 305)">house: 20 cubits</text>
+
+  <rect x="210" y="528" width="18" height="18" fill="#d3bd94" stroke="#53483f"/>
+  <text x="238" y="542" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">house named in 1 Kings 6:2</text>
+  <rect x="490" y="528" width="18" height="18" fill="#ddcfb6" stroke="#8a735b" stroke-dasharray="3 2"/>
+  <text x="518" y="542" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">additional exterior construction</text>
+  <text x="500" y="580" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">Sources: 1 Kings 6:2–20 · Solomon’s temple only; Ezekiel’s vision is not mixed in</text>
+</svg>

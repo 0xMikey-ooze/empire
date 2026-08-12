@@ -43,4 +43,6 @@ function Badge({
   )
 }
 
+// Keep the variant recipe available to composed controls without disabling the rule globally.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants }

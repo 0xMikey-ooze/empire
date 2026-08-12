@@ -29,13 +29,13 @@ export const EmpireLibrary = memo(function EmpireLibrary({ empires, activeId, fa
   };
 
   return (
-    <aside className="flex h-full w-full flex-col gap-3 overflow-hidden" aria-label="Empire library">
+    <aside className="flex h-full w-full flex-col gap-3 overflow-hidden" aria-label="Bible discoveries">
       <div className="flex flex-none items-center justify-between px-1 pt-1">
-        <span className="kicker !text-[0.78rem]">Empire Library</span>
+        <span className="kicker !text-[0.78rem]">Bible Discoveries</span>
         <BookmarkIcon className="h-[18px] w-[18px] text-slateblue" aria-hidden />
       </div>
 
-      <div ref={listRef} className="atlas-scroll -mx-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto px-2 pb-2" role="listbox" aria-label="Empires">
+      <div ref={listRef} className="atlas-scroll -mx-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto px-2 pb-2" role="listbox" aria-label="Biblical exhibits">
         {empires.map((e, i) => {
           const active = e.id === activeId;
           const fav = favorites.has(e.id);
@@ -75,7 +75,7 @@ export const EmpireLibrary = memo(function EmpireLibrary({ empires, activeId, fa
       </div>
 
       <button onClick={onViewAll} className="btn-outline flex-none !justify-between px-4">
-        <span className="font-display !text-[0.95rem] font-semibold">View all empires</span>
+        <span className="font-display !text-[0.95rem] font-semibold">View all discoveries</span>
         <ArrowRightIcon className="h-4 w-4" />
       </button>
     </aside>

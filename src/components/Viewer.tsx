@@ -1,8 +1,9 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import type { Empire } from "@/types/empire";
-import { EMPIRES } from "@/data";
+import { EXHIBITS } from "@/data";
 import { ViewerEngine } from "@/three/engine";
 import { HotspotLayer } from "./HotspotLayer";
+import { shouldPresentSelection } from "./viewer-selection";
 import {
   RotateIcon,
   ZoomInIcon,
@@ -23,10 +24,11 @@ import {
 
 interface ViewerProps {
   empire: Empire; // the empire the viewer should display
+  selectionRevision: number; // increments even when the same exhibit is selected again
   onSwap: (e: Empire) => void; // called mid-transition: panels should update
   reducedMotion: boolean;
   animating: boolean;
-  focusHotspot: string | null;
+  focusHotspot: HotspotFocusRequest | null;
   onFocusHandled: () => void;
   onArtifacts: () => void;
   onTimeline: () => void;
@@ -34,10 +36,16 @@ interface ViewerProps {
   onPrefetchReady?: (prefetch: (e: Empire) => void) => void;
 }
 
+export interface HotspotFocusRequest {
+  empireId: string;
+  hotspotId: string;
+}
+
 type ToolMode = "rotate" | "pan";
 
 export const Viewer = memo(function Viewer({
   empire,
+  selectionRevision,
   onSwap,
   reducedMotion,
   animating,
@@ -54,14 +62,20 @@ export const Viewer = memo(function Viewer({
   const [engineReady, setEngineReady] = useState(false);
   const [markersVisible, setMarkersVisible] = useState(false);
   const [loading, setLoading] = useState<{ name: string; pct: number } | null>(null);
+  const [loadError, setLoadError] = useState<{ name: string } | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [tool, setTool] = useState<ToolMode>("rotate");
   const [layersOpen, setLayersOpen] = useState(false);
+  const [pointsOpen, setPointsOpen] = useState(false);
+  const [inspecting, setInspecting] = useState(false);
+  const [visited, setVisited] = useState<Set<string>>(() => new Set());
   const layersRef = useRef<HTMLDivElement>(null);
+  const pointsRef = useRef<HTMLDivElement>(null);
   const [layers, setLayers] = useState({ labels: true, grid: false, wire: false, xray: false });
   const [tipVisible, setTipVisible] = useState(true);
   const requestRef = useRef(0);
+  const handledSelectionRevision = useRef(selectionRevision);
   const loadingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeHs = empire.hotspots.find((h) => h.id === activeId) ?? null;
@@ -103,12 +117,17 @@ export const Viewer = memo(function Viewer({
 
   /* dismiss the layers menu on an outside click, or on Escape */
   useEffect(() => {
-    if (!layersOpen) return;
+    if (!layersOpen && !pointsOpen) return;
     const onDown = (e: PointerEvent) => {
-      if (!layersRef.current?.contains(e.target as Node)) setLayersOpen(false);
+      const target = e.target as Node;
+      if (layersOpen && !layersRef.current?.contains(target)) setLayersOpen(false);
+      if (pointsOpen && !pointsRef.current?.contains(target)) setPointsOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLayersOpen(false);
+      if (e.key === "Escape") {
+        setLayersOpen(false);
+        setPointsOpen(false);
+      }
     };
     // capture, so the menu closes even when the click lands on the canvas,
     // which stops propagation for its own orbit handling
@@ -118,7 +137,7 @@ export const Viewer = memo(function Viewer({
       document.removeEventListener("pointerdown", onDown, true);
       document.removeEventListener("keydown", onKey);
     };
-  }, [layersOpen]);
+  }, [layersOpen, pointsOpen]);
 
   /* ── empire switching ── */
   /* Every request gets a token. A newer request supersedes an older one at
@@ -126,14 +145,22 @@ export const Viewer = memo(function Viewer({
      rapid clicking always lands on the last dwelling picked instead of
      dropping the clicks that arrive during a swap. */
   const presentEmpire = useCallback(
-    async (next: Empire, opts: { initial?: boolean } = {}) => {
+    async (next: Empire, opts: { initial?: boolean; force?: boolean } = {}) => {
       const engine = engineRef.current;
       if (!engine) return;
-      if (currentEmpireRef.current?.id === next.id && !opts.initial) return;
+      if (currentEmpireRef.current?.id === next.id && !opts.initial && !opts.force) return;
       const token = ++requestRef.current;
       currentEmpireRef.current = next;
+      setLoadError(null);
+      engine.setXray(false);
+      setLayers((previous) =>
+        previous.xray ? { ...previous, xray: false } : previous,
+      );
       setActiveId(null);
       setHoverId(null);
+      setInspecting(false);
+      setPointsOpen(false);
+      setVisited(new Set());
       setMarkersVisible(false);
 
       // loading state if the fetch is slow
@@ -148,7 +175,10 @@ export const Viewer = memo(function Viewer({
       if (loadingTimer.current) clearTimeout(loadingTimer.current);
       if (token !== requestRef.current) return; // a newer pick won while loading
       setLoading(null);
-      if (!model) return;
+      if (!model) {
+        setLoadError({ name: next.dwelling });
+        return;
+      }
 
       // the engine drives the exchange; panels flip at the handover so copy
       // and geometry change on the same beat
@@ -163,30 +193,37 @@ export const Viewer = memo(function Viewer({
       setMarkersVisible(true);
 
       // warm the neighbours so the next pick is already in memory
-      const idx = EMPIRES.findIndex((e) => e.id === next.id);
+      const idx = EXHIBITS.findIndex((e) => e.id === next.id);
       window.setTimeout(() => {
         if (token !== requestRef.current) return;
-        engine.preload(EMPIRES[(idx + 1) % EMPIRES.length]);
-        engine.preload(EMPIRES[(idx - 1 + EMPIRES.length) % EMPIRES.length]);
+        engine.preload(EXHIBITS[(idx + 1) % EXHIBITS.length]);
+        engine.preload(EXHIBITS[(idx - 1 + EXHIBITS.length) % EXHIBITS.length]);
       }, 1200);
     },
     [onSwap],
   );
 
-  /* react to requested empire changes */
+  /* Every user selection has a revision, including re-selecting the active
+     row. Retry only when that exhibit is not actually mounted. */
   useEffect(() => {
-    if (engineReady && currentEmpireRef.current?.id !== empire.id) {
-      void presentEmpire(empire);
+    if (!engineReady || handledSelectionRevision.current === selectionRevision) return;
+    handledSelectionRevision.current = selectionRevision;
+    if (shouldPresentSelection(empire.id, engineRef.current?.currentModel?.empireId)) {
+      void presentEmpire(empire, { force: true });
     }
-  }, [empire, engineReady, presentEmpire]);
+  }, [empire, engineReady, presentEmpire, selectionRevision]);
 
   /* external hotspot focus (from search) */
   useEffect(() => {
-    if (focusHotspot) {
-      setActiveId(focusHotspot);
-      onFocusHandled();
+    if (!focusHotspot || !markersVisible) return;
+    if (focusHotspot.empireId !== empire.id) return;
+    if (engineRef.current?.currentModel?.empireId !== focusHotspot.empireId) return;
+
+    if (empire.hotspots.some((hotspot) => hotspot.id === focusHotspot.hotspotId)) {
+      setActiveId(focusHotspot.hotspotId);
     }
-  }, [focusHotspot, onFocusHandled]);
+    onFocusHandled();
+  }, [empire, focusHotspot, markersVisible, onFocusHandled]);
 
   /* camera + highlight follow the active marker */
   useEffect(() => {
@@ -200,11 +237,35 @@ export const Viewer = memo(function Viewer({
     }
   }, [activeId, engineReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!activeId) return;
+    setVisited((previous) => {
+      if (previous.has(activeId)) return previous;
+      const next = new Set(previous);
+      next.add(activeId);
+      return next;
+    });
+  }, [activeId]);
+
   const resetView = useCallback(() => {
     setActiveId(null);
+    setInspecting(false);
+    engineRef.current?.setXray(layers.xray);
     engineRef.current?.frameEmpire(empire, true);
     setTool("rotate");
-  }, [empire]);
+  }, [empire, layers.xray]);
+
+  const toggleInspection = useCallback(() => {
+    if (!empire.inspection) return;
+    const next = !inspecting;
+    setInspecting(next);
+    setActiveId(null);
+    const engine = engineRef.current;
+    if (!engine) return;
+    engine.setXray(next || layers.xray);
+    if (next) engine.inspectEmpire(empire);
+    else engine.frameEmpire(empire, true);
+  }, [empire, inspecting, layers.xray]);
 
   /* layer toggles */
   const toggleLayer = (key: "labels" | "grid" | "wire" | "xray") => {
@@ -214,7 +275,7 @@ export const Viewer = memo(function Viewer({
     if (!engine) return;
     if (key === "grid") engine.setGrid(next.grid);
     if (key === "wire") engine.setWireframe(next.wire);
-    if (key === "xray") engine.setXray(next.xray);
+    if (key === "xray") engine.setXray(next.xray || inspecting);
   };
 
   const LAYER_ITEMS: { key: "labels" | "grid" | "wire" | "xray"; label: string; icon: typeof GridIcon }[] = [
@@ -262,7 +323,66 @@ export const Viewer = memo(function Viewer({
         onHover={setHoverId}
         onActivate={setActiveId}
         visible={markersVisible && layers.labels}
+        revealOccluded={inspecting}
       />
+
+      {empire.inspection && (
+        <div className="absolute left-[76px] top-3 z-30 md:left-[82px]">
+          <div className="atlas-card flex items-center gap-1 !rounded-full p-1 shadow-card">
+            <button
+              className={`rounded-full px-3 py-1.5 text-[0.78rem] font-semibold transition-colors ${!inspecting ? "bg-ink text-paper" : "text-ink-soft hover:bg-paper-deep"}`}
+              onClick={() => inspecting && toggleInspection()}
+              aria-pressed={!inspecting}
+            >
+              Exterior
+            </button>
+            <button
+              className={`rounded-full px-3 py-1.5 text-[0.78rem] font-semibold transition-colors ${inspecting ? "bg-terracotta text-white" : "text-ink-soft hover:bg-paper-deep"}`}
+              onClick={() => !inspecting && toggleInspection()}
+              aria-pressed={inspecting}
+            >
+              {empire.inspection.label}
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="absolute right-3 top-14 z-30 sm:top-3" ref={pointsRef}>
+        <button
+          className="atlas-card flex items-center gap-2 !rounded-full px-3 py-2 text-[0.78rem] font-semibold text-ink shadow-card"
+          onClick={() => setPointsOpen((open) => !open)}
+          aria-expanded={pointsOpen}
+          aria-controls="learning-points"
+        >
+          <span className="grid h-5 min-w-5 place-items-center rounded-full bg-terracotta px-1 text-[0.66rem] text-white">{visited.size}/{empire.hotspots.length}</span>
+          Learning points
+        </button>
+        {pointsOpen && (
+          <div id="learning-points" className="atlas-card mt-2 max-h-[min(420px,70vh)] w-[min(310px,calc(100vw-24px))] overflow-y-auto !rounded-2xl p-2" role="menu">
+            <div className="px-2 pb-2 pt-1">
+              <div className="kicker !text-[0.6rem] !text-terracotta">All model points</div>
+              <p className="mt-1 text-[0.76rem] leading-snug text-ink-muted">Choose any point to move the camera and open its grounded explanation.</p>
+            </div>
+            {empire.hotspots.map((hotspot, index) => (
+              <button
+                key={hotspot.id}
+                role="menuitem"
+                className={`flex w-full items-start gap-2 rounded-xl px-2.5 py-2 text-left transition-colors hover:bg-paper-deep ${activeId === hotspot.id ? "bg-paper-deep" : ""}`}
+                onClick={() => {
+                  setActiveId(hotspot.id);
+                  setPointsOpen(false);
+                }}
+              >
+                <span className={`mt-0.5 grid h-5 min-w-5 place-items-center rounded-full text-[0.65rem] font-bold ${visited.has(hotspot.id) ? "bg-terracotta text-white" : "border border-line-strong text-ink-muted"}`}>{index + 1}</span>
+                <span>
+                  <span className="block text-[0.8rem] font-semibold text-ink">{hotspot.title}</span>
+                  <span className="mt-0.5 block text-[0.7rem] leading-snug text-ink-muted">{hotspot.short}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* ── tool rail ── */}
       <div className="absolute left-2 top-1/2 z-30 -translate-y-1/2 md:left-3" role="toolbar" aria-label="Model tools" aria-orientation="vertical">
@@ -343,6 +463,19 @@ export const Viewer = memo(function Viewer({
           </div>
           <p className="font-display mt-2 text-[0.98rem] italic leading-snug text-ink-muted">{activeHs.short}</p>
           <p className="mt-2 text-[0.86rem] leading-relaxed text-ink-soft">{activeHs.detail}</p>
+          {inspecting && empire.inspection && (
+            <p className="mt-2 border-t border-line-warm pt-2 text-[0.68rem] italic leading-snug text-ink-muted">
+              {empire.inspection.disclosure}
+            </p>
+          )}
+        </div>
+      )}
+
+      {inspecting && empire.inspection && !activeHs && (
+        <div className="atlas-card absolute bottom-4 left-1/2 z-30 w-[min(470px,calc(100%-140px))] -translate-x-1/2 !rounded-2xl p-3.5" role="status">
+          <div className="kicker !text-[0.6rem] !text-terracotta">{empire.inspection.title}</div>
+          <p className="mt-1 text-[0.8rem] leading-snug text-ink-soft">{empire.inspection.description}</p>
+          <p className="mt-1.5 border-t border-line-warm pt-1.5 text-[0.68rem] italic leading-snug text-ink-muted">{empire.inspection.disclosure}</p>
         </div>
       )}
 
@@ -385,6 +518,16 @@ export const Viewer = memo(function Viewer({
               <div className="h-full rounded-full bg-terracotta transition-all duration-300" style={{ width: `${loading.pct}%` }} />
             </div>
             <p className="loading-fact font-display mt-3 text-[0.85rem] italic text-ink-muted">Preparing the museum hall…</p>
+          </div>
+        </div>
+      )}
+
+      {loadError && !loading && (
+        <div className="absolute inset-0 z-40 flex items-center justify-center bg-paper/85 backdrop-blur-[2px]" role="alert">
+          <div className="atlas-card w-[min(360px,calc(100%-32px))] !rounded-2xl p-5 text-center">
+            <h3 className="font-display text-[1.2rem] font-bold text-ink">Could not load {loadError.name}</h3>
+            <p className="mt-2 text-[0.82rem] leading-relaxed text-ink-muted">The model request failed. Check your connection and try again.</p>
+            <button className="btn-primary mt-4" onClick={() => void presentEmpire(empire, { force: true })}>Retry model</button>
           </div>
         </div>
       )}

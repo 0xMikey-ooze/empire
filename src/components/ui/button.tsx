@@ -59,4 +59,6 @@ function Button({
   )
 }
 
+// Calendar, dialogs, and pagination compose the same button variants.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants }

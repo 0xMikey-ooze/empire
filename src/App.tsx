@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { EMPIRES, empireById, DEFAULT_EMPIRE_ID } from "@/data";
+import { EXHIBITS, exhibitById, DEFAULT_EXHIBIT_ID } from "@/data";
 import type { Empire } from "@/types/empire";
 import { Banner } from "@/components/Banner";
 import { Header } from "@/components/Header";
 import { EmpireLibrary } from "@/components/EmpireLibrary";
-import { Viewer } from "@/components/Viewer";
+import { Viewer, type HotspotFocusRequest } from "@/components/Viewer";
 import { InfoPanel } from "@/components/InfoPanel";
 import { BottomCards } from "@/components/BottomCards";
 import { LessonModal, QuizModal, ArtifactsModal, TimelineModal, SectionModal, SearchOverlay } from "@/components/modals";
@@ -17,26 +17,27 @@ const mq = (q: string) => (typeof window !== "undefined" ? window.matchMedia(q).
 /** mirrors the header's primary nav, for the drawer */
 const NAV_ITEMS = [
   { id: "explore", label: "Explore" },
-  { id: "empires", label: "Empires" },
+  { id: "structures", label: "Structures" },
   { id: "lessons", label: "Lessons" },
   { id: "library", label: "Library" },
   { id: "notes", label: "Notes" },
 ];
 
 export default function App() {
-  const [viewerEmpire, setViewerEmpire] = useState<Empire>(() => empireById(DEFAULT_EMPIRE_ID));
-  const [panelEmpire, setPanelEmpire] = useState<Empire>(() => empireById(DEFAULT_EMPIRE_ID));
+  const [viewerEmpire, setViewerEmpire] = useState<Empire>(() => exhibitById(DEFAULT_EXHIBIT_ID));
+  const [panelEmpire, setPanelEmpire] = useState<Empire>(() => exhibitById(DEFAULT_EXHIBIT_ID));
   const [modal, setModal] = useState<ModalId>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [creditsOpen, setCreditsOpen] = useState(() => localStorage.getItem("atlas-credits") !== "dismissed");
-  const [focusHotspot, setFocusHotspot] = useState<string | null>(null);
+  const [creditsOpen, setCreditsOpen] = useState(() => localStorage.getItem("bible-discovery-credits") !== "dismissed");
+  const [focusHotspot, setFocusHotspot] = useState<HotspotFocusRequest | null>(null);
+  const [selectionRevision, setSelectionRevision] = useState(0);
   const [activeNav, setActiveNav] = useState("explore");
   const [reducedMotion, setReducedMotion] = useState(() => mq("(prefers-reduced-motion: reduce)"));
   const [favorites, setFavorites] = useState<Set<string>>(() => {
     try {
-      return new Set(JSON.parse(localStorage.getItem("atlas-favs") ?? "[]"));
+      return new Set(JSON.parse(localStorage.getItem("bible-discovery-favorites") ?? "[]"));
     } catch {
       return new Set();
     }
@@ -78,12 +79,16 @@ export default function App() {
   /* Only the dwelling animates on a swap. The panels rewrite their copy in
      place — fading or sliding them reads as the page shifting under you. */
   useEffect(() => {
-    document.title = `${panelEmpire.dwelling} — Empire Atlas`;
+    document.title = `${panelEmpire.dwelling} — Bible Discovery`;
   }, [panelEmpire]);
 
   const selectEmpire = useCallback(
     (id: string) => {
-      const e = empireById(id);
+      const e = exhibitById(id);
+      setFocusHotspot(null);
+      // A repeated selection is meaningful after a transient model failure.
+      // Viewer ignores it when the requested model is already mounted.
+      setSelectionRevision((revision) => revision + 1);
       if (e.id === viewerEmpire.id) return;
       setAnimating(false);
       setViewerEmpire(e);
@@ -95,20 +100,20 @@ export default function App() {
 
   const dismissCredits = useCallback(() => {
     setCreditsOpen(false);
-    localStorage.setItem("atlas-credits", "dismissed");
+    localStorage.setItem("bible-discovery-credits", "dismissed");
   }, []);
 
   /* hovering a library row starts its download, so the click that follows
      lands on a model that is already parsed rather than paying for it mid-swap */
   const prefetchRef = useRef<((e: Empire) => void) | null>(null);
-  const prefetch = useCallback((id: string) => prefetchRef.current?.(empireById(id)), []);
+  const prefetch = useCallback((id: string) => prefetchRef.current?.(exhibitById(id)), []);
 
   const toggleFav = useCallback((id: string) => {
     setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem("atlas-favs", JSON.stringify([...next]));
+      localStorage.setItem("bible-discovery-favorites", JSON.stringify([...next]));
       return next;
     });
   }, []);
@@ -117,7 +122,7 @@ export default function App() {
     (nav: string) => {
       setActiveNav(nav);
       if (nav === "lessons") setModal("lesson");
-      else if (nav === "empires" || nav === "library") setSearchOpen(true);
+      else if (nav === "structures" || nav === "library") setSearchOpen(true);
       else if (nav === "notes") setModal("timeline");
     },
     [],
@@ -126,10 +131,10 @@ export default function App() {
   const onSearchPick = useCallback(
     (empireId: string, hotspotId?: string) => {
       setSearchOpen(false);
-      if (empireId !== viewerEmpire.id) selectEmpire(empireId);
-      if (hotspotId) window.setTimeout(() => setFocusHotspot(hotspotId), empireId !== viewerEmpire.id ? 1600 : 50);
+      selectEmpire(empireId);
+      setFocusHotspot(hotspotId ? { empireId, hotspotId } : null);
     },
-    [selectEmpire, viewerEmpire.id],
+    [selectEmpire],
   );
 
   return (
@@ -144,12 +149,13 @@ export default function App() {
           the side panels scroll within it rather than stretching the page */}
       <div className="flex min-h-[62vh] gap-4 px-3 pb-3 pt-3 sm:min-h-[520px] sm:px-4 xl:h-[calc(100vh-188px-var(--banner-h,0px))] xl:min-h-[600px] xl:px-5">
         <aside className="hidden w-[268px] flex-none xl:flex">
-          <EmpireLibrary empires={EMPIRES} activeId={viewerEmpire.id} favorites={favorites} onSelect={selectEmpire} onToggleFav={toggleFav} onViewAll={() => setSearchOpen(true)} onPrefetch={prefetch} />
+          <EmpireLibrary empires={EXHIBITS} activeId={viewerEmpire.id} favorites={favorites} onSelect={selectEmpire} onToggleFav={toggleFav} onViewAll={() => setSearchOpen(true)} onPrefetch={prefetch} />
         </aside>
 
         <main className="flex min-w-0 flex-1">
           <Viewer
             empire={viewerEmpire}
+            selectionRevision={selectionRevision}
             onSwap={onSwap}
             reducedMotion={reducedMotion}
             animating={animating}
@@ -175,7 +181,7 @@ export default function App() {
 
       {/* below xl the dwelling detail reads in the page flow, under the model
           and above the cards, rather than hiding behind a floating button */}
-      <section className="px-3 pb-3 pt-1 sm:px-4 xl:hidden" aria-label="Selected dwelling">
+      <section className="px-3 pb-3 pt-1 sm:px-4 xl:hidden" aria-label="Selected Bible discovery">
         <InfoPanel
           empire={panelEmpire}
           flow
@@ -189,7 +195,7 @@ export default function App() {
 
       {/* exploration cards — a grid at every size rather than a sideways
           scroller, which hid four of the five on a phone */}
-      <section className="px-3 pb-6 pt-1 sm:px-4 xl:px-5" aria-label="Explore the dwelling">
+      <section className="px-3 pb-6 pt-1 sm:px-4 xl:px-5" aria-label="Explore this Bible discovery">
         <BottomCards empire={panelEmpire} onOpen={(s) => setModal(s)} />
       </section>
 
@@ -205,7 +211,7 @@ export default function App() {
             aria-label="Menu"
           >
             <div className="flex flex-none items-center justify-between border-b border-line-warm px-4 py-3">
-              <span className="font-display text-[1.15rem] font-bold text-ink">Empire Atlas</span>
+              <span className="font-display text-[1.15rem] font-bold text-ink">Bible Discovery</span>
               <button
                 onClick={() => setMenuOpen(false)}
                 className="rounded-lg border border-line-warm p-1.5 text-ink-muted transition-colors hover:text-ink"
@@ -229,7 +235,7 @@ export default function App() {
 
             <div className="min-h-0 flex-1 px-3 py-3">
               <EmpireLibrary
-                empires={EMPIRES}
+                empires={EXHIBITS}
                 activeId={viewerEmpire.id}
                 favorites={favorites}
                 onSelect={(id) => { setMenuOpen(false); selectEmpire(id); }}

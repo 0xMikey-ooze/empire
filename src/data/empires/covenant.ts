@@ -4,6 +4,7 @@ import type { Empire } from "@/types/empire";
  *  Dimensions and construction: Exodus 25:10-22. Contents: Hebrews 9:4. */
 export const covenant: Empire = {
   id: "covenant",
+  kind: "sacred-object",
   name: "Israel in the Wilderness",
   dwelling: "The Ark of the Covenant",
   subtitle: "The meeting place above the mercy seat",
@@ -12,6 +13,14 @@ export const covenant: Empire = {
   modelPath: "/models/covenant.glb",
   tint: "#c9a227",
   camera: { azimuth: -30, elevation: 26, dist: 1.0, targetY: 0.4 },
+  inspection: {
+    mode: "opened-detail",
+    label: "Open detail",
+    title: "The testimony within",
+    description: "Makes the box transparent so the testimony's appointed place can be understood without inventing an interior room.",
+    disclosure: "Opened educational detail; Scripture does not describe a hinged lid.",
+    camera: { azimuth: -18, elevation: 34, dist: 0.72, targetY: 0.42 },
+  },
   facts: [
     { label: "Period", value: "Given at Sinai, the wilderness journeys (Exodus 25)", icon: "period" },
     { label: "Region", value: "Made for the sanctuary: \"that I may dwell among them\" (Exodus 25:8)", icon: "region" },
@@ -55,9 +64,28 @@ export const covenant: Empire = {
       title: "Rings and Staves",
       short: "Four gold rings; staves never taken out",
       detail:
-        "\"And thou shalt cast four rings of gold for it... And thou shalt make staves of shittim wood, and overlay them with gold... The staves shall be in the rings of the ark: they shall not be taken from it\" (Exodus 25:12-15). In Solomon's temple the staves were at last drawn out before the oracle (1 Kings 8:8).",
+        "\"And thou shalt cast four rings of gold for it... And thou shalt make staves of shittim wood, and overlay them with gold... The staves shall be in the rings of the ark: they shall not be taken from it\" (Exodus 25:12-15). In Solomon's temple the staves were drawn forward so their ends were visible from the holy place; the same verse says they remained there (1 Kings 8:8).",
       category: "entrance",
       anchor: [0.85, 0.3, 0.9],
+      snap: "wall",
+    },
+    {
+      id: "testimony",
+      title: "The Testimony Within",
+      short: '"Thou shalt put into the ark the testimony"',
+      detail:
+        'The ark was made to receive the testimony God would give Moses (Exodus 25:16, 21). When Solomon brought it into the oracle, "there was nothing in the ark save the two tables of stone" (1 Kings 8:9).',
+      category: "interior",
+      anchor: [0.5, 0.42, 0.5],
+    },
+    {
+      id: "gold-overlay",
+      title: "Gold Within and Without",
+      short: "Shittim wood completely overlaid with pure gold",
+      detail:
+        'The chest was two and a half cubits long, one and a half broad, and one and a half high, made of shittim wood and overlaid "within and without" with pure gold (Exodus 25:10-11).',
+      category: "structure",
+      anchor: [0.22, 0.45, 0.5],
       snap: "wall",
     },
   ],
@@ -73,7 +101,7 @@ export const covenant: Empire = {
     title: "The Pattern Shewed to Moses",
     cta: "View the Pattern",
     text: "\"According to all that I shew thee, after the pattern of the tabernacle, and the pattern of all the instruments thereof, even so shall ye make it\" (Exodus 25:9). The ark's parts as Exodus 25 names them:",
-    image: "/img/covenant/floor-plan.webp",
+    image: "/img/covenant/floor-plan.svg",
     rooms: [
       { name: "The ark (chest)", note: "Shittim wood, 2½ × 1½ × 1½ cubits (v. 10)" },
       { name: "Gold overlay", note: "Within and without (v. 11)" },
@@ -124,7 +152,7 @@ export const covenant: Empire = {
       { heading: "The meeting place", body: "\"And there I will meet with thee, and I will commune with thee from above the mercy seat, from between the two cherubims which are upon the ark of the testimony\" (Exodus 25:22). The ark was not furniture only; it was the appointed place of God's communion with Israel." },
       { heading: "The deposit", body: "\"The golden pot that had manna, and Aaron's rod that budded, and the tables of the covenant\" (Hebrews 9:4). The omer of manna was laid up \"before the Testimony, to be kept\" (Exodus 16:34); by Solomon's day only the two tables remained (1 Kings 8:9)." },
       { heading: "The library's commentary", body: "Gaebelein: \"We have in it the type of the humanity of Christ. The gold which covered it is typical of His deity\" (The Book of Exodus). Toward The Mark #62: \"The Ark speaks of Christ in the grace and holiness of His Manhood and in the glory of His Godhead.\"" },
-      { heading: "Its rest", body: "The priests brought the ark \"into the oracle of the house, to the most holy place, even under the wings of the cherubims... And they drew out the staves\" (1 Kings 8:6-8) — the wilderness journeys done. Then \"the glory of the LORD had filled the house of the LORD\" (1 Kings 8:11)." },
+      { heading: "Its rest", body: "The priests brought the ark \"into the oracle of the house, to the most holy place, even under the wings of the cherubims\" (1 Kings 8:6-7). The staves were drawn forward until their ends could be seen from the holy place, and \"there they are unto this day\" (1 Kings 8:8) — extended, not removed from the ark. Then \"the glory of the LORD had filled the house of the LORD\" (1 Kings 8:11)." },
     ],
   },
   quiz: [
@@ -163,7 +191,7 @@ export const covenant: Empire = {
     { era: "The pattern", year: "Exodus 25:8-9", text: "\"Let them make me a sanctuary; that I may dwell among them\" — all to be made after the pattern shewed to Moses in the mount." },
     { era: "The specification", year: "Exodus 25:10-22", text: "Shittim wood and pure gold; the mercy seat and cherubim; the promise: \"there I will meet with thee.\"" },
     { era: "The memorial laid up", year: "Exodus 16:33-34", text: "An omer of manna in a pot, laid up before the Testimony, to be kept for the generations." },
-    { era: "Into the oracle", year: "1 Kings 8:6-8", text: "The priests bring the ark under the wings of the cherubim in Solomon's temple; the staves are drawn out." },
+    { era: "Into the oracle", year: "1 Kings 8:6-8", text: "The priests bring the ark under the wings of the cherubim; the staves are drawn forward until their ends are visible, while remaining with the ark." },
     { era: "The glory", year: "1 Kings 8:10-11", text: "\"The cloud filled the house of the LORD... for the glory of the LORD had filled the house of the LORD.\"" },
   ],
   keywords: ["ark of the covenant", "mercy seat", "kapporeth", "cherubim", "shittim", "gold", "testimony", "manna", "aaron's rod", "tables", "staves", "exodus"],

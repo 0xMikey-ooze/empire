@@ -4,7 +4,8 @@ import type { Empire } from "@/types/empire";
  *  The dream: Daniel 2:31-35. The interpretation: Daniel 2:36-45. */
 export const babylon: Empire = {
   id: "babylon",
-  name: "The Empire of Babylon",
+  kind: "vision",
+  name: "Daniel's Prophetic Vision",
   dwelling: "Nebuchadnezzar's Dream Image",
   subtitle: "The great image of Daniel 2",
   description:
@@ -12,9 +13,17 @@ export const babylon: Empire = {
   modelPath: "/models/babylon.glb",
   tint: "#b08d57",
   camera: { azimuth: -25, elevation: 16, dist: 1.05, targetY: 0.42 },
+  inspection: {
+    mode: "material-layers",
+    label: "Show materials",
+    title: "Material layers, not an interior",
+    description: "Makes the image translucent so each body region and its material can be traced from Daniel 2:31-45.",
+    disclosure: "The dream gives materials, not dimensions, facial details, or an interior.",
+    camera: { azimuth: -4, elevation: 10, dist: 0.74, targetY: 0.48 },
+  },
   facts: [
     { label: "Period", value: "The reign of Nebuchadnezzar, king of Babylon (Daniel 2)", icon: "period" },
-    { label: "Region", value: "Babylon — \"Thou art this head of gold\" (Daniel 2:38)", icon: "region" },
+    { label: "Region", value: "Babylon, where Nebuchadnezzar reigned (Daniel 1:1); Daniel 2:38 identifies the king as the head of gold", icon: "region" },
     { label: "Materials", value: "Fine gold, silver, brass, iron, iron mixed with miry clay (Daniel 2:32-33)", icon: "materials" },
     { label: "Distinctive feature", value: "\"Whose brightness was excellent... the form thereof was terrible\" (Daniel 2:31)", icon: "feature" },
     { label: "Its end", value: "Smitten on the feet by a stone cut out without hands (Daniel 2:34-35)", icon: "occupants" },
@@ -37,8 +46,8 @@ export const babylon: Empire = {
       detail:
         "\"His breast and his arms of silver\" (Daniel 2:32) — \"and after thee shall arise another kingdom inferior to thee\" (Daniel 2:39). Snaddon identifies it: \"The breasts and arms of silver = Medo-Persian Empire\" (The Times of the Gentiles).",
       category: "structure",
-      anchor: [0.5, 0.75, 0.5],
-      snap: "wall",
+      anchor: [0.36, 0.54, 0.5],
+      snap: "view",
     },
     {
       id: "belly",
@@ -47,8 +56,8 @@ export const babylon: Empire = {
       detail:
         "\"His belly and his thighs of brass\" (Daniel 2:32) — \"and another third kingdom of brass, which shall bear rule over all the earth\" (Daniel 2:39).",
       category: "structure",
-      anchor: [0.5, 0.55, 0.5],
-      snap: "wall",
+      anchor: [0.36, 0.34, 0.5],
+      snap: "view",
     },
     {
       id: "legs",
@@ -57,8 +66,8 @@ export const babylon: Empire = {
       detail:
         "\"His legs of iron\" (Daniel 2:33) — \"and the fourth kingdom shall be strong as iron: forasmuch as iron breaketh in pieces and subdueth all things: and as iron that breaketh all these, shall it break in pieces and bruise\" (Daniel 2:40).",
       category: "structure",
-      anchor: [0.5, 0.3, 0.5],
-      snap: "wall",
+      anchor: [0.36, 0.17, 0.5],
+      snap: "view",
     },
     {
       id: "feet",
@@ -67,8 +76,28 @@ export const babylon: Empire = {
       detail:
         "\"His feet part of iron and part of clay\" (Daniel 2:33) — \"the kingdom shall be divided... partly strong, and partly broken... they shall mingle themselves with the seed of men: but they shall not cleave one to another, even as iron is not mixed with clay\" (Daniel 2:41-43). Here the stone struck (2:34).",
       category: "entrance",
-      anchor: [0.5, 0.06, 0.55],
-      snap: "wall",
+      anchor: [0.34, 0.08, 0.54],
+      snap: "view",
+    },
+    {
+      id: "toes",
+      title: "The Toes",
+      short: "Part iron and part clay; partly strong and partly broken",
+      detail:
+        'Daniel interprets the toes with the feet: "part of potters\' clay, and part of iron"—a divided kingdom, partly strong and partly broken (Daniel 2:41-43). Scripture gives no count-specific symbolism beyond the toes themselves.',
+      category: "structure",
+      anchor: [0.39, 0.035, 0.56],
+      snap: "view",
+    },
+    {
+      id: "stone",
+      title: "The Stone Without Hands",
+      short: "It struck the image at the feet and became a great mountain",
+      detail:
+        'A stone "cut out without hands" struck the feet, broke the whole image, and became a great mountain filling the earth (Daniel 2:34-35, 44-45). This point belongs to the interpretation even though the model focuses on the image.',
+      category: "artifact-zone",
+      anchor: [0.48, 0.07, 0.58],
+      snap: "view",
     },
   ],
   interior: {
@@ -83,7 +112,7 @@ export const babylon: Empire = {
     title: "Four Kingdoms and a Fifth",
     cta: "View the Interpretation",
     text: "\"This is the dream; and we will tell the interpretation thereof before the king\" (Daniel 2:36). Each part of the image is interpreted as a kingdom in succession, until the God of heaven sets up a kingdom which shall never be destroyed (Daniel 2:44).",
-    image: "/img/babylon/floor-plan.webp",
+    image: "/img/babylon/floor-plan.svg",
     rooms: [
       { name: "Head of fine gold", note: "\"Thou art this head of gold\" — Nebuchadnezzar (Daniel 2:38)" },
       { name: "Breast and arms of silver", note: "\"Another kingdom inferior to thee\" (Daniel 2:39)" },
@@ -117,18 +146,18 @@ export const babylon: Empire = {
   },
   geography: {
     kicker: "Where It Was Dreamed",
-    title: "Babylon, Head of Gold",
+    title: "Nebuchadnezzar in Babylon",
     cta: "Explore Map",
-    text: "The dream came to Nebuchadnezzar in Babylon, where God had made him \"ruler over them all\" (Daniel 2:38). Vine notes that \"the times of the Gentiles\" — the rule of the Gentiles upon the earth — \"commenced when God took authority and government from the house of David\" (Scripture Truth vol. 17).",
+    text: "Nebuchadnezzar was king of Babylon (Daniel 1:1), and Daniel tells him, \"Thou art this head of gold\" (Daniel 2:38). Connecting the head to the Babylonian kingdom follows that context; Daniel 2:38 directly names the king, not the city or empire. Vine notes that \"the times of the Gentiles\" — the rule of the Gentiles upon the earth — \"commenced when God took authority and government from the house of David\" (Scripture Truth vol. 17).",
     image: "/img/babylon/map.webp",
-    regionLabel: "Babylon — head of gold (Daniel 2:38)",
+    regionLabel: "Nebuchadnezzar, king of Babylon (Daniel 1:1; 2:38)",
   },
   lesson: {
     title: "The Great Image and the Stone",
     intro: "The dream of Daniel 2:31-35, its interpretation in 2:36-45, and the library's commentary on the times of the Gentiles.",
     blocks: [
       { heading: "The dream", body: "A great image, its brightness excellent, its form terrible: head of fine gold, breast and arms of silver, belly and thighs of brass, legs of iron, feet part of iron and part of clay (Daniel 2:31-33). No dimensions are given in the chapter; what Scripture specifies is the metals and their descending order." },
-      { heading: "The head of gold", body: "\"Thou, O king, art a king of kings: for the God of heaven hath given thee a kingdom, power, and strength, and glory... Thou art this head of gold\" (Daniel 2:37-38). The first of the kingdoms is named in the text itself — Nebuchadnezzar's Babylon." },
+      { heading: "The head of gold", body: "\"Thou, O king, art a king of kings: for the God of heaven hath given thee a kingdom, power, and strength, and glory... Thou art this head of gold\" (Daniel 2:37-38). The text explicitly identifies Nebuchadnezzar; identifying the head with his Babylonian kingdom is a contextual inference from his kingship (Daniel 1:1), not a separate name supplied in Daniel 2:38." },
       { heading: "The kingdoms that follow", body: "\"After thee shall arise another kingdom inferior to thee, and another third kingdom of brass, which shall bear rule over all the earth. And the fourth kingdom shall be strong as iron\" (Daniel 2:39-40). Snaddon's study identifies the silver with the Medo-Persian empire (The Times of the Gentiles, citing Daniel 2:39)." },
       { heading: "The divided kingdom", body: "\"Whereas thou sawest the feet and toes, part of potters' clay, and part of iron, the kingdom shall be divided... partly strong, and partly broken... they shall mingle themselves with the seed of men: but they shall not cleave one to another\" (Daniel 2:41-43)." },
       { heading: "The stone cut out without hands", body: "\"In the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed... it shall break in pieces and consume all these kingdoms, and it shall stand for ever\" (Daniel 2:44). Mawson's Scripture Truth study of \"the stone cut out without hands\" contends against reading the stone as any human empire — it is cut out \"without hands.\"" },
@@ -169,7 +198,7 @@ export const babylon: Empire = {
   ],
   timeline: [
     { era: "The dream", year: "Daniel 2:31", text: "Nebuchadnezzar sees a great image, its brightness excellent, its form terrible." },
-    { era: "Head of gold", year: "Daniel 2:37-38", text: "\"Thou art this head of gold\" — the kingdom of Babylon, given by the God of heaven." },
+    { era: "Head of gold", year: "Daniel 1:1; 2:37-38", text: "Daniel explicitly identifies Nebuchadnezzar as the head of gold; connecting the king to his Babylonian kingdom follows the book's stated setting." },
     { era: "Silver and brass", year: "Daniel 2:39", text: "A second kingdom inferior to the first, then a third kingdom of brass bearing rule over all the earth." },
     { era: "Iron, then iron and clay", year: "Daniel 2:40-43", text: "A fourth kingdom strong as iron; at last divided — partly strong, partly broken." },
     { era: "The stone", year: "Daniel 2:44-45", text: "The God of heaven sets up a kingdom which shall never be destroyed; the stone becomes a great mountain and fills the whole earth." },

@@ -1,5 +1,5 @@
 /**
- * ViewerEngine — the museum-quality 3D stage for the Empire Atlas.
+ * ViewerEngine — the museum-quality 3D stage for Bible Discovery.
  *
  * Renderer: three.js WebGPURenderer (WebGPU where available, WebGL2 fallback),
  * with TSL node materials for atmosphere, contact shadow, rim light and the
@@ -24,8 +24,8 @@ import gsap from "gsap";
 import type { Empire, Vec3 } from "@/types/empire";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
-(THREE.BufferGeometry.prototype as any).computeBoundsTree = computeBoundsTree;
-(THREE.BufferGeometry.prototype as any).disposeBoundsTree = disposeBoundsTree;
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 
 /** dwellings kept parsed in memory at once (~2MB of source geometry each) */
 const MAX_RESIDENT = 6;
@@ -99,7 +99,7 @@ export class ViewerEngine {
   private activeResolve: (() => void) | null = null;
   /** waiting beneath the parchment, attached but not yet handed over */
   private staged: LoadedModel | null = null;
-  private clock = new THREE.Clock();
+  private timer = new THREE.Timer();
   private disposed = false;
   /** frames of shadow-map refresh still owed (see renderer.shadowMap.autoUpdate) */
   private shadowDirty = 2;
@@ -287,6 +287,7 @@ export class ViewerEngine {
       this.resizeObs.observe(this.canvas.parentElement);
     }
     this.ready = true;
+    this.timer.connect(document);
     this.loop();
   }
 
@@ -377,7 +378,8 @@ export class ViewerEngine {
   private loop = () => {
     if (this.disposed) return;
     requestAnimationFrame(this.loop);
-    const dt = this.clock.getDelta();
+    this.timer.update();
+    const dt = this.timer.getDelta();
     this.controls?.update();
     // idle glow pulse — only worth computing while something is highlighted
     if (this.glowShell?.visible) {
@@ -424,6 +426,11 @@ export class ViewerEngine {
       );
     });
     this.cache.set(empire.id, p);
+    // A rejected promise must not become a permanent cache entry. Keep the
+    // identity check so an older failure can never evict a newer retry.
+    void p.catch(() => {
+      if (this.cache.get(empire.id) === p) this.cache.delete(empire.id);
+    });
     return p;
   }
 
@@ -463,7 +470,10 @@ export class ViewerEngine {
   }
 
   preload(empire: Empire) {
-    if (!this.cache.has(empire.id)) this.load(empire).catch(() => undefined);
+    if (this.cache.has(empire.id)) return;
+    void this.load(empire)
+      .then(() => this.touchResidency(empire.id))
+      .catch(() => undefined);
   }
 
   private normalize(sceneObj: THREE.Group, empire: Empire): LoadedModel {
@@ -488,12 +498,12 @@ export class ViewerEngine {
         m.castShadow = true;
         m.receiveShadow = true;
         const geo = m.geometry as THREE.BufferGeometry;
-        if (!(geo as any).boundsTree) {
+        if (!geo.boundsTree) {
           // indirect keeps the index buffer as authored instead of reordering
           // it, and fatter leaves mean far less tree to build — this runs on
           // the main thread during load, and our query load is tiny (one snap
           // pass plus four occlusion rays a few times a second)
-          (geo as any).computeBoundsTree({ indirect: true, maxLeafTris: 24 });
+          geo.computeBoundsTree({ indirect: true, targetLeafSize: 24 });
         }
         this.applyRim(m);
         meshes.push(m);
@@ -514,9 +524,9 @@ export class ViewerEngine {
       nm.color = src.color ? src.color.clone() : new THREE.Color(0xffffff);
       nm.map = src.map ?? null;
       nm.normalMap = src.normalMap ?? null;
-      nm.roughnessMap = (src as any).roughnessMap ?? null;
-      nm.metalnessMap = (src as any).metalnessMap ?? null;
-      nm.aoMap = (src as any).aoMap ?? null;
+      nm.roughnessMap = src.roughnessMap ?? null;
+      nm.metalnessMap = src.metalnessMap ?? null;
+      nm.aoMap = src.aoMap ?? null;
       nm.roughness = Math.min(1, (src.roughness ?? 0.9) * 1.02);
       nm.metalness = Math.min(0.25, src.metalness ?? 0);
       const fres = float(1.0).sub(normalView.dot(positionViewDirection).clamp(0, 1)).pow(2.6);
@@ -706,12 +716,17 @@ export class ViewerEngine {
 
   private disposeModel(m: LoadedModel) {
     m.meshes.forEach((mesh) => {
-      (mesh.geometry as any).disposeBoundsTree?.();
+      mesh.geometry.disposeBoundsTree?.();
       mesh.geometry.dispose();
       const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-      mats.forEach((mm: any) => {
-        ["map", "normalMap", "roughnessMap", "metalnessMap", "aoMap"].forEach((k) => mm[k]?.dispose?.());
-        mm.dispose?.();
+      mats.forEach((material) => {
+        const textured = material as THREE.Material & Partial<THREE.MeshStandardMaterial>;
+        textured.map?.dispose();
+        textured.normalMap?.dispose();
+        textured.roughnessMap?.dispose();
+        textured.metalnessMap?.dispose();
+        textured.aoMap?.dispose();
+        material.dispose();
       });
     });
   }
@@ -869,6 +884,23 @@ export class ViewerEngine {
   }
 
   /**
+   * Attach a semantic point to the first visible surface at the target's
+   * authored height. A horizontal sightline is important for a standing
+   * figure: a diagonal camera ray aimed at the legs can strike the chest first.
+   * This also keeps a broad pedestal from pulling body points off the figure.
+   */
+  private castFromView(model: LoadedModel, local: THREE.Vector3, ray: THREE.Raycaster, eye: THREE.Vector3) {
+    const target = model.group.localToWorld(local.clone());
+    const start = eye.clone().setY(target.y);
+    const direction = target.sub(start);
+    const distance = direction.length();
+    ray.set(start, direction.normalize());
+    ray.far = distance + Math.max(model.size.x, model.size.y, model.size.z);
+    ray.firstHitOnly = true;
+    return ray.intersectObjects(model.meshes, false)[0];
+  }
+
+  /**
    * Anchors are authored against the bounding box, so one placed at the top
    * of the box can hang in the air over a lower roofline. Drop each pin onto
    * the first surface below it — within a short search, so anchors that are
@@ -921,16 +953,20 @@ export class ViewerEngine {
         return;
       }
 
-      const hit = this.castIn(model, local, ray, eye);
+      const hit = hs.snap === "view"
+        ? this.castFromView(model, local, ray, eye)
+        : this.castIn(model, local, ray, eye);
       if (!hit) {
         // nothing to attach to — fall back to the authored position
         this.snapped.set(key, this.boxAnchor(hs.anchor, model));
         return;
       }
       // lift the pin just clear of the wall it landed on
-      const normal = hit.face
-        ? hit.face.normal.clone().transformDirection(hit.object.matrixWorld)
-        : UP.clone();
+      const normal = hs.snap === "view"
+        ? eye.clone().sub(hit.point).normalize()
+        : hit.face
+          ? hit.face.normal.clone().transformDirection(hit.object.matrixWorld)
+          : UP.clone();
       const p = hit.point.clone().addScaledVector(normal, 0.024);
       this.snapped.set(key, model.group.worldToLocal(p));
     });
@@ -1056,6 +1092,22 @@ export class ViewerEngine {
     );
   }
 
+  /** Move close enough to read the transparent cutaway while retaining orbit
+   *  controls. The exhibit owns the bearing because a long ark, a tent, and a
+   *  tall image do not share a useful generic interior camera. */
+  inspectEmpire(empire: Empire) {
+    if (!this.current || !empire.inspection) return;
+    const h = this.current.size.y;
+    const view = empire.inspection.camera ?? {};
+    this.flyTo(
+      view.azimuth ?? empire.camera.azimuth,
+      view.elevation ?? empire.camera.elevation,
+      this.fitDistance(empire, view.dist ?? 0.78),
+      (view.targetY ?? empire.camera.targetY) * h + 0.05,
+      1.1,
+    );
+  }
+
   focusAnchor(anchor: Vec3, empire: Empire, dur = 1.2) {
     if (!this.current) return;
     const world = this.anchorToWorld(anchor);
@@ -1125,7 +1177,7 @@ export class ViewerEngine {
   setXray(on: boolean) {
     if (!this.current) return;
     this.current.meshes.forEach((m) => {
-      const mat = m.material as any;
+      const mat = m.material as THREE.Material;
       mat.transparent = on;
       mat.opacity = on ? 0.42 : 1;
       mat.depthWrite = !on;
@@ -1172,6 +1224,7 @@ export class ViewerEngine {
 
   dispose() {
     this.disposed = true;
+    this.timer.dispose();
     window.removeEventListener("resize", this.resize);
     this.resizeObs?.disconnect();
     this.flushRetired();

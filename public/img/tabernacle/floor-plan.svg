@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">Scripture-bounded plan of the tabernacle court</title>
+  <desc id="desc">A one-hundred by fifty cubit court, with a twenty cubit gate in the east end, containing the altar, laver, holy place, veil, and most holy place.</desc>
+  <rect width="1000" height="600" fill="#f3ead9"/>
+  <text x="500" y="42" text-anchor="middle" fill="#322d29" font-family="Georgia,serif" font-size="28" font-weight="700">The Tabernacle — plan relationship</text>
+  <text x="500" y="68" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14">East is at right · cited dimensions shown · decorative details omitted</text>
+
+  <!-- The court is drawn at its stated 100 by 50 cubit proportion. -->
+  <rect x="90" y="110" width="800" height="400" rx="3" fill="#e7dcc7" stroke="#5f5248" stroke-width="7"/>
+  <text x="105" y="137" fill="#5f5248" font-family="Arial,sans-serif" font-size="15" font-weight="700">COURT · 100 × 50 CUBITS (EXODUS 27:18)</text>
+
+  <!-- The east gate occupies 20 of the 50 cubits on that end. -->
+  <rect x="882" y="230" width="17" height="160" fill="#f3ead9"/>
+  <path d="M890 230v160" stroke="#a55338" stroke-width="10" stroke-dasharray="13 8"/>
+  <text x="918" y="303" fill="#a55338" font-family="Arial,sans-serif" font-size="15" font-weight="700">EAST</text>
+  <text x="918" y="323" fill="#6f655d" font-family="Arial,sans-serif" font-size="13">gate</text>
+  <text x="918" y="341" fill="#6f655d" font-family="Arial,sans-serif" font-size="13">20 cubits</text>
+
+  <!-- Court furniture follows the east-to-west sequence named in Exodus. -->
+  <rect x="700" y="260" width="72" height="72" fill="#b56d48" stroke="#68432f" stroke-width="3"/>
+  <text x="736" y="290" text-anchor="middle" fill="#fffaf0" font-family="Arial,sans-serif" font-size="12" font-weight="700">BRAZEN</text>
+  <text x="736" y="307" text-anchor="middle" fill="#fffaf0" font-family="Arial,sans-serif" font-size="12" font-weight="700">ALTAR</text>
+  <text x="736" y="350" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">5 × 5 cubits</text>
+
+  <circle cx="625" cy="296" r="28" fill="#6f9daa" stroke="#385a63" stroke-width="3"/>
+  <text x="625" y="301" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">LAVER</text>
+
+  <!-- The tent is conventionally resolved from the board and curtain specifications. -->
+  <rect x="265" y="230" width="240" height="80" fill="#c9b48f" stroke="#5f5248" stroke-width="5"/>
+  <line x1="345" y1="230" x2="345" y2="310" stroke="#8c452c" stroke-width="5"/>
+  <rect x="285" y="250" width="26" height="40" rx="4" fill="#cda54d" stroke="#775f26" stroke-width="2"/>
+  <text x="298" y="274" text-anchor="middle" fill="#382f22" font-family="Arial,sans-serif" font-size="10" font-weight="700">ARK</text>
+  <text x="305" y="330" text-anchor="middle" fill="#5f5248" font-family="Arial,sans-serif" font-size="13" font-weight="700">MOST HOLY</text>
+  <text x="305" y="348" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">ark within the veil</text>
+  <text x="345" y="219" text-anchor="middle" fill="#8c452c" font-family="Arial,sans-serif" font-size="12" font-weight="700">VEIL</text>
+  <text x="425" y="266" text-anchor="middle" fill="#4a4039" font-family="Arial,sans-serif" font-size="14" font-weight="700">HOLY PLACE</text>
+  <text x="425" y="286" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="11">table · lampstand · incense altar</text>
+
+  <path d="M90 540h800" stroke="#8e8177" stroke-width="2"/>
+  <path d="M90 533v14M890 533v14" stroke="#8e8177" stroke-width="2"/>
+  <text x="490" y="565" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="13">100 cubits</text>
+  <path d="M55 110v400" stroke="#8e8177" stroke-width="2"/>
+  <path d="M48 110h14M48 510h14" stroke="#8e8177" stroke-width="2"/>
+  <text x="30" y="315" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="13" transform="rotate(-90 30 315)">50 cubits</text>
+
+  <text x="500" y="588" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">Sources: Exodus 26:15–35; 27:1–18; 30:6, 18 · not an archaeological plan</text>
+</svg>

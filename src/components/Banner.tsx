@@ -16,7 +16,7 @@ export const Banner = memo(function Banner({ onDismiss }: Props) {
       aria-label="Credits"
     >
       <p className="text-[0.78rem] leading-snug text-ink-soft sm:text-[0.82rem]">
-        Every 3D model in this atlas was built with{" "}
+        3D models and exhibit illustrations are AI-assisted reconstructions; biblical claims cite Scripture. Models built with{" "}
         <span className="font-medium text-ink">Tripo AI</span>.
         <a
           href={TRIPO_URL}

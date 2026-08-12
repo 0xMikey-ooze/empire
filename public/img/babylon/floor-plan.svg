@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">Material sequence of Nebuchadnezzar's dream image</title>
+  <desc id="desc">A neutral human outline divided into the gold head, silver breast and arms, brass belly and thighs, iron legs, and feet of iron and clay described in Daniel 2, beside the stone cut out without hands.</desc>
+  <rect width="1000" height="600" fill="#f3ead9"/>
+  <text x="500" y="42" text-anchor="middle" fill="#322d29" font-family="Georgia,serif" font-size="28" font-weight="700">The Great Image — Daniel 2 material study</text>
+  <text x="500" y="69" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="14">The chapter specifies body regions and materials, not dimensions, pose, clothing, or an interior</text>
+
+  <!-- A deliberately neutral outline avoids presenting an invented ancient statue as an artifact. -->
+  <circle cx="500" cy="135" r="53" fill="#cda54d" stroke="#4f4538" stroke-width="5"/>
+  <path d="M410 195q90-45 180 0l38 132-55 18-22-92v92H449v-92l-22 92-55-18z" fill="#aeb3b9" stroke="#4f4538" stroke-width="5"/>
+  <path d="M449 345h102l30 88-55 12-26-55-26 55-55-12z" fill="#b9824d" stroke="#4f4538" stroke-width="5"/>
+  <path d="M434 433l52-4-8 102h-62zM514 429l52 4 18 98h-62z" fill="#737b81" stroke="#4f4538" stroke-width="5"/>
+  <path d="M416 531h62l-5 40h-82z" fill="#737b81" stroke="#4f4538" stroke-width="5"/>
+  <path d="M522 531h62l25 40h-82z" fill="#9a7865" stroke="#4f4538" stroke-width="5"/>
+
+  <g font-family="Arial,sans-serif" font-size="15" font-weight="700">
+    <path d="M300 135h130" stroke="#8f6e24" stroke-width="3"/><text x="285" y="140" text-anchor="end" fill="#8f6e24">HEAD · FINE GOLD</text>
+    <path d="M270 245h115" stroke="#727980" stroke-width="3"/><text x="255" y="250" text-anchor="end" fill="#626970">BREAST &amp; ARMS · SILVER</text>
+    <path d="M270 380h140" stroke="#9a6535" stroke-width="3"/><text x="255" y="385" text-anchor="end" fill="#8d5c2f">BELLY &amp; THIGHS · BRASS</text>
+    <path d="M600 476h125" stroke="#596168" stroke-width="3"/><text x="740" y="481" fill="#596168">LEGS · IRON</text>
+    <path d="M610 550h115" stroke="#7a6458" stroke-width="3"/><text x="740" y="555" fill="#7a6458">FEET · IRON &amp; CLAY</text>
+  </g>
+
+  <path d="M770 405l38-34 48 12 22 44-31 44-54 2-34-37z" fill="#a89d8d" stroke="#514b44" stroke-width="5"/>
+  <path d="M735 402l-77-42" stroke="#7b7065" stroke-width="5" stroke-dasharray="12 8"/>
+  <text x="825" y="505" text-anchor="middle" fill="#514b44" font-family="Arial,sans-serif" font-size="14" font-weight="700">STONE CUT OUT WITHOUT HANDS</text>
+  <text x="825" y="526" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">strikes the feet (Daniel 2:34–35)</text>
+
+  <text x="500" y="590" text-anchor="middle" fill="#6f655d" font-family="Arial,sans-serif" font-size="12">Scripture-bounded schematic · not an archaeological drawing, archival plate, or dated artifact</text>
+</svg>

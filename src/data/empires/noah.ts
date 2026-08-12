@@ -4,7 +4,8 @@ import type { Empire } from "@/types/empire";
  *  Dimensions: Genesis 6:14-16. Occupants: Genesis 6:18-21; 7:13-16; 1 Peter 3:20. */
 export const noah: Empire = {
   id: "noah",
-  name: "The Antediluvian World",
+  kind: "biblical-structure",
+  name: "Noah and the Flood",
   dwelling: "Noah's Ark",
   subtitle: "The vessel of salvation through the flood",
   description:
@@ -12,12 +13,20 @@ export const noah: Empire = {
   modelPath: "/models/noah.glb",
   tint: "#8a6a4f",
   camera: { azimuth: -32, elevation: 28, dist: 1.05, targetY: 0.34 },
+  inspection: {
+    mode: "interior",
+    label: "See inside",
+    title: "Three-story cutaway",
+    description: "Reveals the three levels, rooms, provisions, and side door named in Genesis 6.",
+    disclosure: "Scripture-based reconstruction; room arrangement is not specified.",
+    camera: { azimuth: -12, elevation: 18, dist: 0.78, targetY: 0.45 },
+  },
   facts: [
     { label: "Period", value: "The days of Noah (Genesis 6-8)", icon: "period" },
     { label: "Region", value: "Rested on the mountains of Ararat (Genesis 8:4)", icon: "region" },
     { label: "Materials", value: "Gopher wood, pitched within and without (Genesis 6:14)", icon: "materials" },
     { label: "Dimensions", value: "300 × 50 × 30 cubits, three stories (Genesis 6:15-16)", icon: "feature" },
-    { label: "Occupants", value: "Eight souls and two of every sort of living thing (Genesis 6:18-20; 1 Peter 3:20)", icon: "occupants" },
+    { label: "Occupants", value: "Eight souls; clean beasts and birds by sevens, others by pairs (Genesis 7:2-3; 1 Peter 3:20)", icon: "occupants" },
   ],
   hotspots: [
     {
@@ -33,9 +42,9 @@ export const noah: Empire = {
     {
       id: "door",
       title: "The Door in the Side",
-      short: "One door, shut by the LORD Himself",
+      short: "The named side door, shut by the LORD Himself",
       detail:
-        "\"And the door of the ark shalt thou set in the side thereof\" (Genesis 6:16). There was one door only. When all had entered, \"they that went in, went in male and female of all flesh, as God had commanded him: and the LORD shut him in\" (Genesis 7:16).",
+        "\"And the door of the ark shalt thou set in the side thereof\" (Genesis 6:16). Scripture names this side door in the singular but does not add the word \"only.\" When all had entered, \"the LORD shut him in\" (Genesis 7:16).",
       category: "entrance",
       anchor: [0.5, 0.3, 0.96],
       snap: "wall",
@@ -45,7 +54,7 @@ export const noah: Empire = {
       title: "Pitched Within and Without",
       short: "Kopher — the covering that kept out the waters",
       detail:
-        "\"...and shalt pitch it within and without with pitch\" (Genesis 6:14). Gaebelein notes that the word \"pitch\" (kopher) \"is translated more than seventy times in the Bible by 'to make atonement'\" (The Book of Genesis), and F. W. Grant likewise remarks that the resemblance between \"gopher\" and the \"copher\" or pitch \"has been noticed by many\" (Genesis in the Light of the New Testament).",
+        "\"...and shalt pitch it within and without with pitch\" (Genesis 6:14). The verse names gopher wood and kopher pitch as distinct terms. Scripture does not define gopher as \"atonement\"; associations between the sealing pitch and atonement belong to typological commentary, not translation.",
       category: "facade",
       anchor: [0.04, 0.45, 0.5],
       snap: "wall",
@@ -60,6 +69,24 @@ export const noah: Empire = {
       anchor: [0.85, 0.6, 0.5],
       snap: "wall",
     },
+    {
+      id: "rooms",
+      title: "Rooms Within",
+      short: '"Rooms shalt thou make in the ark"',
+      detail:
+        'Genesis names rooms within the ark but gives no floor-by-floor arrangement: "rooms shalt thou make in the ark" (Genesis 6:14). Their placement in this cutaway is therefore a reconstruction, not a stated plan.',
+      category: "interior",
+      anchor: [0.58, 0.45, 0.5],
+    },
+    {
+      id: "provisions",
+      title: "Food for All Aboard",
+      short: '"It shall be for food for thee, and for them"',
+      detail:
+        'Noah was told to gather "of all food that is eaten" for himself and the animals (Genesis 6:21). Scripture specifies provision, but not dedicated storerooms; the location shown is illustrative.',
+      category: "interior",
+      anchor: [0.72, 0.22, 0.5],
+    },
   ],
   interior: {
     kicker: "Interior View",
@@ -73,7 +100,7 @@ export const noah: Empire = {
     title: "Three Stories of the Ark",
     cta: "View Floor Plan",
     text: "The fashion of it is given in Genesis 6:15-16: \"The length of the ark shall be three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits\" — a window finished in a cubit above, the door set in the side, and lower, second and third stories within.",
-    image: "/img/noah/floor-plan.webp",
+    image: "/img/noah/floor-plan.svg",
     rooms: [
       { name: "Lower story", note: "Genesis 6:16" },
       { name: "Second story", note: "Genesis 6:16" },
@@ -91,7 +118,7 @@ export const noah: Empire = {
     text: "Every object here is named in Genesis 6-8: the wood and pitch of the building command, the food gathered before the flood, and the birds sent from the window as the waters abated.",
     image: "/img/noah/artifacts.webp",
     items: [
-      { name: "Gopher wood", purpose: "The ark's appointed timber", material: "Gopher wood", context: "\"Make thee an ark of gopher wood\" (Genesis 6:14). Grant: \"We know not this 'gopher,' but the resemblance is remarkably close to the 'copher' or 'pitch' named afterward.\"" },
+      { name: "Gopher wood", purpose: "The ark's appointed timber", material: "Gopher wood", context: "\"Make thee an ark of gopher wood\" (Genesis 6:14). The passage does not identify the exact tree or timber denoted by gopher." },
       { name: "Pitch", purpose: "Sealing the ark within and without", material: "Pitch (kopher)", context: "\"...and shalt pitch it within and without with pitch\" (Genesis 6:14)." },
       { name: "Food stores", purpose: "Provision for people and animals", material: "\"Of all food that is eaten\"", context: "\"And take thou unto thee of all food that is eaten... it shall be for food for thee, and for them\" (Genesis 6:21)." },
       { name: "The raven", purpose: "First bird sent from the window", material: "—", context: "\"He sent forth a raven, which went forth to and fro, until the waters were dried up\" (Genesis 8:7)." },
@@ -120,9 +147,9 @@ export const noah: Empire = {
     blocks: [
       { heading: "The command", body: "\"Make thee an ark of gopher wood; rooms shalt thou make in the ark, and shalt pitch it within and without with pitch\" (Genesis 6:14). The occasion is given in the same breath: \"The end of all flesh is come before me, for the earth is full of violence\" (Genesis 6:13, as cited in W. Kelly's Genesis)." },
       { heading: "The specifications", body: "\"The length of the ark shall be three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits\" (Genesis 6:15) — with a window finished in a cubit above, a door in the side, and three stories (Genesis 6:16). No other proportions are given; Scripture's own figures govern this model." },
-      { heading: "The cargo", body: "Two of every sort of living thing, male and female — fowls, cattle and creeping things after their kind — \"to keep them alive with thee,\" together with all food that is eaten (Genesis 6:19-21). \"Thus did Noah; according to all that God commanded him, so did he\" (Genesis 6:22)." },
+      { heading: "The cargo", body: "The first command names two of every sort, male and female, to keep them alive (Genesis 6:19-20). Before entry, God distinguishes clean beasts and birds by sevens from the others by pairs (Genesis 7:2-3), together with all food that is eaten (Genesis 6:21). \"Thus did Noah; according to all that God commanded him, so did he\" (Genesis 6:22)." },
       { heading: "The voyage", body: "In the six hundredth year of Noah's life the fountains of the great deep were broken up and the windows of heaven opened; the rain was forty days and forty nights, and the LORD shut him in (Genesis 7:11-16). The ark rested on the mountains of Ararat in the seventh month (Genesis 8:4)." },
-      { heading: "The library's commentary", body: "Gaebelein: \"The word 'gopher' means atonement, and the word 'pitch,' meaning the same, is translated more than seventy times in the Bible by 'to make atonement'\" (The Book of Genesis). F. W. Grant sees in the ark \"the house of refuge\" where, \"amid the very storm of judgment, the heart that craves may find its lodgment\" (Noah, STEM Publishing)." },
+      { heading: "The library's commentary", body: "Older commentary sometimes associates the ark's sealing pitch with atonement as a type. That is a theological association, not a translation: Genesis names gopher wood and kopher pitch separately and does not say gopher means atonement. F. W. Grant sees in the ark \"the house of refuge\" where, \"amid the very storm of judgment, the heart that craves may find its lodgment\" (Noah, STEM Publishing)." },
       { heading: "The New Testament witness", body: "\"...the longsuffering of God waited in the days of Noah, while the ark was a preparing, wherein few, that is, eight souls were saved by water\" (1 Peter 3:20). The Bible Monthly (Hocking) recalls Hebrews 11:7 — warned of God, Noah \"prepared the ark to the salvation of his house.\"" },
     ],
   },

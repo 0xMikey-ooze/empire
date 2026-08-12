@@ -13,6 +13,8 @@ interface Props {
   onHover: (id: string | null) => void;
   onActivate: (id: string | null) => void;
   visible: boolean;
+  /** Inspection mode deliberately reveals points behind the outer shell. */
+  revealOccluded?: boolean;
 }
 
 const TIP_W = 224;
@@ -35,6 +37,7 @@ export const HotspotLayer = memo(function HotspotLayer({
   onHover,
   onActivate,
   visible,
+  revealOccluded = false,
 }: Props) {
   const tipRef = useRef<HTMLDivElement>(null);
   const pinRefs = useRef(new Map<string, HTMLElement>());
@@ -77,7 +80,7 @@ export const HotspotLayer = memo(function HotspotLayer({
         // one world-space resolve per pin per frame, shared with occlusion
         const world = engine.anchorToWorld(hs.anchor, anchors[i].world);
         const p = engine.project(world, w, h);
-        const occluded = p.behindCamera || engine.isOccluded(hs.id);
+        const occluded = p.behindCamera || (!revealOccluded && engine.isOccluded(hs.id));
         const isActive = activeId === hs.id;
         const isHover = hoverId === hs.id;
 
@@ -116,7 +119,7 @@ export const HotspotLayer = memo(function HotspotLayer({
     return () => {
       off();
     };
-  }, [engine, empire, anchors, activeId, hoverId, visible]);
+  }, [engine, empire, anchors, activeId, hoverId, visible, revealOccluded]);
 
   /* pins arrive as the dwelling settles */
   useEffect(() => {
@@ -146,7 +149,7 @@ export const HotspotLayer = memo(function HotspotLayer({
       aria-hidden={!visible}
       aria-label="Architectural markers"
     >
-      {empire.hotspots.map((hs) => (
+      {empire.hotspots.map((hs, index) => (
         <button
           key={hs.id}
           className="hs-pin"
@@ -169,6 +172,7 @@ export const HotspotLayer = memo(function HotspotLayer({
           <span className="pulse" />
           <span className="rim" />
           <span className="core" />
+          <span className="hs-number" aria-hidden>{index + 1}</span>
         </button>
       ))}
 

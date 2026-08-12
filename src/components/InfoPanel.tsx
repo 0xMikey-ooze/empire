@@ -31,6 +31,16 @@ interface Props {
 }
 
 export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animating, onLesson, onToggleAnimate, onArtifacts, onQuiz }: Props) {
+  const isBiblicalExhibit = Boolean(empire.kind && empire.kind !== "civilization");
+  const selectionLabel =
+    empire.kind === "vision"
+      ? "Selected Vision"
+      : empire.kind === "sacred-object"
+        ? "Selected Sacred Object"
+        : empire.kind === "biblical-structure"
+          ? "Selected Structure"
+          : "Selected Exhibit";
+
   return (
     <div
       className={`atlas-card flex w-full flex-col overflow-hidden ${flow ? "" : "h-full"}`}
@@ -41,7 +51,7 @@ export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animati
         <div className="flex items-center justify-between">
           <span className="kicker flex items-center gap-2">
             <LaurelIcon className="h-5 w-5 text-gold" aria-hidden />
-            Selected Dwelling
+            {selectionLabel}
           </span>
           <button className="rounded-md p-1 text-ink-muted transition-colors hover:bg-paper-deep hover:text-ink" aria-label="More options">
             <MoreIcon className="h-5 w-5" />
@@ -59,7 +69,7 @@ export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animati
           {/* the illustration is the artefact here — show all of it rather
               than cropping it to a fixed ratio */}
           <div
-            className={`mt-4 overflow-hidden rounded-xl border border-line-warm bg-paper-deep ${
+            className={`relative mt-4 overflow-hidden rounded-xl border border-line-warm bg-paper-deep ${
               flow ? "sm:w-[44%] sm:flex-none" : ""
             }`}
           >
@@ -70,6 +80,11 @@ export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animati
               loading="lazy"
               draggable={false}
             />
+            {isBiblicalExhibit && (
+              <span className="absolute bottom-2 left-2 rounded-full border border-line-warm bg-paper/90 px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-wide text-ink-muted backdrop-blur-sm">
+                AI-assisted reconstruction
+              </span>
+            )}
           </div>
 
           <div className={flow ? "min-w-0 sm:flex-1" : ""}>

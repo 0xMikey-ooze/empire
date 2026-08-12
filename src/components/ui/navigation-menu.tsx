@@ -164,5 +164,8 @@ export {
   NavigationMenuLink,
   NavigationMenuIndicator,
   NavigationMenuViewport,
-  navigationMenuTriggerStyle,
 }
+
+// The trigger recipe is intentionally reusable by custom navigation links.
+// eslint-disable-next-line react-refresh/only-export-components
+export { navigationMenuTriggerStyle }
