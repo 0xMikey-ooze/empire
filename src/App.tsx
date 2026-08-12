@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EXHIBITS, exhibitById, DEFAULT_EXHIBIT_ID } from "@/data";
 import type { Empire } from "@/types/empire";
-import { Banner } from "@/components/Banner";
 import { Header } from "@/components/Header";
 import { EmpireLibrary } from "@/components/EmpireLibrary";
 import { Viewer, type HotspotFocusRequest } from "@/components/Viewer";
@@ -30,7 +29,6 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [creditsOpen, setCreditsOpen] = useState(() => localStorage.getItem("bible-discovery-credits") !== "dismissed");
   const [focusHotspot, setFocusHotspot] = useState<HotspotFocusRequest | null>(null);
   const [selectionRevision, setSelectionRevision] = useState(0);
   const [activeNav, setActiveNav] = useState("explore");
@@ -98,11 +96,6 @@ export default function App() {
 
   const onSwap = useCallback((e: Empire) => setPanelEmpire(e), []);
 
-  const dismissCredits = useCallback(() => {
-    setCreditsOpen(false);
-    localStorage.setItem("bible-discovery-credits", "dismissed");
-  }, []);
-
   /* hovering a library row starts its download, so the click that follows
      lands on a model that is already parsed rather than paying for it mid-swap */
   const prefetchRef = useRef<((e: Empire) => void) | null>(null);
@@ -140,9 +133,8 @@ export default function App() {
   return (
     <div
       className="flex min-h-screen flex-col bg-paper"
-      style={{ "--banner-h": creditsOpen ? "40px" : "0px" } as React.CSSProperties}
+      style={{ "--banner-h": "0px" } as React.CSSProperties}
     >
-      {creditsOpen && <Banner onDismiss={dismissCredits} />}
       <Header onSearchOpen={() => setSearchOpen(true)} onMenuOpen={() => setMenuOpen(true)} onNav={onNav} activeNav={activeNav} />
 
       {/* main stage — sized so the exploration cards below stay in view, and
