@@ -1,0 +1,195 @@
+import type { Empire } from "@/types/empire";
+
+/** After A. E. Booth's chart "A Chart on the Course of Time from Eternity to Eternity"
+ *  (Loizeaux Brothers, Bible Truth Depot). All scripture retrieved from the KJV via
+ *  the Rhema library; era labels follow the chart. */
+export const courseOfTime: Empire = {
+  id: "course-of-time",
+  kind: "vision",
+  name: "From Eternity to Eternity",
+  dwelling: "The Course of Time",
+  subtitle: "\"From everlasting to everlasting, thou art God\"",
+  description:
+    "\"Before the mountains were brought forth, or ever thou hadst formed the earth and the world, even from everlasting to everlasting, thou art God\" (Psalm 90:2). The great dispensational chart traces time's whole course — from \"In the beginning God created the heaven and the earth\" (Genesis 1:1) to the new heaven and new earth (Revelation 21:1) — under the motto \"rightly dividing the word of truth\" (2 Timothy 2:15).",
+  modelPath: "/models/course-of-time.glb",
+  tint: "#7c9a92",
+  camera: { azimuth: -30, elevation: 26, dist: 1.05, targetY: 0.35 },
+  facts: [
+    { label: "Design", value: "After A. E. Booth's chart, published by Loizeaux Brothers, Bible Truth Depot", icon: "period" },
+    { label: "Span", value: "\"From everlasting to everlasting, thou art God\" (Psalm 90:2)", icon: "region" },
+    { label: "Method", value: "\"Rightly dividing the word of truth\" (2 Timothy 2:15)", icon: "materials" },
+    { label: "The dark line", value: "\"By one man sin entered into the world, and death by sin\" (Romans 5:12)", icon: "feature" },
+    { label: "The center", value: "\"The wages of sin is death; but the gift of God is eternal life\" (Romans 6:23)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "creation",
+      title: "In the Beginning",
+      short: "\"God created the heaven and the earth\"",
+      detail:
+        "\"In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep... And God said, Let there be light: and there was light\" (Genesis 1:1-3). The chart opens out of eternity past — \"even from everlasting to everlasting, thou art God\" (Psalm 90:2).",
+      category: "entrance",
+      anchor: [0.05, 0.6, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "death-line",
+      title: "The Death Line",
+      short: "\"Death passed upon all men\"",
+      detail:
+        "The dark line running beneath the ages: \"Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned\" (Romans 5:12).",
+      category: "structure",
+      anchor: [0.3, 0.35, 0.55],
+      snap: "wall",
+    },
+    {
+      id: "cross",
+      title: "The Cross at the Center",
+      short: "\"The gift of God is eternal life\"",
+      detail:
+        "At the chart's center stands the cross, dividing the ages: \"For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord\" (Romans 6:23).",
+      category: "interior",
+      anchor: [0.5, 0.8, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "rapture",
+      title: "The Rapture",
+      short: "\"Caught up together... to meet the Lord in the air\"",
+      detail:
+        "\"For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first: then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air\" (1 Thessalonians 4:16-17) — the close of the present church period on the chart.",
+      category: "roof",
+      anchor: [0.68, 0.85, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "throne",
+      title: "The Great White Throne",
+      short: "\"And the books were opened\"",
+      detail:
+        "\"And I saw a great white throne, and him that sat on it, from whose face the earth and the heaven fled away... and the dead were judged out of those things which were written in the books... And death and hell were cast into the lake of fire\" (Revelation 20:11-14).",
+      category: "structure",
+      anchor: [0.88, 0.5, 0.55],
+      snap: "wall",
+    },
+    {
+      id: "eternity-future",
+      title: "New Heaven and New Earth",
+      short: "\"The tabernacle of God is with men\"",
+      detail:
+        "\"And I saw a new heaven and a new earth: for the first heaven and the first earth were passed away... Behold, the tabernacle of God is with men, and he will dwell with them... and there shall be no more death\" (Revelation 21:1-4). The chart runs out, as it began, into eternity.",
+      category: "facade",
+      anchor: [0.97, 0.6, 0.5],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "Reading the Chart",
+    title: "Time Between Two Eternities",
+    cta: "Read the Chart",
+    text: "The chart hangs time's whole course between two statements of Psalm 90:2 — eternity past and eternity future — with the cross at the center: \"the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord\" (Romans 6:23).",
+    image: "/img/course-of-time/interior.webp",
+  },
+  floorPlan: {
+    kicker: "The Ages in Order",
+    title: "The Course of Time",
+    cta: "View the Ages",
+    text: "The chart's eras in sequence, each anchored to the scriptures retrieved for this exhibit. Scofield's companion study calls them dispensations — periods \"marked off in Scripture\" in which man is tested (Rightly Dividing the Word of Truth: The Seven Dispensations).",
+    image: "/img/course-of-time/floor-plan.webp",
+    rooms: [
+      { name: "Eternity past", note: "\"From everlasting...\" (Psalm 90:2)" },
+      { name: "Creation", note: "\"In the beginning God created\" (Genesis 1:1)" },
+      { name: "Adam to Noah", note: "The flood closes the age (Genesis 6-8)" },
+      { name: "Abraham to Christ", note: "Law, temple, captivity, the 70 weeks (Daniel 2; 1 Kings 6)" },
+      { name: "The cross", note: "\"The gift of God is eternal life\" (Romans 6:23)" },
+      { name: "The present age", note: "Christ in glory; the church period" },
+      { name: "The rapture", note: "\"Caught up together\" (1 Thessalonians 4:17)" },
+      { name: "The millennium", note: "The stone become a great mountain (Daniel 2:35, 44)" },
+      { name: "The great white throne", note: "Revelation 20:11-15" },
+      { name: "Eternity future", note: "New heaven and new earth (Revelation 21:1)" },
+    ],
+  },
+  artifacts: {
+    kicker: "Signposts",
+    title: "Landmarks of the Chart",
+    cta: "Explore the Landmarks",
+    text: "The chart's fixed points, each a scripture rather than a speculation.",
+    image: "/img/course-of-time/artifacts.webp",
+    items: [
+      { name: "The death line", purpose: "Sin's entail traced under every age", material: "—", context: "\"By one man sin entered into the world, and death by sin\" (Romans 5:12)." },
+      { name: "The cross", purpose: "The center of the ages", material: "—", context: "\"The wages of sin is death; but the gift of God is eternal life\" (Romans 6:23)." },
+      { name: "The trump of God", purpose: "The church caught up", material: "—", context: "\"The Lord himself shall descend from heaven with a shout... and the dead in Christ shall rise first\" (1 Thessalonians 4:16)." },
+      { name: "The stone and the mountain", purpose: "The kingdom that fills the earth", material: "\"Cut out without hands\"", context: "\"The stone that smote the image became a great mountain, and filled the whole earth\" (Daniel 2:35)." },
+      { name: "The book of life", purpose: "Opened at the great white throne", material: "—", context: "\"And whosoever was not found written in the book of life was cast into the lake of fire\" (Revelation 20:15)." },
+      { name: "The holy city", purpose: "Eternity's dwelling", material: "\"Prepared as a bride\"", context: "\"I John saw the holy city, new Jerusalem, coming down from God out of heaven\" (Revelation 21:2)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "The Student's Motto",
+    title: "Rightly Dividing the Word of Truth",
+    cta: "Study the Method",
+    text: "The chart carries the workman's text: \"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth\" (2 Timothy 2:15). Scofield's companion study of the seven dispensations begins where the chart does — man innocent, tested, and the age closed in judgment (Rightly Dividing the Word of Truth).",
+    image: "/img/course-of-time/daily-life.webp",
+  },
+  geography: {
+    kicker: "Its Publisher",
+    title: "A Chart of the Brethren Assemblies",
+    cta: "About the Chart",
+    text: "Designed by A. E. Booth and printed by Loizeaux Brothers' Bible Truth Depot of Neptune, New Jersey, the chart hung in assembly halls and gospel tents as a teaching companion — every era bearing its scripture references so the hearer could search the passages themselves.",
+    image: "/img/course-of-time/map.webp",
+    regionLabel: "Loizeaux Brothers, Bible Truth Depot, Neptune, New Jersey",
+  },
+  lesson: {
+    title: "The Course of Time from Eternity to Eternity",
+    intro: "The chart's fixed scriptures, era by era, from the retrieved word itself.",
+    blocks: [
+      { heading: "Eternity past", body: "\"Before the mountains were brought forth, or ever thou hadst formed the earth and the world, even from everlasting to everlasting, thou art God\" (Psalm 90:2). The chart heads its ages with the Eternal God, the Eternal Son, the Eternal Spirit, and the Eternal Purpose." },
+      { heading: "Creation and the ages of promise", body: "\"In the beginning God created the heaven and the earth\" (Genesis 1:1); the earth without form and void, darkness on the deep, and light spoken into being (1:2-3). Then the ages the earlier exhibits trace: the flood (Genesis 6-8), the kingdoms of the great image (Daniel 2), the house of God (1 Kings 6)." },
+      { heading: "The death line", body: "Beneath every era the chart draws one unbroken dark line: \"By one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned\" (Romans 5:12)." },
+      { heading: "The cross at the center", body: "The chart's turning point sets two banners at the cross: \"the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord\" (Romans 6:23) — and above the present age, Christ in glory." },
+      { heading: "The blessed hope and the end of time", body: "The church period closes with the rapture: \"caught up together with them in the clouds, to meet the Lord in the air\" (1 Thessalonians 4:17). Beyond the millennium stands the great white throne, where \"the books were opened... and death and hell were cast into the lake of fire\" (Revelation 20:12-14)." },
+      { heading: "Eternity future", body: "\"And I saw a new heaven and a new earth... Behold, the tabernacle of God is with men... and there shall be no more death, neither sorrow, nor crying\" (Revelation 21:1-4). Scofield's companion study closes the method: the ages differ, but \"grace and truth came by Jesus Christ\" (Rightly Dividing the Word of Truth, citing John 1:17)." },
+    ],
+  },
+  quiz: [
+    {
+      q: "What scripture spans the chart's title, 'From Eternity to Eternity'?",
+      choices: ["Genesis 1:1", "Psalm 90:2", "Revelation 22:13", "John 1:1"],
+      answer: 1,
+      explanation: "\"...even from everlasting to everlasting, thou art God\" (Psalm 90:2), cited on the chart's own face.",
+    },
+    {
+      q: "What does Romans 5:12 trace under every age?",
+      choices: ["The line of kings", "Death passed upon all men through sin", "The genealogy of Abraham", "The rise of empires"],
+      answer: 1,
+      explanation: "\"By one man sin entered into the world, and death by sin; and so death passed upon all men\" (Romans 5:12).",
+    },
+    {
+      q: "At the rapture, who rises first?",
+      choices: ["Those alive and remaining", "The dead in Christ", "The nations", "The martyrs of the tribulation"],
+      answer: 1,
+      explanation: "\"...and the dead in Christ shall rise first: then we which are alive and remain shall be caught up together with them\" (1 Thessalonians 4:16-17).",
+    },
+    {
+      q: "What is cast into the lake of fire at the great white throne?",
+      choices: ["The books", "The sea", "Death and hell", "The mountains"],
+      answer: 2,
+      explanation: "\"And death and hell were cast into the lake of fire. This is the second death\" (Revelation 20:14).",
+    },
+    {
+      q: "What has passed away in Revelation 21:1?",
+      choices: ["The holy city", "The first heaven and the first earth", "The book of life", "The throne"],
+      answer: 1,
+      explanation: "\"And I saw a new heaven and a new earth: for the first heaven and the first earth were passed away; and there was no more sea\" (Revelation 21:1).",
+    },
+  ],
+  timeline: [
+    { era: "Eternity past", year: "Psalm 90:2", text: "\"From everlasting to everlasting, thou art God\" — before the mountains were brought forth." },
+    { era: "Creation", year: "Genesis 1:1-3", text: "The heaven and the earth created; light spoken out of darkness." },
+    { era: "The cross", year: "Romans 6:23", text: "The center of the chart: the wages of sin met by the gift of God." },
+    { era: "The rapture", year: "1 Thessalonians 4:16-17", text: "The Lord descends with a shout; the dead in Christ rise first; the living caught up together with them." },
+    { era: "The great white throne", year: "Revelation 20:11-15", text: "The books opened; death and hell cast into the lake of fire." },
+    { era: "Eternity future", year: "Revelation 21:1-4", text: "A new heaven and a new earth; the tabernacle of God with men; no more death." },
+  ],
+  keywords: ["course of time", "eternity", "dispensations", "chart", "booth", "loizeaux", "rapture", "millennium", "great white throne", "new jerusalem", "death line", "rightly dividing", "seven dispensations", "scofield"],
+};

@@ -1,0 +1,180 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  The garments: Exodus 28:1-14. The breastplate: 28:15-30. Robe, plate, mitre: 28:31-38. */
+export const priest: Empire = {
+  id: "priest",
+  kind: "sacred-object",
+  name: "The Priesthood of Israel",
+  dwelling: "The High Priest",
+  subtitle: "Garments for glory and for beauty",
+  description:
+    "\"And thou shalt make holy garments for Aaron thy brother for glory and for beauty\" (Exodus 28:2). A breastplate, an ephod, a robe, a broidered coat, a mitre, and a girdle (28:4) — of gold, blue, purple, scarlet and fine linen (28:5) — that Aaron might bear the names of the children of Israel upon his shoulders and upon his heart before the LORD (28:12, 29).",
+  modelPath: "/models/priest.glb",
+  tint: "#8a6fae",
+  camera: { azimuth: -25, elevation: 16, dist: 1.05, targetY: 0.42 },
+  facts: [
+    { label: "Period", value: "Commanded at Sinai with the tabernacle pattern (Exodus 28)", icon: "period" },
+    { label: "Wearer", value: "\"Aaron thy brother... that he may minister unto me in the priest's office\" (Exodus 28:1)", icon: "occupants" },
+    { label: "Materials", value: "Gold, blue, purple, scarlet, and fine linen (Exodus 28:5)", icon: "materials" },
+    { label: "Dimensions", value: "Breastplate foursquare, a span by a span, doubled (Exodus 28:16)", icon: "feature" },
+    { label: "Purpose", value: "To bear the names of the children of Israel \"upon his heart... before the LORD continually\" (Exodus 28:29)", icon: "region" },
+  ],
+  hotspots: [
+    {
+      id: "mitre-plate",
+      title: "The Mitre and the Golden Plate",
+      short: "\"HOLINESS TO THE LORD\" upon his forehead",
+      detail:
+        "\"And thou shalt make a plate of pure gold, and grave upon it, like the engravings of a signet, HOLINESS TO THE LORD. And thou shalt put it on a blue lace, that it may be upon the mitre\" (Exodus 28:36-37) — \"always upon his forehead, that they may be accepted before the LORD\" (28:38).",
+      category: "roof",
+      anchor: [0.5, 0.96, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "breastplate",
+      title: "The Breastplate of Judgment",
+      short: "Choshen — four rows of stones, twelve names",
+      detail:
+        "\"Thou shalt make the breastplate of judgment with cunning work... Foursquare it shall be being doubled; a span shall be the length thereof, and a span shall be the breadth thereof\" (Exodus 28:15-16). Four rows of stones — sardius, topaz, carbuncle; emerald, sapphire, diamond; ligure, agate, amethyst; beryl, onyx, jasper — \"with the names of the children of Israel, twelve... every one with his name\" (28:17-21). The Hebrew choshen is \"perhaps a pocket (as holding the Urim and Thummim)... used only of the gorget of the highpriest.\"",
+      category: "structure",
+      anchor: [0.5, 0.68, 0.62],
+      snap: "wall",
+    },
+    {
+      id: "shoulders",
+      title: "The Onyx Shoulder Stones",
+      short: "Six names on each stone, a memorial",
+      detail:
+        "\"And thou shalt take two onyx stones, and grave on them the names of the children of Israel: six of their names on one stone, and the other six names of the rest on the other stone, according to their birth... And Aaron shall bear their names before the LORD upon his two shoulders for a memorial\" (Exodus 28:9-12).",
+      category: "structure",
+      anchor: [0.35, 0.78, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "ephod",
+      title: "The Ephod and Curious Girdle",
+      short: "Gold, blue, purple, scarlet, fine twined linen",
+      detail:
+        "\"And they shall make the ephod of gold, of blue, and of purple, of scarlet, and fine twined linen, with cunning work\" (Exodus 28:6) — its two shoulderpieces joined at the edges, and \"the curious girdle of the ephod... of the same, according to the work thereof\" (28:7-8).",
+      category: "facade",
+      anchor: [0.5, 0.55, 0.55],
+      snap: "wall",
+    },
+    {
+      id: "robe-hem",
+      title: "Bells and Pomegranates",
+      short: "\"A golden bell and a pomegranate\" round the hem",
+      detail:
+        "\"And thou shalt make the robe of the ephod all of blue... and beneath upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet... and bells of gold between them round about\" (Exodus 28:31-34). \"His sound shall be heard when he goeth in unto the holy place before the LORD, and when he cometh out, that he die not\" (28:35).",
+      category: "entrance",
+      anchor: [0.5, 0.25, 0.55],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "Upon His Heart",
+    title: "The Names Borne Before the LORD",
+    cta: "See the Names",
+    text: "\"And Aaron shall bear the names of the children of Israel in the breastplate of judgment upon his heart, when he goeth in unto the holy place, for a memorial before the LORD continually\" (Exodus 28:29). Leslie M. Grant comments that this speaks \"of Christ bearing all believers on His heart of love\" (Comments on the Book of Exodus).",
+    image: "/img/priest/interior.webp",
+  },
+  floorPlan: {
+    kicker: "The Garments",
+    title: "Six Garments and Their Order",
+    cta: "View the Garments",
+    text: "\"And these are the garments which they shall make; a breastplate, and an ephod, and a robe, and a broidered coat, a mitre, and a girdle\" (Exodus 28:4) — wrought by all that are wise hearted, filled with the spirit of wisdom (28:3).",
+    image: "/img/priest/floor-plan.webp",
+    rooms: [
+      { name: "The breastplate", note: "A span foursquare, doubled; twelve stones (Exodus 28:15-21)" },
+      { name: "The ephod", note: "Gold, blue, purple, scarlet, fine twined linen (28:6)" },
+      { name: "The robe", note: "All of blue; bells and pomegranates on the hem (28:31-34)" },
+      { name: "The broidered coat", note: "Named among the garments (28:4)" },
+      { name: "The mitre", note: "Bearing the golden plate on a blue lace (28:36-37)" },
+      { name: "The girdle", note: "The curious girdle of the ephod (28:8)" },
+      { name: "The Urim and Thummim", note: "Put in the breastplate, upon his heart (28:30)" },
+    ],
+  },
+  artifacts: {
+    kicker: "The Holy Things",
+    title: "Stones, Bells, and the Golden Plate",
+    cta: "Explore the Holy Things",
+    text: "Every element is specified in Exodus 28 — the stones by name and row, the chains by their work, the plate by its engraving.",
+    image: "/img/priest/artifacts.webp",
+    items: [
+      { name: "Two onyx stones", purpose: "Memorial upon the shoulders", material: "Onyx in ouches of gold", context: "\"Six of their names on one stone, and the other six names... according to their birth\" (Exodus 28:10-12)." },
+      { name: "The twelve stones", purpose: "The tribes upon his heart", material: "Sardius to jasper, set in gold", context: "\"Four rows of stones... with the names of the children of Israel, twelve... like the engravings of a signet\" (Exodus 28:17-21)." },
+      { name: "The Urim and the Thummim", purpose: "The judgment of Israel borne before the LORD", material: "Placed in the breastplate", context: "\"They shall be upon Aaron's heart, when he goeth in before the LORD\" (Exodus 28:30)." },
+      { name: "Wreathen chains", purpose: "Binding breastplate to ephod", material: "Pure gold", context: "\"Chains at the ends of wreathen work of pure gold\" (Exodus 28:22), bound \"with a lace of blue, that... the breastplate be not loosed from the ephod\" (28:28)." },
+      { name: "Golden bells and pomegranates", purpose: "His sound heard in the holy place", material: "Gold; blue, purple, scarlet", context: "\"A golden bell and a pomegranate... upon the hem of the robe round about\" (Exodus 28:34)." },
+      { name: "The plate of pure gold", purpose: "Bearing the iniquity of the holy things", material: "Pure gold on a blue lace", context: "\"Grave upon it... HOLINESS TO THE LORD\" (Exodus 28:36)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "His Ministry",
+    title: "Garments Never Laid Aside",
+    cta: "Discover His Ministry",
+    text: "\"And it shall be upon Aaron to minister: and his sound shall be heard when he goeth in unto the holy place before the LORD, and when he cometh out\" (Exodus 28:35). F. B. Hole draws the line forward: \"In Hebrews 2:7 we read of Jesus, who is our High Priest, being 'crowned with glory and honour.' His garments of glory and beauty are never laid aside, since He is a Priest for ever\" (Exodus, STEM Publishing).",
+    image: "/img/priest/daily-life.webp",
+  },
+  geography: {
+    kicker: "Where He Ministered",
+    title: "Into the Holy Place",
+    cta: "Explore His Path",
+    text: "The garments were made for the sanctuary's service: \"when he goeth in unto the holy place before the LORD\" (Exodus 28:29, 35) — from the brazen altar of the court to the golden altar before the veil, the high priest carried Israel's names in with him.",
+    image: "/img/priest/map.webp",
+    regionLabel: "The sanctuary — \"when he goeth in unto the holy place\" (Exodus 28:29)",
+  },
+  lesson: {
+    title: "The High Priest — Glory and Beauty",
+    intro: "The specification of Exodus 28, garment by garment, with the library's commentary.",
+    blocks: [
+      { heading: "The call", body: "\"Take thou unto thee Aaron thy brother, and his sons with him... that he may minister unto me in the priest's office\" (Exodus 28:1). The garments were to be made \"for glory and for beauty\" by the wise hearted, \"whom I have filled with the spirit of wisdom\" (28:2-3)." },
+      { heading: "The six garments", body: "A breastplate, an ephod, a robe, a broidered coat, a mitre, and a girdle (Exodus 28:4), of gold, blue, purple, scarlet and fine linen (28:5). Leslie M. Grant observes these are the same materials as the tabernacle's own hangings (Comments on the Book of Exodus)." },
+      { heading: "Shoulders and heart", body: "Two engraved onyx stones bore six names each upon the shoulders — the place of strength — \"for a memorial\" (Exodus 28:9-12); the breastplate bore all twelve \"upon his heart... continually\" (28:29). Grant: they are \"memorial stones, for Israel is always in His memory.\"" },
+      { heading: "The breastplate of judgment", body: "A span foursquare, doubled — the choshen, \"perhaps a pocket (as holding the Urim and Thummim)\" — set with four rows of named stones and carrying the Urim and the Thummim, \"and Aaron shall bear the judgment of the children of Israel upon his heart before the LORD continually\" (Exodus 28:15-30)." },
+      { heading: "The robe and its sound", body: "The robe of the ephod, all of blue, its hem ringed with pomegranates of blue, purple and scarlet and bells of gold between them: \"his sound shall be heard when he goeth in unto the holy place before the LORD, and when he cometh out, that he die not\" (Exodus 28:31-35)." },
+      { heading: "The crowned forehead", body: "On the mitre's forefront, a plate of pure gold engraved \"HOLINESS TO THE LORD,\" always upon his forehead \"that they may be accepted before the LORD\" (Exodus 28:36-38). Hole carries it to Hebrews 2:7 — our High Priest \"crowned with glory and honour,\" whose garments are never laid aside." },
+    ],
+  },
+  quiz: [
+    {
+      q: "For what were the holy garments made?",
+      choices: ["For war", "For glory and for beauty", "For travel", "For mourning"],
+      answer: 1,
+      explanation: "\"And thou shalt make holy garments for Aaron thy brother for glory and for beauty\" (Exodus 28:2).",
+    },
+    {
+      q: "How were the twelve stones of the breastplate arranged?",
+      choices: ["In a circle", "In four rows of three", "In two columns of six", "In one line"],
+      answer: 1,
+      explanation: "\"Thou shalt set in it settings of stones, even four rows of stones\" (Exodus 28:17), each engraved with a tribe's name (28:21).",
+    },
+    {
+      q: "What was engraved on the plate of pure gold?",
+      choices: ["The name of Aaron", "The twelve tribes", "HOLINESS TO THE LORD", "Hear, O Israel"],
+      answer: 2,
+      explanation: "\"Grave upon it, like the engravings of a signet, HOLINESS TO THE LORD\" (Exodus 28:36).",
+    },
+    {
+      q: "Where were the Urim and the Thummim placed?",
+      choices: ["In the ark", "On the mitre", "In the breastplate of judgment", "On the girdle"],
+      answer: 2,
+      explanation: "\"Thou shalt put in the breastplate of judgment the Urim and the Thummim; and they shall be upon Aaron's heart\" (Exodus 28:30).",
+    },
+    {
+      q: "Why were golden bells set on the robe's hem?",
+      choices: ["To call the people", "That his sound be heard going in and coming out, that he die not", "To mark the hours", "For beauty alone"],
+      answer: 1,
+      explanation: "\"His sound shall be heard when he goeth in unto the holy place before the LORD, and when he cometh out, that he die not\" (Exodus 28:35).",
+    },
+  ],
+  timeline: [
+    { era: "The call", year: "Exodus 28:1-3", text: "Aaron and his sons taken from among the children of Israel; the wise hearted filled with the spirit of wisdom to make the garments." },
+    { era: "The six garments", year: "Exodus 28:4-5", text: "Breastplate, ephod, robe, broidered coat, mitre and girdle — gold, blue, purple, scarlet, fine linen." },
+    { era: "Shoulders", year: "Exodus 28:9-12", text: "Two onyx stones engraved with the twelve names, borne upon the shoulders for a memorial." },
+    { era: "Heart", year: "Exodus 28:15-30", text: "The breastplate of judgment with its four rows of stones and the Urim and Thummim, upon his heart continually." },
+    { era: "Forehead", year: "Exodus 28:36-38", text: "The plate of pure gold — HOLINESS TO THE LORD — always upon his forehead, that they may be accepted." },
+  ],
+  keywords: ["high priest", "aaron", "breastplate", "choshen", "ephod", "urim", "thummim", "mitre", "holiness to the lord", "onyx", "bells", "pomegranates", "twelve stones", "exodus 28"],
+};

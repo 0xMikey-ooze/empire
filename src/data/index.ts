@@ -4,8 +4,10 @@ import { covenant } from "./empires/covenant";
 import { tabernacle } from "./empires/tabernacle";
 import { temple } from "./empires/temple";
 import { babylon } from "./empires/babylon";
+import { priest } from "./empires/priest";
+import { courseOfTime } from "./empires/course-of-time";
 
-export const EXHIBITS: Empire[] = [noah, covenant, tabernacle, temple, babylon];
+export const EXHIBITS: Empire[] = [noah, covenant, tabernacle, priest, temple, babylon, courseOfTime];
 
 export const exhibitById = (id: string): Empire => EXHIBITS.find((e) => e.id === id) ?? EXHIBITS[0];
 
