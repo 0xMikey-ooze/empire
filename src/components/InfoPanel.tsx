@@ -31,7 +31,6 @@ interface Props {
 }
 
 export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animating, onLesson, onToggleAnimate, onArtifacts, onQuiz }: Props) {
-  const isBiblicalExhibit = Boolean(empire.kind && empire.kind !== "civilization");
   const selectionLabel =
     empire.kind === "vision"
       ? "Selected Vision"
@@ -80,11 +79,6 @@ export const InfoPanel = memo(function InfoPanel({ empire, flow = false, animati
               loading="lazy"
               draggable={false}
             />
-            {isBiblicalExhibit && (
-              <span className="absolute bottom-2 left-2 rounded-full border border-line-warm bg-paper/90 px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-wide text-ink-muted backdrop-blur-sm">
-                AI-assisted reconstruction
-              </span>
-            )}
           </div>
 
           <div className={flow ? "min-w-0 sm:flex-1" : ""}>

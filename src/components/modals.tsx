@@ -180,11 +180,6 @@ export const SectionModal = memo(function SectionModal({
       <div className="overflow-hidden rounded-xl border border-line-warm bg-paper-deep">
         <img src={data.image} alt={data.title} className="w-full object-contain" />
       </div>
-      {empire.kind && empire.kind !== "civilization" && (
-        <p className="mt-2 text-[0.7rem] italic text-ink-muted">
-          AI-assisted reconstruction. Dimensions and named features follow the cited passages; unstated arrangement is illustrative.
-        </p>
-      )}
       {section === "geography" && (
         <div className="kicker mt-3 !text-terracotta">{empire.geography.regionLabel}</div>
       )}
