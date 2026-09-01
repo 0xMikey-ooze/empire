@@ -1,0 +1,170 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  The candlestick: Exodus 25:31-40. Its place: Exodus 26:35. */
+export const lampstand: Empire = {
+  id: "lampstand",
+  kind: "sacred-object",
+  name: "Light in the Sanctuary",
+  dwelling: "The Golden Candlestick",
+  subtitle: "One beaten work of pure gold",
+  description:
+    "\"And thou shalt make a candlestick of pure gold: of beaten work shall the candlestick be made: his shaft, and his branches, his bowls, his knops, and his flowers, shall be of the same\" (Exodus 25:31) — six branches out of its sides, bowls made like almonds, seven lamps, all of a talent of pure gold, \"after their pattern, which was shewed thee in the mount\" (25:39-40).",
+  modelPath: "/models/lampstand.glb",
+  tint: "#d9b23c",
+  camera: { azimuth: -28, elevation: 20, dist: 1.05, targetY: 0.45 },
+  facts: [
+    { label: "Period", value: "Commanded at Sinai with the tabernacle pattern (Exodus 25)", icon: "period" },
+    { label: "Place", value: "The south side of the tabernacle, over against the table (Exodus 26:35)", icon: "region" },
+    { label: "Material", value: "\"Of a talent of pure gold shall he make it, with all these vessels\" (Exodus 25:39)", icon: "materials" },
+    { label: "Form", value: "One beaten work: shaft, six branches, bowls, knops, flowers (Exodus 25:31-36)", icon: "feature" },
+    { label: "Purpose", value: "\"They shall light the lamps thereof, that they may give light over against it\" (Exodus 25:37)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "shaft",
+      title: "The Central Shaft",
+      short: "\"His shaft... shall be of the same\"",
+      detail:
+        "\"Of beaten work shall the candlestick be made: his shaft, and his branches, his bowls, his knops, and his flowers, shall be of the same\" (Exodus 25:31) — with four bowls made like almonds in the candlestick itself (25:34). The Christian Writings Archive study observes: \"'The beaten shaft' with which those seven lamps were connected, expresses... Christ as the foundation of all the Spirit's action\" (The Golden Candlestick).",
+      category: "structure",
+      anchor: [0.5, 0.5, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "branches",
+      title: "The Six Branches",
+      short: "Three out of the one side, three out of the other",
+      detail:
+        "\"And six branches shall come out of the sides of it; three branches of the candlestick out of the one side, and three branches of the candlestick out of the other side\" (Exodus 25:32) — each with three bowls made like almonds, a knop and a flower (25:33), and \"a knop under two branches of the same\" at each junction (25:35).",
+      category: "facade",
+      anchor: [0.2, 0.6, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "lamps",
+      title: "The Seven Lamps",
+      short: "\"That they may give light over against it\"",
+      detail:
+        "\"And thou shalt make the seven lamps thereof: and they shall light the lamps thereof, that they may give light over against it\" (Exodus 25:37). H. F. G. Cole: this candlestick \"which so perfectly lighted up the Holy Place with its sevenfold brilliance, pictured the Lord Jesus Christ, 'the true Light'\" (Tabernacle Treasures).",
+      category: "roof",
+      anchor: [0.5, 0.95, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "almond-bowls",
+      title: "Bowls Like Almonds",
+      short: "Knops and flowers of one beaten work",
+      detail:
+        "\"Three bowls made like unto almonds, with a knop and a flower in one branch... so in the six branches\" (Exodus 25:33), and in the shaft \"four bowls made like unto almonds, with their knops and their flowers\" (25:34) — \"all it shall be one beaten work of pure gold\" (25:36).",
+      category: "artifact-zone",
+      anchor: [0.75, 0.7, 0.5],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "Its Light",
+    title: "Sevenfold Light in the Holy Place",
+    cta: "See Its Light",
+    text: "The candlestick stood on the south side of the holy place, over against the table of shewbread (Exodus 26:35), its seven lamps giving \"light over against it\" (25:37). C. H. Mackintosh draws the type out: \"Every ray of light in the Church, in the individual believer, or in Israel by and by, all flows from Christ\" (Notes on Numbers).",
+    image: "/img/lampstand/interior.webp",
+  },
+  floorPlan: {
+    kicker: "The Pattern",
+    title: "One Beaten Work",
+    cta: "View the Pattern",
+    text: "\"And look that thou make them after their pattern, which was shewed thee in the mount\" (Exodus 25:40). The parts as the chapter names them:",
+    image: "/img/lampstand/floor-plan.webp",
+    rooms: [
+      { name: "The shaft", note: "With four almond bowls, knops, flowers (Exodus 25:31, 34)" },
+      { name: "Six branches", note: "Three per side (25:32)" },
+      { name: "Bowls like almonds", note: "Three per branch, with knop and flower (25:33)" },
+      { name: "Knops at the junctions", note: "\"A knop under two branches,\" thrice (25:35)" },
+      { name: "The seven lamps", note: "Giving light over against it (25:37)" },
+      { name: "Tongs and snuffdishes", note: "Of pure gold (25:38)" },
+      { name: "The weight", note: "A talent of pure gold, with all its vessels (25:39)" },
+    ],
+  },
+  artifacts: {
+    kicker: "Its Vessels",
+    title: "All of Pure Gold",
+    cta: "Explore the Vessels",
+    text: "Nothing about the candlestick was of any lesser metal — lamps, tongs and snuffdishes alike (Exodus 25:37-39).",
+    image: "/img/lampstand/artifacts.webp",
+    items: [
+      { name: "The seven lamps", purpose: "The light of the holy place", material: "Pure gold", context: "\"Thou shalt make the seven lamps thereof\" (Exodus 25:37)." },
+      { name: "The tongs", purpose: "Tending the wicks", material: "Pure gold", context: "\"And the tongs thereof... shall be of pure gold\" (Exodus 25:38)." },
+      { name: "The snuffdishes", purpose: "Receiving what was trimmed away", material: "Pure gold", context: "\"...and the snuffdishes thereof, shall be of pure gold\" (Exodus 25:38)." },
+      { name: "The almond bowls", purpose: "The cups of the branches and shaft", material: "Beaten gold", context: "\"Bowls made like unto almonds\" (Exodus 25:33-34)." },
+      { name: "The knops and flowers", purpose: "The budding ornament of one work", material: "Beaten gold", context: "\"Their knops and their branches shall be of the same\" (Exodus 25:36)." },
+      { name: "The talent of gold", purpose: "The whole measure of it", material: "Pure gold", context: "\"Of a talent of pure gold shall he make it, with all these vessels\" (Exodus 25:39)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "Its Service",
+    title: "Light Maintained Continually",
+    cta: "Discover Its Service",
+    text: "\"They shall light the lamps thereof, that they may give light over against it\" (Exodus 25:37). Mackintosh continues the type: the light believers yield \"is not only founded upon Christ, but maintained by Him, from moment to moment\" (Notes on Numbers).",
+    image: "/img/lampstand/daily-life.webp",
+  },
+  geography: {
+    kicker: "Where It Stood",
+    title: "The South Side of the Holy Place",
+    cta: "See Its Place",
+    text: "\"And thou shalt set the table without the vail, and the candlestick over against the table on the side of the tabernacle toward the south\" (Exodus 26:35) — facing the table of shewbread across the holy place, before the veil.",
+    image: "/img/lampstand/map.webp",
+    regionLabel: "The holy place, south side (Exodus 26:35)",
+  },
+  lesson: {
+    title: "The Golden Candlestick",
+    intro: "The specification of Exodus 25:31-40 and what the library's teachers saw in it.",
+    blocks: [
+      { heading: "One beaten work", body: "Not cast, but beaten: \"of beaten work shall the candlestick be made\" — shaft, branches, bowls, knops and flowers all \"of the same,\" one piece of pure gold (Exodus 25:31, 36)." },
+      { heading: "The form", body: "Six branches from the sides, three and three; three almond-like bowls with knop and flower on each branch; four in the shaft; a knop beneath each pair of branches (Exodus 25:32-35). The almond — Scripture's first-waking blossom — shapes every cup." },
+      { heading: "The seven lamps", body: "\"Thou shalt make the seven lamps thereof: and they shall light the lamps thereof, that they may give light over against it\" (Exodus 25:37) — the only light source named for the holy place." },
+      { heading: "The measure", body: "\"Of a talent of pure gold shall he make it, with all these vessels\" (Exodus 25:39) — lamp and tongs and snuffdishes alike, nothing of it common." },
+      { heading: "The library's commentary", body: "Cole: it \"pictured the Lord Jesus Christ, 'the true Light'\" (Tabernacle Treasures). The Christian Writings Archive study reads the beaten shaft as \"Christ as the foundation of all the Spirit's action\" (The Golden Candlestick)." },
+      { heading: "The pattern", body: "\"And look that thou make them after their pattern, which was shewed thee in the mount\" (Exodus 25:40) — the same charge that governs every vessel of the sanctuary, and this exhibit." },
+    ],
+  },
+  quiz: [
+    {
+      q: "How was the candlestick to be made?",
+      choices: ["Cast in a mould", "Of beaten work, one piece", "Carved of wood and overlaid", "Welded from seven parts"],
+      answer: 1,
+      explanation: "\"Of beaten work shall the candlestick be made... all it shall be one beaten work of pure gold\" (Exodus 25:31, 36).",
+    },
+    {
+      q: "How many branches came out of its sides?",
+      choices: ["Four", "Six", "Eight", "Twelve"],
+      answer: 1,
+      explanation: "\"And six branches shall come out of the sides of it; three... out of the one side, and three... out of the other side\" (Exodus 25:32).",
+    },
+    {
+      q: "Like what fruit were the bowls fashioned?",
+      choices: ["Pomegranates", "Grapes", "Almonds", "Figs"],
+      answer: 2,
+      explanation: "\"Three bowls made like unto almonds, with a knop and a flower\" (Exodus 25:33).",
+    },
+    {
+      q: "What was the weight of the whole?",
+      choices: ["A shekel of gold", "A talent of pure gold", "Five hundred shekels", "An omer"],
+      answer: 1,
+      explanation: "\"Of a talent of pure gold shall he make it, with all these vessels\" (Exodus 25:39).",
+    },
+    {
+      q: "Where did the candlestick stand?",
+      choices: ["In the most holy place", "In the court by the altar", "On the south side of the holy place", "At the gate"],
+      answer: 2,
+      explanation: "\"...the candlestick over against the table on the side of the tabernacle toward the south\" (Exodus 26:35).",
+    },
+  ],
+  timeline: [
+    { era: "The command", year: "Exodus 25:31", text: "A candlestick of pure gold, of beaten work — shaft, branches, bowls, knops and flowers of the same." },
+    { era: "The branches", year: "Exodus 25:32-35", text: "Six branches, three per side; almond bowls with knop and flower; a knop under each pair." },
+    { era: "The lamps", year: "Exodus 25:37-38", text: "Seven lamps to give light over against it; tongs and snuffdishes of pure gold." },
+    { era: "The measure", year: "Exodus 25:39-40", text: "A talent of pure gold, made after the pattern shewed in the mount." },
+    { era: "Its place", year: "Exodus 26:35", text: "Set on the south side of the holy place, over against the table." },
+  ],
+  keywords: ["candlestick", "lampstand", "menorah", "seven lamps", "beaten work", "pure gold", "almonds", "knops", "flowers", "talent", "holy place", "light", "exodus 25"],
+};

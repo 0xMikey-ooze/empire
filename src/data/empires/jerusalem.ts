@@ -1,0 +1,180 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  The city: Revelation 21:10-21. Its light and temple: 21:22-27. The river: 22:1-5. */
+export const jerusalem: Empire = {
+  id: "jerusalem",
+  kind: "vision",
+  name: "The Eternal City",
+  dwelling: "The New Jerusalem",
+  subtitle: "The holy city, descending out of heaven from God",
+  description:
+    "\"And the city lieth foursquare, and the length is as large as the breadth: and he measured the city with the reed, twelve thousand furlongs. The length and the breadth and the height of it are equal\" (Revelation 21:16). A wall of jasper an hundred and forty and four cubits, twelve gates of pearl, twelve garnished foundations — \"and the city was pure gold, like unto clear glass\" (21:17-18, 21).",
+  modelPath: "/models/jerusalem.glb",
+  tint: "#d4af6a",
+  camera: { azimuth: -32, elevation: 28, dist: 1.05, targetY: 0.4 },
+  facts: [
+    { label: "Seen", value: "From a great and high mountain, \"descending out of heaven from God\" (Revelation 21:10)", icon: "period" },
+    { label: "Dimensions", value: "Foursquare, 12,000 furlongs — length, breadth and height equal (Revelation 21:16)", icon: "feature" },
+    { label: "The wall", value: "144 cubits, of jasper, on twelve garnished foundations (Revelation 21:17-19)", icon: "materials" },
+    { label: "The gates", value: "Twelve pearls — \"every several gate was of one pearl\" (Revelation 21:21)", icon: "region" },
+    { label: "Its light", value: "\"The glory of God did lighten it, and the Lamb is the light thereof\" (Revelation 21:23)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "wall",
+      title: "The Wall of Jasper",
+      short: "Great and high — an hundred and forty and four cubits",
+      detail:
+        "\"And had a wall great and high, and had twelve gates, and at the gates twelve angels... And he measured the wall thereof, an hundred and forty and four cubits, according to the measure of a man, that is, of the angel. And the building of the wall of it was of jasper\" (Revelation 21:12, 17-18).",
+      category: "facade",
+      anchor: [0.5, 0.35, 0.95],
+      snap: "wall",
+    },
+    {
+      id: "gates",
+      title: "The Gates of Pearl",
+      short: "Three on each side, never shut",
+      detail:
+        "\"On the east three gates; on the north three gates; on the south three gates; and on the west three gates\" — bearing the names of the twelve tribes (Revelation 21:12-13). \"The twelve gates were twelve pearls; every several gate was of one pearl\" (21:21), and \"the gates of it shall not be shut at all by day: for there shall be no night there\" (21:25).",
+      category: "entrance",
+      anchor: [0.5, 0.25, 0.85],
+      snap: "wall",
+    },
+    {
+      id: "foundations",
+      title: "The Twelve Foundations",
+      short: "Garnished with all manner of precious stones",
+      detail:
+        "\"And the wall of the city had twelve foundations, and in them the names of the twelve apostles of the Lamb\" (Revelation 21:14) — jasper, sapphire, chalcedony, emerald, sardonyx, sardius, chrysolite, beryl, topaz, chrysoprasus, jacinth, amethyst (21:19-20).",
+      category: "structure",
+      anchor: [0.3, 0.12, 0.9],
+      snap: "wall",
+    },
+    {
+      id: "city-gold",
+      title: "The City of Pure Gold",
+      short: "\"Like unto clear glass\"",
+      detail:
+        "\"And the city was pure gold, like unto clear glass... and the street of the city was pure gold, as it were transparent glass\" (Revelation 21:18, 21). \"Her light was like unto a stone most precious, even like a jasper stone, clear as crystal\" (21:11).",
+      category: "roof",
+      anchor: [0.5, 0.9, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "no-temple",
+      title: "No Temple Therein",
+      short: "\"The Lord God Almighty and the Lamb are the temple of it\"",
+      detail:
+        "\"And I saw no temple therein: for the Lord God Almighty and the Lamb are the temple of it. And the city had no need of the sun, neither of the moon, to shine in it: for the glory of God did lighten it, and the Lamb is the light thereof\" (Revelation 21:22-23).",
+      category: "interior",
+      anchor: [0.5, 0.6, 0.5],
+      snap: "roof",
+    },
+  ],
+  interior: {
+    kicker: "Within the City",
+    title: "The River and the Tree of Life",
+    cta: "See Within",
+    text: "\"And he shewed me a pure river of water of life, clear as crystal, proceeding out of the throne of God and of the Lamb. In the midst of the street of it, and on either side of the river, was there the tree of life, which bare twelve manner of fruits... and the leaves of the tree were for the healing of the nations\" (Revelation 22:1-2).",
+    image: "/img/jerusalem/interior.webp",
+  },
+  floorPlan: {
+    kicker: "The Measurements",
+    title: "Measured with a Golden Reed",
+    cta: "View the Measurements",
+    text: "\"And he that talked with me had a golden reed to measure the city, and the gates thereof, and the wall thereof\" (Revelation 21:15). The parts as the chapter gives them:",
+    image: "/img/jerusalem/floor-plan.webp",
+    rooms: [
+      { name: "The city foursquare", note: "12,000 furlongs; length, breadth, height equal (Revelation 21:16)" },
+      { name: "The wall", note: "144 cubits, of jasper (21:17-18)" },
+      { name: "Twelve gates", note: "Three per side; each one pearl (21:13, 21)" },
+      { name: "Twelve foundations", note: "Named for the apostles of the Lamb (21:14)" },
+      { name: "The street", note: "Pure gold, as transparent glass (21:21)" },
+      { name: "The river of water of life", note: "Proceeding out of the throne (22:1)" },
+      { name: "The tree of life", note: "Twelve manner of fruits (22:2)" },
+    ],
+  },
+  artifacts: {
+    kicker: "The Stones of the City",
+    title: "Garnished with All Manner of Precious Stones",
+    cta: "Explore the Stones",
+    text: "Every material is named in Revelation 21 — nothing in the city is left unspecified.",
+    image: "/img/jerusalem/artifacts.webp",
+    items: [
+      { name: "Jasper", purpose: "The wall and the first foundation", material: "\"Clear as crystal\"", context: "\"Her light was like unto a stone most precious, even like a jasper stone, clear as crystal\" (Revelation 21:11, 18-19)." },
+      { name: "The twelve foundation stones", purpose: "Bearing the apostles' names", material: "Sapphire to amethyst", context: "Jasper, sapphire, chalcedony, emerald, sardonyx, sardius, chrysolite, beryl, topaz, chrysoprasus, jacinth, amethyst (Revelation 21:19-20)." },
+      { name: "The pearls", purpose: "The twelve gates", material: "\"Every several gate was of one pearl\"", context: "Revelation 21:21." },
+      { name: "Pure gold", purpose: "The city and its street", material: "\"Like unto clear glass\"", context: "\"The street of the city was pure gold, as it were transparent glass\" (Revelation 21:18, 21)." },
+      { name: "The golden reed", purpose: "The measure of the city", material: "Gold", context: "\"He that talked with me had a golden reed to measure the city\" (Revelation 21:15)." },
+      { name: "The Lamb's book of life", purpose: "The register of its citizens", material: "—", context: "\"They which are written in the Lamb's book of life\" enter in (Revelation 21:27)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "Its Life",
+    title: "His Servants Shall Serve Him",
+    cta: "Discover Its Life",
+    text: "\"And there shall be no more curse: but the throne of God and of the Lamb shall be in it; and his servants shall serve him: and they shall see his face; and his name shall be in their foreheads... and they shall reign for ever and ever\" (Revelation 22:3-5). Ironside notes the city \"has the glory of God, and her light is... like a jasper stone, clear as crystal\" (Closing Scenes, on Revelation 21).",
+    image: "/img/jerusalem/daily-life.webp",
+  },
+  geography: {
+    kicker: "Whence It Comes",
+    title: "Out of Heaven from God",
+    cta: "See Whence It Comes",
+    text: "\"And he carried me away in the spirit to a great and high mountain, and shewed me that great city, the holy Jerusalem, descending out of heaven from God\" (Revelation 21:10). William Kelly contrasts it with the other city of Scripture: \"In the O.T. the literal Babylon on the plain of Shinar appears in contrast with Jerusalem\" (The Bride, the Lamb's Wife).",
+    image: "/img/jerusalem/map.webp",
+    regionLabel: "\"Descending out of heaven from God\" (Revelation 21:10)",
+  },
+  lesson: {
+    title: "The Holy City, New Jerusalem",
+    intro: "The specification of Revelation 21-22, measure by measure, with the library's commentary.",
+    blocks: [
+      { heading: "The vision", body: "John is carried \"to a great and high mountain\" and shown \"that great city, the holy Jerusalem, descending out of heaven from God, having the glory of God\" (Revelation 21:10-11). Ironside observes that \"this comes at the conclusion of the prophetic outline\" (Closing Scenes)." },
+      { heading: "The measurements", body: "The measuring angel's golden reed finds the city foursquare — twelve thousand furlongs, \"the length and the breadth and the height of it are equal\" — and the wall an hundred and forty and four cubits (Revelation 21:15-17). No structure in Scripture is given grander dimensions." },
+      { heading: "The materials", body: "The wall of jasper; the city and its street pure gold like clear glass; twelve foundations garnished with twelve named stones; twelve gates each of one pearl (Revelation 21:18-21)." },
+      { heading: "The names it bears", body: "The gates carry \"the names of the twelve tribes of the children of Israel\" (21:12); the foundations \"the names of the twelve apostles of the Lamb\" (21:14) — Israel and the church both written into the city's fabric." },
+      { heading: "What is absent", body: "No temple — \"for the Lord God Almighty and the Lamb are the temple of it\"; no sun or moon — \"the glory of God did lighten it\"; no night, no shut gates, no defiling thing (Revelation 21:22-27); \"no more curse\" (22:3)." },
+      { heading: "The library's commentary", body: "Kelly reads the city as \"The Bride, the Lamb's Wife\" over against Babylon on the plain of Shinar; Grant's study of the Bridegroom adds that in the Bride, association with Christ carries \"rather the thought of rest\" (The Crowned Christ)." },
+    ],
+  },
+  quiz: [
+    {
+      q: "What shape is the city, per Revelation 21:16?",
+      choices: ["A circle", "Foursquare — length, breadth and height equal", "A pyramid", "A crescent"],
+      answer: 1,
+      explanation: "\"The city lieth foursquare... The length and the breadth and the height of it are equal\" — twelve thousand furlongs (Revelation 21:16).",
+    },
+    {
+      q: "What is the measure of the wall?",
+      choices: ["144 cubits", "1,000 cubits", "12,000 furlongs", "70 cubits"],
+      answer: 0,
+      explanation: "\"And he measured the wall thereof, an hundred and forty and four cubits\" (Revelation 21:17).",
+    },
+    {
+      q: "Of what is each gate made?",
+      choices: ["Gold", "Jasper", "One pearl", "Brass"],
+      answer: 2,
+      explanation: "\"The twelve gates were twelve pearls; every several gate was of one pearl\" (Revelation 21:21).",
+    },
+    {
+      q: "Why has the city no need of the sun?",
+      choices: ["It is underground", "The glory of God lightens it, and the Lamb is its light", "It has twelve moons", "Its walls glow"],
+      answer: 1,
+      explanation: "\"The glory of God did lighten it, and the Lamb is the light thereof\" (Revelation 21:23).",
+    },
+    {
+      q: "Whose names are on the twelve foundations?",
+      choices: ["The twelve tribes", "The twelve apostles of the Lamb", "The prophets", "The martyrs"],
+      answer: 1,
+      explanation: "\"And the wall of the city had twelve foundations, and in them the names of the twelve apostles of the Lamb\" (Revelation 21:14); the tribes' names are on the gates (21:12).",
+    },
+  ],
+  timeline: [
+    { era: "The vision", year: "Revelation 21:10", text: "John carried in the spirit to a great and high mountain; the holy Jerusalem descends out of heaven from God." },
+    { era: "The measuring", year: "Revelation 21:15-17", text: "The golden reed: the city foursquare, 12,000 furlongs; the wall 144 cubits." },
+    { era: "The materials", year: "Revelation 21:18-21", text: "Jasper wall, city of pure gold, twelve garnished foundations, twelve gates of pearl." },
+    { era: "No temple", year: "Revelation 21:22-27", text: "The Lord God Almighty and the Lamb its temple and light; nothing that defileth enters." },
+    { era: "The river", year: "Revelation 22:1-5", text: "The water of life from the throne; the tree of life; no more curse; they reign for ever and ever." },
+  ],
+  keywords: ["new jerusalem", "holy city", "bride", "foursquare", "twelve gates", "pearl", "jasper", "foundations", "pure gold", "tree of life", "river of life", "revelation 21", "lamb"],
+};

@@ -1,0 +1,180 @@
+import type { Empire } from "@/types/empire";
+
+/** All specifications retrieved from the KJV via the Rhema library.
+ *  The champion and his armour: 1 Samuel 17:4-11. His fall: 17:45-51. */
+export const goliath: Empire = {
+  id: "goliath",
+  name: "The Valley of Elah",
+  dwelling: "Goliath of Gath",
+  subtitle: "The champion of the Philistines",
+  description:
+    "\"And there went out a champion out of the camp of the Philistines, named Goliath, of Gath, whose height was six cubits and a span\" (1 Samuel 17:4) — helmed and mailed in brass, his coat of mail five thousand shekels, his spear's staff like a weaver's beam and its head six hundred shekels of iron (17:5-7). He fell to a shepherd's sling, \"that all the earth may know that there is a God in Israel\" (17:46).",
+  modelPath: "/models/goliath.glb",
+  tint: "#7d8471",
+  camera: { azimuth: -25, elevation: 16, dist: 1.05, targetY: 0.42 },
+  facts: [
+    { label: "Period", value: "The days of Saul; the Philistine war (1 Samuel 17)", icon: "period" },
+    { label: "Origin", value: "Gath of the Philistines (1 Samuel 17:4)", icon: "region" },
+    { label: "Height", value: "Six cubits and a span (1 Samuel 17:4)", icon: "feature" },
+    { label: "Armour", value: "Brass helmet, coat of mail of 5,000 shekels, brass greaves and target (1 Samuel 17:5-6)", icon: "materials" },
+    { label: "His end", value: "\"So David prevailed over the Philistine with a sling and with a stone\" (1 Samuel 17:50)", icon: "occupants" },
+  ],
+  hotspots: [
+    {
+      id: "helmet",
+      title: "The Helmet of Brass",
+      short: "\"An helmet of brass upon his head\"",
+      detail:
+        "\"And he had an helmet of brass upon his head\" (1 Samuel 17:5) — yet the stone found the one place above it: \"David... slang it, and smote the Philistine in his forehead, that the stone sunk into his forehead\" (17:49).",
+      category: "roof",
+      anchor: [0.5, 0.96, 0.5],
+      snap: "roof",
+    },
+    {
+      id: "mail",
+      title: "The Coat of Mail",
+      short: "Five thousand shekels of brass",
+      detail:
+        "\"He was armed with a coat of mail; and the weight of the coat was five thousand shekels of brass\" (1 Samuel 17:5) — armour heavier than a man, on a champion \"six cubits and a span\" (17:4).",
+      category: "structure",
+      anchor: [0.5, 0.68, 0.55],
+      snap: "wall",
+    },
+    {
+      id: "greaves",
+      title: "Greaves and Target of Brass",
+      short: "Brass on his legs, brass between his shoulders",
+      detail:
+        "\"And he had greaves of brass upon his legs, and a target of brass between his shoulders\" (1 Samuel 17:6) — clad in brass from head to foot, with a shield-bearer going before him besides (17:7).",
+      category: "structure",
+      anchor: [0.5, 0.25, 0.55],
+      snap: "wall",
+    },
+    {
+      id: "spear",
+      title: "The Spear Like a Weaver's Beam",
+      short: "Its head six hundred shekels of iron",
+      detail:
+        "\"And the staff of his spear was like a weaver's beam; and his spear's head weighed six hundred shekels of iron: and one bearing a shield went before him\" (1 Samuel 17:7). Against it David answered: \"Thou comest to me with a sword, and with a spear, and with a shield: but I come to thee in the name of the LORD of hosts\" (17:45).",
+      category: "facade",
+      anchor: [0.75, 0.6, 0.5],
+      snap: "wall",
+    },
+    {
+      id: "forehead",
+      title: "The Place the Stone Found",
+      short: "\"The stone sunk into his forehead\"",
+      detail:
+        "\"And David put his hand in his bag, and took thence a stone, and slang it, and smote the Philistine in his forehead, that the stone sunk into his forehead; and he fell upon his face to the earth\" (1 Samuel 17:49). A Scripture Truth writer adds: \"The stone which hit Goliath's head and killed him cannot fail to remind us of God's prophecy to Eve concerning the Messiah (Genesis 3:15).\"",
+      category: "interior",
+      anchor: [0.5, 0.88, 0.6],
+      snap: "wall",
+    },
+  ],
+  interior: {
+    kicker: "The Challenge",
+    title: "\"Give Me a Man\"",
+    cta: "Hear the Challenge",
+    text: "\"And he stood and cried unto the armies of Israel... choose you a man for you, and let him come down to me... I defy the armies of Israel this day; give me a man, that we may fight together. When Saul and all Israel heard those words of the Philistine, they were dismayed, and greatly afraid\" (1 Samuel 17:8-11).",
+    image: "/img/goliath/interior.webp",
+  },
+  floorPlan: {
+    kicker: "The Armour",
+    title: "Weighed and Named",
+    cta: "View the Armour",
+    text: "Scripture itemizes the champion's equipment piece by piece — and then records that none of it mattered (1 Samuel 17:47, 50).",
+    image: "/img/goliath/floor-plan.webp",
+    rooms: [
+      { name: "His height", note: "Six cubits and a span (1 Samuel 17:4)" },
+      { name: "Helmet", note: "Brass (17:5)" },
+      { name: "Coat of mail", note: "5,000 shekels of brass (17:5)" },
+      { name: "Greaves", note: "Brass, upon his legs (17:6)" },
+      { name: "Target", note: "Brass, between his shoulders (17:6)" },
+      { name: "Spear staff", note: "Like a weaver's beam (17:7)" },
+      { name: "Spear's head", note: "600 shekels of iron (17:7)" },
+      { name: "The shield", note: "Borne by one going before him (17:7)" },
+    ],
+  },
+  artifacts: {
+    kicker: "The Two Armouries",
+    title: "Sword and Spear — and a Sling",
+    cta: "Compare the Arms",
+    text: "\"All this assembly shall know that the LORD saveth not with sword and spear: for the battle is the LORD's\" (1 Samuel 17:47).",
+    image: "/img/goliath/artifacts.webp",
+    items: [
+      { name: "The helmet of brass", purpose: "The champion's head", material: "Brass", context: "1 Samuel 17:5." },
+      { name: "The coat of mail", purpose: "His body armour", material: "5,000 shekels of brass", context: "1 Samuel 17:5." },
+      { name: "The spear", purpose: "His chief weapon", material: "Staff like a weaver's beam; head 600 shekels of iron", context: "1 Samuel 17:7." },
+      { name: "The sling", purpose: "David's weapon", material: "—", context: "\"So David prevailed over the Philistine with a sling and with a stone\" (1 Samuel 17:50)." },
+      { name: "The stone", purpose: "One of five from the brook", material: "Stone", context: "\"Took thence a stone, and slang it, and smote the Philistine in his forehead\" (1 Samuel 17:49)." },
+      { name: "Goliath's own sword", purpose: "The champion's end", material: "—", context: "\"David ran... and took his sword... and cut off his head therewith\" (1 Samuel 17:51); \"there was no sword in the hand of David\" (17:50)." },
+    ],
+  },
+  dailyLife: {
+    kicker: "The Battle",
+    title: "The Battle Is the LORD's",
+    cta: "See the Battle",
+    text: "C. H. Mackintosh weighs the weapons: \"If David had used Saul's armour it would not have been known that the Lord saved not by sword and spear... the sling and the stone, while giving little prominence to him that used it, gave the glory to Him from whom the victory came\" (The Life and Times of David).",
+    image: "/img/goliath/daily-life.webp",
+  },
+  geography: {
+    kicker: "Where He Fell",
+    title: "The Valley Between the Armies",
+    cta: "Explore the Field",
+    text: "The Philistine came out morning and evening to defy Israel until the shepherd of Bethlehem ran to meet him (1 Samuel 17:48). A Scripture Truth writer pictures David going \"into the valley to meet Goliath\" and wonders whether the experience lay behind Psalm 23:4's valley of the shadow of death (From the Editor's Notebook).",
+    image: "/img/goliath/map.webp",
+    regionLabel: "The valley of the Philistine war (1 Samuel 17)",
+  },
+  lesson: {
+    title: "Goliath of Gath — The Champion Weighed",
+    intro: "The specification of 1 Samuel 17 and the library's reading of the victory.",
+    blocks: [
+      { heading: "The champion", body: "\"A champion out of the camp of the Philistines, named Goliath, of Gath, whose height was six cubits and a span\" (1 Samuel 17:4) — the only man in Scripture whose armour is inventoried by weight." },
+      { heading: "The armour", body: "Helmet of brass; coat of mail of five thousand shekels of brass; greaves of brass; a target of brass between his shoulders; a spear staff like a weaver's beam with a six-hundred-shekel iron head; and a shield-bearer besides (1 Samuel 17:5-7)." },
+      { heading: "The challenge", body: "\"I defy the armies of Israel this day; give me a man, that we may fight together\" — and Saul and all Israel \"were dismayed, and greatly afraid\" (1 Samuel 17:10-11)." },
+      { heading: "The answer", body: "\"Thou comest to me with a sword, and with a spear, and with a shield: but I come to thee in the name of the LORD of hosts, the God of the armies of Israel, whom thou hast defied\" (1 Samuel 17:45)." },
+      { heading: "The victory", body: "One stone to the forehead; the champion falls on his face; his own sword takes his head; the Philistines flee (1 Samuel 17:49-51). \"The LORD saveth not with sword and spear: for the battle is the LORD's\" (17:47)." },
+      { heading: "The library's commentary", body: "Mackintosh: the sling and stone \"gave the glory to Him from whom the victory came\" (The Life and Times of David). Scripture Truth sees in the stone that broke the giant's head an echo of Genesis 3:15 — and notes with the text, \"there was no sword in the hand of David.\"" },
+    ],
+  },
+  quiz: [
+    {
+      q: "How tall was Goliath?",
+      choices: ["Four cubits", "Five cubits", "Six cubits and a span", "Seven cubits"],
+      answer: 2,
+      explanation: "\"...whose height was six cubits and a span\" (1 Samuel 17:4).",
+    },
+    {
+      q: "What did his coat of mail weigh?",
+      choices: ["600 shekels of iron", "5,000 shekels of brass", "A talent of gold", "100 shekels of silver"],
+      answer: 1,
+      explanation: "\"...the weight of the coat was five thousand shekels of brass\" (1 Samuel 17:5).",
+    },
+    {
+      q: "To what is his spear's staff compared?",
+      choices: ["A cedar of Lebanon", "A weaver's beam", "A shepherd's staff", "An oar"],
+      answer: 1,
+      explanation: "\"And the staff of his spear was like a weaver's beam\" (1 Samuel 17:7).",
+    },
+    {
+      q: "Where did David's stone strike him?",
+      choices: ["On the breastplate", "On the knee", "In his forehead", "On the shoulder"],
+      answer: 2,
+      explanation: "\"...smote the Philistine in his forehead, that the stone sunk into his forehead\" (1 Samuel 17:49).",
+    },
+    {
+      q: "What was in David's hand when Goliath fell?",
+      choices: ["Saul's sword", "A spear", "No sword — a sling and a stone", "Goliath's shield"],
+      answer: 2,
+      explanation: "\"So David prevailed... with a sling and with a stone... but there was no sword in the hand of David\" (1 Samuel 17:50).",
+    },
+  ],
+  timeline: [
+    { era: "The champion", year: "1 Samuel 17:4-7", text: "Goliath of Gath, six cubits and a span, armed in brass and iron, a shield-bearer before him." },
+    { era: "The defiance", year: "1 Samuel 17:8-11", text: "\"Give me a man, that we may fight together\" — Israel dismayed and greatly afraid." },
+    { era: "The answer", year: "1 Samuel 17:45-47", text: "David comes in the name of the LORD of hosts: \"the battle is the LORD's.\"" },
+    { era: "The fall", year: "1 Samuel 17:48-49", text: "One stone from the sling sinks into the champion's forehead; he falls on his face to the earth." },
+    { era: "The victory", year: "1 Samuel 17:50-51", text: "No sword in David's hand; the champion beheaded with his own blade; the Philistines flee." },
+  ],
+  keywords: ["goliath", "gath", "philistine", "champion", "david", "sling", "stone", "six cubits", "coat of mail", "weaver's beam", "valley", "1 samuel 17", "battle is the lord's"],
+};
